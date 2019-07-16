@@ -1,0 +1,45 @@
+{{ form_start(form) }}
+<h1 class="h2 mb-4 font-weight-normal" style="color: whitesmoke">{{ var|default('Création d\'un Article') }}</h1>
+<div class="col-md-12">
+    {{ form_row(form.name) }}
+</div>
+<div class="col-md-12" style="color: whitesmoke">
+    {{ form_row(form.groupFig) }}
+</div>
+<div class="col-md-12" style="color: whitesmoke">
+    {{ form_row(form.content) }}
+</div>
+<div class="col-md-12" style="color: black;text-align: left">
+    {{ form_row(form.figure ) }}
+</div>
+<div class="col-md-12" style="color: black;text-align: left">
+    {{ form_row( form.figures ) }}
+</div>
+<div class="row">
+    <div class="col-lg-10">
+        {% for lien as form.videos  %}
+                {{ form_row(form.lien ) }}
+        {% endfor %}
+{#    <div id="div1" class="col-md-12" style="color: whitesmoke">#}
+{#        {{ form_row(form.lien1 ) }}#}
+{#    </div>#}
+{#        <div id="div2" class="col-md-12" style="color: whitesmoke;display: none">#}
+{#        {{ form_row(form.lien2 ) }}#}
+{#    </div>#}
+{#    <div id="div3" class="col-md-12" style="color: whitesmoke;display: none">#}
+{#        {{ form_row(form.lien3 ) }}#}
+{#    </div>#}
+    </div>
+    <div id="dev1" class="col-md-2" style="color: black;text-align: left">
+        <button style="margin-top: 50px;background-color: #17324f" type="button" class="btn" ><i
+                    class="fas fa-plus-circle fa-2x"></i>
+        </button>
+    </div>
+</div>
+
+<div class="row" style="justify-content: center;margin-top: 20px">
+<div >
+    <button type="submit" class="btn">{{ button|default('Enregistrer') }}</button>
+</div>
+</div>
+{{ form_end (form) }}

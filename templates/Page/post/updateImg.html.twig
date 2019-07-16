@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title 'Modification d\'une Image' %}
+{% block body %}
+
+    <div class="container" style="text-align:center;background-color: #17324f;margin-bottom: 50px">
+        {{ form_start(form) }}
+        <h1 class="h2 mb-4 font-weight-normal"
+            style="color: whitesmoke">{{ var|default('Modification de l\'image') }}</h1>
+        <div class="row">
+            <div class="col-lg-12">
+
+                <img class="card-img-top rounded"
+                     src="{{ asset("img/upload/"~figure.name ) }}"
+                     alt="Card image cap" style="margin-top: 50px;margin-bottom: 50px">
+
+            </div>
+        </div>
+        <div class="col-lg-12">
+            {{ form_row ( form.fileUpdate ) }}
+        </div>
+        <div class="row" style="justify-content: center">
+            <div class="col-lg-12">
+            <button type="submit" class="btn">{{ button|default('Modifier') }}</button>
+            </div>
+        </div>
+        {{ form_end (form) }}    </div>
+{% endblock %}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}"/>
+
+    <title>{% block title %}Accueil{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body class="homepage is-preload" style="background-color: #17324f">
+<div id="page-wrapper">
+    <section id="header">
+        <div class="container-fluid" id="haut" style="background-color: #17324f">
+            <div class="row">
+
+                <div class="logo">
+                    <i class="fas fa-snowflake fa-3x" style="color: #C5D86D"></i>
+                </div>
+
+
+                <nav class="navbar navbar-expand-lg navbar-light ml-auto" id="nav" style="background-color: #17324f">
+                    <ul class="navbar-nav">
+                        {% if is_granted ('ROLE_USER') %}
+                            <li class="nav-item mr-sm-2">
+                                <a class="nav-link text-light {% if home is defined and home == 'active' %}active{% endif %}"
+                                   style="border-right: solid;margin-top: 15px" href="{{ path('home') }}">Accueil</a>
+                            </li>
+                            <li class="nav-item mr-sm-2">
+                                <a class="nav-link text-light {% if connexion is defined and connexion == 'active' %}active{% endif %}"
+                                   style="border-right: solid" href="{{ path('creatPost') }}">Création</a>
+                            </li>
+                            <li class="nav-item mr-sm-2">
+                                <a class="nav-link text-light {% if connexion is defined and connexion == 'active' %}active{% endif %}"
+                                   href="{{ path('profil') }}" style="border-right: solid">Profil</a>
+                            </li>
+                            <li class="nav-item mr-sm-2">
+                                <a class="nav-link text-light" href="{{ path('logout') }}">se déconnecter</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item mr-sm-2">
+                                <a class="nav-link text-light {% if home is defined and home == 'active' %}active{% endif %}"
+                                   style="border-right: solid;margin-top: 15px"
+                                   href="{{ path('home') }}">Accueil</a>
+                            </li>
+                            <li class="nav-item mr-sm-2">
+                                <a class="nav-link text-light {% if register is defined and register == 'active' %}active{% endif %}"
+                                   style="border-right: solid" href="{{ path('register') }}">Inscription</a>
+                            </li>
+                            <li class="nav-item mr-sm-2">
+                                <a class="nav-link text-light {% if connexion is defined and connexion == 'active' %}active{% endif %}"
+                                   href="{{ path('login') }}">Connexion</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+{% block body %}{% endblock %}
+</body>
+{% block javascripts %}
+    <script>
+        i = 0;
+        maDiv = document.getElementById("dev1");
+        maDiv.addEventListener("click", function () {
+            i++;
+            if (i === 1) {
+                document.getElementById('div2').style.display = 'block';
+            }
+            if (i === 2) {
+                document.getElementById('div3').style.display = 'block';
+            }
+            if (i === 3) {
+                alert('vous ne pouvez pas ajouter plus de 3 vidéo')
+            }
+        })
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+
+    <script src="{{ asset('../js/jquery.min.js') }}"></script>
+    <script src="{{ asset('../js/jquery.dropotron.min.js') }}"></script>
+    <script src="{{ asset('../js/browser.min.js') }}"></script>
+    <script src="{{ asset('../js/breakpoints.min.js') }}"></script>
+    <script src="{{ asset('../js/util.js') }}"></script>
+    <script src="{{ asset('../js/main.js') }}"></script>
+    <script src="{{ asset('../js/script.js') }}"></script>
+{% endblock %}
+</html>
