@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -11,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\EmailValidator;
 use Symfony\Component\Validator\Constraints\File;
 
 class UserType extends AbstractType
@@ -27,7 +27,7 @@ class UserType extends AbstractType
                 'attr' => [
                     'placeholder' => 'yolo9896@pyrogue.com']
             ])
-            ->add('firstname', null, [
+            ->add('firstname', TextType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Normane']

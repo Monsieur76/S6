@@ -26,7 +26,7 @@ class VideoRepository extends ServiceEntityRepository
     public function videoFindId($id)
     {
         return $this->createQueryBuilder('v')
-            ->andWhere('v.Post = :id')
+            ->andWhere('v.Figure = :id')
             ->setParameter('id', $id)
             ->orderBy('v.id', 'DESC')
             ->getQuery()
@@ -36,7 +36,7 @@ class VideoRepository extends ServiceEntityRepository
     public function videoFindLimit($id)
     {
         return $this->createQueryBuilder('video')
-            ->innerJoin('video.Post', 'vd')
+            ->innerJoin('video.Figure', 'vd')
             ->andWhere('vd.id = :id')
             ->setParameter('id', $id)
             ->orderBy('video.id', 'DESC')
@@ -45,15 +45,15 @@ class VideoRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function setVideos($liens,$id,PostRepository $post)
+    public function setVideos($urls, $id, FigureRepository $figureRepository)
     {
-        if ($liens) {
-            $post = $post->findOneBy(['id'=>$id]);
-            foreach ($liens as $lien ) {
-                if ($lien) {
+        if ($urls) {
+            $figure = $figureRepository->findOneBy(['id'=>$id]);
+            foreach ($urls as $url ) {
+                if ($url) {
                     $video = new Video();
-                    $video->setName($lien);
-                    $video->setPost($post);
+                    $video->setUrl($url);
+                    $video->setFigure($figure);
                     $this->em->persist($video);
                 }
             }

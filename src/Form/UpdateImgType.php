@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Figure;
+use App\Entity\Img;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,7 +31,7 @@ class UpdateImgType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Figure::class,
+            'data_class' => Img::class,
         ]);
     }
 }

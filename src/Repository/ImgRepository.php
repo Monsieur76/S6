@@ -3,42 +3,42 @@
 namespace App\Repository;
 
 use App\Entity\Figure;
-use App\Entity\Figure;
+use App\Entity\Img;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 
 /**
- * @method Figure|null find($id, $lockMode = null, $lockVersion = null)
- * @method Figure|null findOneBy(array $criteria, array $orderBy = null)
- * @method Figure[]    findAll()
- * @method Figure[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Img|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Img|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Img[]    findAll()
+ * @method Img[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class FigureRepository extends ServiceEntityRepository
+class ImgRepository extends ServiceEntityRepository
 {
     private $em;
     public function __construct(RegistryInterface $registry,ObjectManager $em)
     {
-        parent::__construct($registry, Figure::class);
+        parent::__construct($registry, Img::class);
         $this->em = $em;
     }
 
 
-    public function figureFindId($id)
+    public function imgFindId($id)
     {
         return $this->createQueryBuilder('f')
-            ->andWhere('f.post = :id')
+            ->andWhere('f.figure = :id')
             ->setParameter('id', $id)
             ->orderBy('f.id', 'DESC')
             ->getQuery()
             ->getResult();
     }
 
-    public function figureFindLimit($id)
+    public function imgFindLimit($id)
     {
         return $this->createQueryBuilder('f')
-            ->innerJoin('f.post', 'fd')
+            ->innerJoin('f.figure', 'fd')
             ->andWhere('fd.id = :id')
             ->setParameter('id', $id)
             ->orderBy('f.id', 'DESC')
@@ -47,24 +47,24 @@ class FigureRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function setPostImg($file,$fileUp,$post)
+    public function setFigureImg($file,$fileUp,$figure)
     {
         if ($file) {
             $fileName = $fileUp->upload($file);
-            $post->setFigure($fileName);
-            $this->persistFlush($post);
+            $figure->setimgFigure($fileName);
+            $this->persistFlush($figure);
         }
     }
 
-    public function setMultipleImg($file2, $fileUp, Figure $post)
+    public function setMultipleImg($file2, $fileUp, Figure $figure)
     {
         if ($file2) {
             foreach ($file2 as $fil) {
-                $figure = new Figure();
+                $img = new Img();
                 $fileName = $fileUp->upload($fil);
-                $figure->setName($fileName);
-                $figure->setPost($post);
-                $this->em->persist($figure);
+                $img->setnameImg($fileName);
+                $img->setFigure($figure);
+                $this->em->persist($img);
             }
             $this->em->flush();
         }

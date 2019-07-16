@@ -33,7 +33,7 @@
             $form = $this->createForm(UpdateVideoType::class, $video);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                $video->setName($video->getName());
+                $video->setUrl($video->getUrl());
                 $this->em->persist($video);
                 $this->em->flush();
                 $this->addFlash('succes', 'Votre video a bien été créée');

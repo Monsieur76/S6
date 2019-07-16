@@ -3,7 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Figure;
-use App\Entity\Figure;
+use App\Entity\Img;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -29,10 +30,10 @@ class UpdatePostType extends AbstractType
                 ],
                 'label' => false
             ])
-            ->add('name', null, [
+            ->add('name', TextType::class, [
                 'label' => 'Nom de la figure'
             ])
-            ->add('content', null, [
+            ->add('content', TextType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Cette figure est issue d\'un grab fait par eric mac',
@@ -91,7 +92,7 @@ class UpdatePostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Figure::class, Figure::class,
+            'data_class' => Figure::class, Img::class,
         ]);
     }
 }

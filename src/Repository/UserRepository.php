@@ -33,7 +33,7 @@ class UserRepository extends ServiceEntityRepository
     {
         if ($file) {
             $fileName = $fileUp->upload($file);
-            $user->setPhoto($fileName);
+            $user->setImg($fileName);
 //            $this->persistFlush($user);
         }
     }

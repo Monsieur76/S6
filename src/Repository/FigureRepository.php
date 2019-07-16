@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Figure[]    findAll()
  * @method Figure[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PostRepository extends ServiceEntityRepository
+class FigureRepository extends ServiceEntityRepository
 {
     private $em;
     public function __construct(RegistryInterface $registry,ObjectManager $em)
@@ -22,7 +22,7 @@ class PostRepository extends ServiceEntityRepository
         $this->em = $em;
     }
 
-    public function findAllPost()
+    public function findAllFigure()
     {
         return $this->createQueryBuilder('d')
             ->orderBy('d.id', 'DESC')
@@ -65,11 +65,11 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findFigure($id)
+    public function findImg($id)
     {
         return $this->createQueryBuilder('post')
             ->andWhere('df.id = :id')
-            ->innerJoin('post.figures', 'df')
+            ->innerJoin('figure.imgSecondary', 'df')
             ->setParameter('id', $id)
             ->orderBy('d.id', 'DESC')
             ->getQuery()
@@ -90,7 +90,7 @@ class PostRepository extends ServiceEntityRepository
     public function findAllFigureVideo($id)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('pv.post_id = :id')
+            ->andWhere('pv.figure_id = :id')
             ->setParameter('id', $id)
             ->orderBy('d.id', 'DESC')
             ->setMaxResults(3)

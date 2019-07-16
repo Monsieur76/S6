@@ -9,8 +9,9 @@
     use App\Form\CreatPostType;
     use App\Form\UpdatePostType;
     use App\Repository\CommentRepository;
-    use App\Repository\PostRepository;
     use App\Repository\FigureRepository;
+    use App\Repository\GroupNumberFigureRepository;
+    use App\Repository\ImgRepository;
     use App\Repository\VideoRepository;
     use App\Service\FileUploader;
     use Doctrine\ORM\EntityManagerInterface;
@@ -19,7 +20,7 @@
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Routing\Annotation\Route;
 
-    class PostController extends AbstractController
+    class FigureController extends AbstractController
     {
         private $em;
 
@@ -32,30 +33,34 @@
          * @Route("/" , name="home")
          * @return Response
          */
-        public function home(PostRepository $post): Response
+        public function home(
+            FigureRepository $figureRepository,
+            GroupNumberFigureRepository $group
+    ): Response
         {
+            $group->insertGroup();
             return $this->render('Page/home.html.twig', [
                 'home' => 'active',
-                'post' => $post->findAllPost(),
+                'post' => $figureRepository->findAllFigure(),
             ]);
         }
 
         /**
-         * @Route("/post/{id}",name="post")
+         * @Route("/figure/{id}",name="figure")
          * @param Request $request
          * @param Figure $post
          * @return Response
          */
         public function post(
             Request $request,
-            Figure $post,
-            FigureRepository $figureRepository,
+            Figure $figure,
+            ImgRepository $imgRepository,
             CommentRepository $commentRepository,
             VideoRepository $videoRepository
         ){
             $com = new Comment();
-            $idDet = $post->getId();
-            $figure = $figureRepository->figureFindLimit($idDet);
+            $idDet = $figure->getId();
+            $img = $imgRepository->imgFindLimit($idDet);
             $comment = $commentRepository->findLimitComment($idDet);
             $video = $videoRepository->videoFindLimit($idDet);
             $form2 = $this->createForm(HiddenForPaginationJsType::class);
@@ -63,20 +68,20 @@
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $com->setUser($this->getUser());
-                $com->setPost($post);
+                $com->setFigure($figure);
                 $commentRepository->persistFlush($com);
                 $this->addFlash('succes', 'Votre Commentaire à bien été enregistré');
-                return $this->redirectToRoute('post', ['id' => $post->getId()]);
+                return $this->redirectToRoute('post', ['id' => $figure->getId()]);
             }
             $form2->handleRequest($request);
             if ($form2->isSubmitted()) {
                 $comment = $commentRepository->findLimitComment($idDet, 100);
             }
             return $this->render('Page/post/post.html.twig', [
-                'id' => $post,
-                'trick' => $post->getId(),
+                'id' => $figure,
+                'trick' => $figure->getId(),
                 'video' => $video,
-                'figure' => $figure,
+                'figure' => $img,
                 'comment' => $comment,
                 'form' => $form->createView(),
                 'form2' => $form2->createView(),
@@ -87,41 +92,41 @@
          * @IsGranted("ROLE_USER")
          */
         /**
-         * @Route("/updatePost/{id}",name="updatePost")
+         * @Route("/updateFigure/{id}",name="updateFigure")
          * @return Response
          */
         public function updatePost(
-            Figure $post,
+            Figure $figure,
             Request $request,
-            FigureRepository $figureRepository,
+            ImgRepository $imgRepository,
             CommentRepository $commentRepository,
             VideoRepository $videoRepository,
             FileUploader $fileUp,
-            PostRepository $postRepository
+            FigureRepository $figureRepository
         ): Response
         {
-            $idDet = $post->getId();
-            $figure = $figureRepository->figureFindLimit($idDet);
+            $idDet = $figure->getId();
+            $img = $imgRepository->imgFindLimit($idDet);
             $comment = $commentRepository->findLimitComment($idDet);
             $video = $videoRepository->videoFindLimit($idDet);
-            $form = $this->createForm(UpdatePostType::class, $post);
+            $form = $this->createForm(UpdatePostType::class, $figure);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $file = $form['figure']->getData();
-                $figureRepository->setPostImg($file,$fileUp,$post);
-                $lien = ['lien1'=> $form['lien1']->getData(),'lien2'=> $form['lien2']->getData(),
+                $imgRepository->setFigureImg($file,$fileUp,$figure);
+                $url = ['lien1'=> $form['lien1']->getData(),'lien2'=> $form['lien2']->getData(),
                     'lien3' => $form['lien3']->getData()];
-                $videoRepository->setVideos($lien,$post->getId(),$postRepository);
+                $videoRepository->setVideos($url,$figure->getId(),$figureRepository);
                 $file2 = $form['figures']->getData();
-                $figureRepository->setMultipleImg($file2,$fileUp,$post);
-                $postRepository->persistFlush($post);
+                $imgRepository->setMultipleImg($file2,$fileUp,$figure);
+                $figureRepository->persistFlush($figure);
                 $this->addFlash('succes', 'La Modification à bien été prise en compte');
                 return $this->redirectToRoute('home');
         }
             return $this->render('Page/post/updatePost.html.twig', [
-                'id' => $post,
+                'id' => $figure,
                 'form' => $form->createView(),
-                'figure' => $figure,
+                'figure' => $img,
                 'video' => $video,
                 'comment' => $comment,
 
@@ -132,29 +137,29 @@
          * @IsGranted("ROLE_USER")
          */
         /**
-         * @Route("/creatPost",name="creatPost")
+         * @Route("/creatFigure",name="creatFigure")
          */
-        public function creatPost(
+        public function creatFigure(
             Request $request,
-            PostRepository $postRepository,
             FigureRepository $figureRepository,
+            ImgRepository $imgRepository,
             FileUploader $fileUp,
             VideoRepository $videoRepository
         ){
-            $post = new Figure();
-            $form = $this->createForm(CreatPostType::class, $post);
+            $figure = new Figure();
+            $form = $this->createForm(CreatPostType::class, $figure);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()
             ) {
-                if ($postRepository->findOneBy(['name' => $post->getName()]) === null) {
+                if ($figureRepository->findOneBy(['name' => $figure->getNameFigure()]) === null) {
                     $file = $form['figure']->getData();
-                    $figureRepository->setPostImg($file,$fileUp,$post);
+                    $imgRepository->setFigureImg($file,$fileUp,$figure);
                     $lien = ['lien1'=> $form['lien1']->getData(),'lien2'=> $form['lien2']->getData(),
                         'lien3' => $form['lien3']->getData()];
-                    $videoRepository->setVideos($lien,$post->getId(),$postRepository);
+                    $videoRepository->setVideos($lien,$figure->getId(),$figureRepository);
                     $file2 = $form['figures']->getData();
-                    $figureRepository->setMultipleImg($file2,$fileUp,$post);
-                    $postRepository->persistFlush($post);
+                    $imgRepository->setMultipleImg($file2,$fileUp,$figure);
+                    $figureRepository->persistFlush($figure);
                     $this->addFlash('succes', 'Votre figure à bien été créé');
                     return $this->redirectToRoute('home');
                 }
@@ -170,14 +175,14 @@
          * @IsGranted("ROLE_USER")
          */
         /**
-         * @Route ("/deletePost/{id}", name="deletePost")
+         * @Route ("/deleteFigure/{id}", name="deleteFigure")
          */
-        public function deletePost(
-            Figure $post,
+        public function deleteFigure(
+            Figure $figure,
             Request $request
         ){
-            if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->get('_token'))) {
-                $this->em->remove($post);
+            if ($this->isCsrfTokenValid('delete' . $figure->getId(), $request->get('_token'))) {
+                $this->em->remove($figure);
                 $this->em->flush();
                 $this->addFlash('succes', 'Votre figure a bien été supprimée');
             }
@@ -188,14 +193,14 @@
          * @IsGranted("ROLE_USER")
          */
         /**
-         * @Route ("/deleteImgPost/{id}", name="deleteImgPost")
+         * @Route ("/deleteImgFigure/{id}", name="deleteImgFigure")
          */
-        public function deleteImgPost(
-            Figure $post,
+        public function deleteImgFigure(
+            Figure $figure,
             Request $request
         ){
-            if ($this->isCsrfTokenValid('deleteImgPost' . $post->getId(), $request->get('_token'))) {
-                $this->em->remove($post);
+            if ($this->isCsrfTokenValid('deleteImgPost' . $figure->getId(), $request->get('_token'))) {
+                $this->em->remove($figure);
                 $this->em->flush();
                 $this->addFlash('succes', 'Votre image a bien été supprimée');
                 return $this->redirectToRoute('home');

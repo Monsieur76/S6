@@ -2,18 +2,17 @@
 
     namespace App\Controller;
 
-    use App\Entity\Figure;
+    use App\Entity\Img;
     use App\Form\UpdateImgType;
-    use App\Repository\FigureRepository;
+    use App\Repository\ImgRepository;
     use App\Service\FileUploader;
     use Doctrine\Common\Persistence\ObjectManager;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-    use Symfony\Bundle\MakerBundle\Validator;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Routing\Annotation\Route;
 
-    class FigureController extends AbstractController
+    class ImgController extends AbstractController
     {
         private $em;
 
@@ -33,26 +32,26 @@
          */
         public function updateImg(
             $id,
-            FigureRepository $figureRepository,
-            Figure $figure,
+            ImgRepository $imgRepository,
+            Img $img,
             Request $request,
             FileUploader $fileUp
         ){
-            $figureSearchId = $figureRepository->findOneBy(["id" => $id]);
-            $form = $this->createForm(UpdateImgType::class, $figure);
+            $imgSearchId = $imgRepository->findOneBy(["id" => $id]);
+            $form = $this->createForm(UpdateImgType::class, $img);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $file = $form['fileUpdate']->getData();
                 if($file) {
                     $fileName = $fileUp->upload($file);
-                    $figure->setname($fileName);
-                    $figureRepository->persistFlush($figure);
+                    $img->setname($fileName);
+                    $imgRepository->persistFlush($img);
                     $this->addFlash('succes', 'Votre figure a bien été créée');
                     $this->redirectToRoute('updateImg', ['id' => $id]);
                 }
             }
             return $this->render('Page/post/updateImg.html.twig', [
-                'figure' => $figureSearchId,
+                'figure' => $imgSearchId,
                 'form' => $form->createView()
             ]);
         }
@@ -63,10 +62,10 @@
         /**
          * @Route ("/deleteImg/{id}", name="deleteImg")
          */
-        public function deleteImg(Figure $figure, Request $request)
+        public function deleteImg(Img $img, Request $request)
         {
-            if ($this->isCsrfTokenValid('deleteImg' . $figure->getId(), $request->get('_token'))) {
-                $this->em->remove($figure);
+            if ($this->isCsrfTokenValid('deleteImg' . $img->getId(), $request->get('_token'))) {
+                $this->em->remove($img);
                 $this->em->flush();
                 $this->addFlash('succes', 'Votre figure a bien été supprimée');
                 return $this->redirectToRoute('home');

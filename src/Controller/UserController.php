@@ -47,10 +47,10 @@
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $token = $tokenGenerator->generateToken();
-                $user->setValid($token);
+                $user->setToken($token);
                 $userRepository->setPassword($user,$form->get('password')->getData(),$passwordEncoder);
                 $userRepository->setPhotoUser($form['photo']->getData(),$fileUp,$user);
-                $render =$this->render('Page/mail/mailRegister.html.twig', ['user' => $user->getValid()]);
+                $render =$this->render('Page/mail/mailRegister.html.twig', ['user' => $user->getToken()]);
                 $registrationMail = new GenericEvent(['user'=>$user,'render'=>$render]);
                 $dispatcher->dispatch(RegistrationMail::Name,$registrationMail);
                 $this->addFlash('succes', 'Enregistrement effectué veuillez vérifier vos mail pour confirmer
@@ -68,9 +68,9 @@
          * @IsGranted("ROLE_USER")
          */
         /**
-         * @Route ("/profil",name="profil")
+         * @Route ("/profile",name="profile")
          */
-        public function profil(
+        public function profile(
             Request $request,
             UserRepository $userRepository,
             FileUploader $fileUp

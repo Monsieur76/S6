@@ -5,11 +5,9 @@ namespace App\Controller;
 use App\Event\RegistrationMail;
 use App\Form\ForgotType;
 use App\Form\PassType;
-use App\Model\MailUsers;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
@@ -68,8 +66,8 @@ class SecurityController extends AbstractController
             $user = $userRepository->findOneBy(['email' => $request->request->get('forgot')['email']]);
             if (isset($user) === true ) {
                 $token = $tokenGenerator->generateToken();
-                $user->setValid($token);
-                $render = $this->render('Page/mail/mailPass.html.twig', ['user' => $user->getValid()]);
+                $user->setToken($token);
+                $render = $this->render('Page/mail/mailPass.html.twig', ['user' => $user->getToken()]);
                 $registrationMail = new GenericEvent(['user'=>$user,'render'=>$render]);
                 $dispatcher->dispatch(RegistrationMail::Name,$registrationMail);
                 $this->addFlash('succes', 'Veillez vérifier votre mail');

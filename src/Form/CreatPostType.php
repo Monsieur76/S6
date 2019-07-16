@@ -3,24 +3,23 @@
 namespace App\Form;
 
 use App\Entity\Figure;
-use App\Entity\Figure;
+use App\Entity\Img;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\Validator\Constraints\Url;
 
 class CreatPostType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', null, [
+            ->add('nameFigure', TextType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'nom de la figure']
@@ -35,7 +34,7 @@ class CreatPostType extends AbstractType
                 ],
                 'label' => false
             ])
-            ->add('content', null, [
+            ->add('content', TextType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Cette figure est issue d\'un grab fait par eric mac',
@@ -100,7 +99,7 @@ class CreatPostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Figure::class, Figure::class,
+            'data_class' => Figure::class, Img::class,
         ]);
     }
 }

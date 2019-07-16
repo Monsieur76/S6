@@ -23,7 +23,7 @@ class CommentRepository extends ServiceEntityRepository
     }
 
 
-    public function findLimitComment($id, int $max = 10)
+    public function findLimitComment($id, int $max = null)
     {
 
         return $this->createQueryBuilder('comment')
