@@ -3,11 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Figure;
-use App\Entity\Figure;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-
 
 /**
  * @method Figure|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,7 +13,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Figure[]    findAll()
  * @method Figure[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class FigureRepository extends ServiceEntityRepository
+class PostRepository extends ServiceEntityRepository
 {
     private $em;
     public function __construct(RegistryInterface $registry,ObjectManager $em)
@@ -24,50 +22,80 @@ class FigureRepository extends ServiceEntityRepository
         $this->em = $em;
     }
 
-
-    public function figureFindId($id)
+    public function findAllPost()
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.post = :id')
-            ->setParameter('id', $id)
-            ->orderBy('f.id', 'DESC')
+        return $this->createQueryBuilder('d')
+            ->orderBy('d.id', 'DESC')
             ->getQuery()
             ->getResult();
     }
 
-    public function figureFindLimit($id)
+
+    public function findById($id)
     {
-        return $this->createQueryBuilder('f')
-            ->innerJoin('f.post', 'fd')
-            ->andWhere('fd.id = :id')
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.id = :id')
             ->setParameter('id', $id)
-            ->orderBy('f.id', 'DESC')
+            ->orderBy('d.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function updateGroupFigById($id, $groupFig)
+    {
+        return $this->createQueryBuilder('d')
+            ->update('groupeFig = :3')
+            ->andWhere('d.id = :id')
+            ->setParameter('id', $id)
+            ->setParameter('3', $groupFig)
+            ->orderBy('d.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function updateContentById($id, $content)
+    {
+        return $this->createQueryBuilder('post')
+            ->update('d.content = :4')
+            ->andWhere('d.id = :id')
+            ->setParameter('id', $id)
+            ->setParameter('4', $content)
+            ->orderBy('d.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findFigure($id)
+    {
+        return $this->createQueryBuilder('post')
+            ->andWhere('df.id = :id')
+            ->innerJoin('post.figures', 'df')
+            ->setParameter('id', $id)
+            ->orderBy('d.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllVideoFigure($id)
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.id = :id')
+            ->setParameter('id', $id)
+            ->orderBy('d.id', 'DESC')
             ->setMaxResults(3)
             ->getQuery()
             ->getResult();
     }
 
-    public function setPostImg($file,$fileUp,$post)
+    public function findAllFigureVideo($id)
     {
-        if ($file) {
-            $fileName = $fileUp->upload($file);
-            $post->setFigure($fileName);
-            $this->persistFlush($post);
-        }
-    }
-
-    public function setMultipleImg($file2, $fileUp, Figure $post)
-    {
-        if ($file2) {
-            foreach ($file2 as $fil) {
-                $figure = new Figure();
-                $fileName = $fileUp->upload($fil);
-                $figure->setName($fileName);
-                $figure->setPost($post);
-                $this->em->persist($figure);
-            }
-            $this->em->flush();
-        }
+        return $this->createQueryBuilder('d')
+            ->andWhere('pv.post_id = :id')
+            ->setParameter('id', $id)
+            ->orderBy('d.id', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
     }
 
     public function persistFlush($entity)
@@ -78,15 +106,15 @@ class FigureRepository extends ServiceEntityRepository
 
 
     // /**
-    //  * @return Figure[] Returns an array of Figure objects
+    //  * @return Detail[] Returns an array of Detail objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
+            ->orderBy('d.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -95,10 +123,10 @@ class FigureRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Figure
+    public function findOneBySomeField($value): ?Detail
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
