@@ -2,21 +2,22 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Video;
+use App\Entity\Img;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class VideoFixture extends BaseFixture implements OrderedFixtureInterface
+class ImgFixture extends BaseFixture implements OrderedFixtureInterface
 {
     public function getOrder(){
-        return 6;
+        return 5;
     }
+
     public function load(ObjectManager $manager)
     {
-        $this->createMany('video',Video::class,$this->i,function (Video $video) use ($manager){
+        $this->createMany('img',Img::class,$this->i,function (Img $img) use ($manager){
             $figure = $this->getReference('figure'.rand(1,$this->maxRandom));
-            $video->setUrl($this->faker->url);
-            $video->setFigure($figure);
+            $img->setNameImg($this->faker->name);
+            $img->setFigures($figure);
         });
     }
 }

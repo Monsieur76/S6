@@ -62,7 +62,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $confirm;
+    private $confirmRegister;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user")
@@ -190,14 +190,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getConfirm(): ?string
+    public function getConfirmRegister(): ?string
     {
-        return $this->confirm;
+        return $this->confirmRegister;
     }
 
-    public function setConfirm(string $confirm): self
+    public function setConfirmRegister(string $confirmRegister): self
     {
-        $this->confirm = $confirm;
+        $this->confirmRegister = $confirmRegister;
 
         return $this;
     }

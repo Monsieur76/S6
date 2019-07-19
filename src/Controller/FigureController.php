@@ -6,8 +6,8 @@
     use App\Entity\Figure;
     use App\Form\HiddenForPaginationJsType;
     use App\Form\CommentType;
-    use App\Form\CreatPostType;
-    use App\Form\UpdatePostType;
+    use App\Form\CreatFigureType;
+    use App\Form\UpdateFigureType;
     use App\Repository\CommentRepository;
     use App\Repository\FigureRepository;
     use App\Repository\GroupNumberFigureRepository;
@@ -33,7 +33,7 @@
          * @Route("/" , name="home")
          * @return Response
          */
-        public function home(
+        public function index(
             FigureRepository $figureRepository,
             GroupNumberFigureRepository $group
     ): Response
@@ -48,10 +48,10 @@
         /**
          * @Route("/figure/{id}",name="figure")
          * @param Request $request
-         * @param Figure $post
+         * @param Figure $figure
          * @return Response
          */
-        public function post(
+        public function figure(
             Request $request,
             Figure $figure,
             ImgRepository $imgRepository,
@@ -95,7 +95,7 @@
          * @Route("/updateFigure/{id}",name="updateFigure")
          * @return Response
          */
-        public function updatePost(
+        public function updateFigure(
             Figure $figure,
             Request $request,
             ImgRepository $imgRepository,
@@ -109,7 +109,7 @@
             $img = $imgRepository->imgFindLimit($idDet);
             $comment = $commentRepository->findLimitComment($idDet);
             $video = $videoRepository->videoFindLimit($idDet);
-            $form = $this->createForm(UpdatePostType::class, $figure);
+            $form = $this->createForm(UpdateFigureType::class, $figure);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $file = $form['figure']->getData();
@@ -147,7 +147,7 @@
             VideoRepository $videoRepository
         ){
             $figure = new Figure();
-            $form = $this->createForm(CreatPostType::class, $figure);
+            $form = $this->createForm(CreatFigureType::class, $figure);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()
             ) {

@@ -21,7 +21,7 @@ class GroupNumberFigure
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $groupNumber;
+    private $number;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Figure", mappedBy="groupNumber")
@@ -38,14 +38,14 @@ class GroupNumberFigure
         return $this->id;
     }
 
-    public function getGroupNumber(): ?string
+    public function getNumber(): ?string
     {
-        return $this->groupNumber;
+        return $this->number;
     }
 
-    public function setGroupNumber(string $groupNumber): self
+    public function setNumber(string $number): self
     {
-        $this->groupNumber = $groupNumber;
+        $this->number = $number;
 
         return $this;
     }
