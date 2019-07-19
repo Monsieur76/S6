@@ -32,11 +32,11 @@ class Img
     private $nameImg;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Img", inversedBy="imgSecondary" )
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Figure", inversedBy="imgSecondary" )
+     * @ORM\JoinColumn(name="figure_id", referencedColumnName="id",nullable=true)
      * @ORM\OrderBy({"order" = "DESC", "id" = "DESC"})
      */
-    private $figure;
+    private $figures;
 
     public function __construct()
     {
@@ -60,14 +60,14 @@ class Img
         return $this;
     }
 
-    public function getFigure(): ?Figure
+    public function getFigures(): ?Figure
     {
-        return $this->figure;
+        return $this->figures;
     }
 
-    public function setFigure(?Figure $figure): self
+    public function setFigures(?Figure $figures): self
     {
-        $this->figure = $figure;
+        $this->figures = $figures;
 
         return $this;
     }

@@ -81,6 +81,7 @@ class CreatFigureType extends AbstractType
 //                'constraints'=> new Url()
 //            ])
 //            ->add('url2', UrlType::class, [
+
 //                'label' => false,
 //                'mapped' => false,
 //                'required' => false,

@@ -69,6 +69,7 @@ class UpdateFigureType extends AbstractType
                     'class' => 'form-control-file'
                 ]])
             ->add('url1', UrlType::class, [
+
                 'label' => 'Ajouté une vidéo (max 3)',
                 'mapped' => false,
                 'required' => false,

@@ -98,6 +98,7 @@
             FigureRepository $figureRepository
         ): Response
         {
+
             $form = $this->createForm(UpdateFigureType::class, $figure);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {

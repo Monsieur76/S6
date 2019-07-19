@@ -57,7 +57,7 @@ class Figure
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Img", mappedBy="Figure", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Img", mappedBy="figures", orphanRemoval=true)
      *
      */
     private $imgSecondary;
@@ -177,7 +177,7 @@ class Figure
         return $this->imgSecondary;
     }
 
-    public function addImg(Figure $img): self
+    public function addImg(Img $img): self
     {
         if (!$this->imgSecondary->contains($img)) {
             $this->imgSecondary[] = $img;
@@ -187,7 +187,7 @@ class Figure
         return $this;
     }
 
-    public function removeImg(Figure $img): self
+    public function removeImg(Img $img): self
     {
         if ($this->imgSecondary->contains($img)) {
             $this->imgSecondary->removeElement($img);
@@ -205,7 +205,7 @@ class Figure
         return $this->imgFigure;
     }
 
-    public function setFigure(string $imgFigure): self
+    public function setImgFigure(string $imgFigure): self
     {
         $this->imgFigure = $imgFigure;
 
