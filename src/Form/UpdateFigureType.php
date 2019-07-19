@@ -7,23 +7,19 @@ use App\Entity\Img;
 use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Url;
 
-class CreatPostType extends AbstractType
+class UpdateFigureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nameFigure', TextType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'nom de la figure']
-            ])
             ->add('groupFig', ChoiceType::class, [
                 'choices' => [
                     'groupe1' => 'groupe1',
@@ -34,6 +30,9 @@ class CreatPostType extends AbstractType
                 ],
                 'label' => false
             ])
+            ->add('name', TextType::class, [
+                'label' => 'Nom de la figure'
+            ])
             ->add('content', TextType::class, [
                 'label' => false,
                 'attr' => [
@@ -43,6 +42,7 @@ class CreatPostType extends AbstractType
             ->add('figure', FileType::class, [
                 'label' => false,
                 'mapped' => false,
+                'required' => false,
                 'constraints'=>new File([
                     'maxSize' => "1024k",
                     'mimeTypes' => ["image/jpeg", "image/png", "image/jpg"],
@@ -50,7 +50,7 @@ class CreatPostType extends AbstractType
                     'maxSizeMessage' => "Le Taille de l'image n'est pas correct"
                 ]),
                 'attr' => [
-                    'placeholder' => 'Choisisser votre photo principal'
+                    'placeholder' => 'Modification de la photo principal'
                 ]])
             ->add('figures', FileType::class, [
                 'label' => false,
@@ -59,42 +59,35 @@ class CreatPostType extends AbstractType
                 'required' => false,
                 'constraints'=> array(
                     new All(array( new File([
-                    'maxSize' => "1024k",
-                    'mimeTypes' => ["image/jpeg", "image/png", "image/jpg"],
-                    'mimeTypesMessage' => "Le Format de l'image n'est pas correct",
-                    'maxSizeMessage' => "Le Taille de l'image n'est pas correct"
+                        'maxSize' => "1024k",
+                        'mimeTypes' => ["image/jpeg", "image/png", "image/jpg"],
+                        'mimeTypesMessage' => "Le Format de l'image n'est pas correct",
+                        'maxSizeMessage' => "Le Taille de l'image n'est pas correct"
                     ])))),
                 'attr' => [
-                    'placeholder' => 'Choisisser les photos secondaires',
+                    'placeholder' => 'Ajout de nouvelle photo',
+                    'class' => 'form-control-file'
                 ]])
-
-            ->add('videos', CollectionType::class, [
-            'entry_type' => LienType::class,
-            'entry_options' => ['label' => 'video'],
-                'allow_add'=> true,
-             ]);
-
-//            ->add('lien1', UrlType::class, [
-//                'label' => 'Ajouté une vidéo (max 3)',
-//                'mapped' => false,
-//                'required' => false,
-//                'constraints'=> new Url()
-//            ])
-//            ->add('lien2', UrlType::class, [
-//                'label' => false,
-//                'mapped' => false,
-//                'required' => false,
-//                'constraints'=> new Url()
-//            ])
-//            ->add('lien3', UrlType::class, [
-//                'label' => false,
-//                'mapped' => false,
-//                'required' => false,
-//                'constraints'=> new Url()
-//            ]);
+            ->add('url1', UrlType::class, [
+                'label' => 'Ajouté une vidéo (max 3)',
+                'mapped' => false,
+                'required' => false,
+                'constraints'=> new Url()
+            ])
+            ->add('url2', UrlType::class, [
+                'label' => false,
+                'mapped' => false,
+                'required' => false,
+                'constraints'=> new Url()
+            ])
+            ->add('url3', UrlType::class, [
+                'label' => false,
+                'mapped' => false,
+                'required' => false,
+                'constraints'=> new Url()
+            ]);
 
     }
-
 
     public function configureOptions(OptionsResolver $resolver)
     {

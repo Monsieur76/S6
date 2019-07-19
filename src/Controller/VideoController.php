@@ -39,7 +39,7 @@
                 $this->addFlash('succes', 'Votre video a bien été créée');
                 $this->redirectToRoute('updateVideo', ['id' => $id]);
             }
-            return $this->render('Page/post/updateVideo.html.twig', [
+            return $this->render('Page/figure/updateVideo.html.twig', [
                 'video' => $video,
                 'form' => $form->createView()
             ]);
@@ -57,9 +57,9 @@
                 $this->em->remove($video);
                 $this->em->flush();
                 $this->addFlash('succes', 'Votre vidéo a bien été supprimée');
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('index');
 
             }
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('index');
         }
     }
