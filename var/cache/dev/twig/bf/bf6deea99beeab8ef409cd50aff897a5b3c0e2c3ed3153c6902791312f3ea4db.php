@@ -490,6 +490,6 @@ class __TwigTemplate_63d3b812e897394b296e7378c95d21d79f940168acc17ceec37f69edeb7
         {% endif %}
     </div>
 </div>
-", "@Twig/Exception/exception.html.twig", "C:\\wamp\\www\\minichat\\Site_snow\\symphonie4\\symfoni\\Site_snow\\Soutenance6\\Soutenance6\\vendor\\symfony\\twig-bundle\\Resources\\views\\Exception\\exception.html.twig");
+", "@Twig/Exception/exception.html.twig", "C:\\wamp\\www\\minichat\\Site_snow\\S6\\vendor\\symfony\\twig-bundle\\Resources\\views\\Exception\\exception.html.twig");
     }
 }

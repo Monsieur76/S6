@@ -20,13 +20,13 @@ class srcApp_KernelDevDebugContainerUrlMatcher extends Symfony\Bundle\FrameworkB
             '/_profiler/search_bar' => [[['_route' => '_profiler_search_bar', '_controller' => 'web_profiler.controller.profiler::searchBarAction'], null, null, null, false, false, null]],
             '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
             '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
-            '/' => [[['_route' => 'home', '_controller' => 'App\\Controller\\PostController::home'], null, null, null, false, false, null]],
-            '/creatPost' => [[['_route' => 'creatPost', '_controller' => 'App\\Controller\\PostController::creatPost'], null, null, null, false, false, null]],
+            '/' => [[['_route' => 'home', '_controller' => 'App\\Controller\\FigureController::home'], null, null, null, false, false, null]],
+            '/creatFigure' => [[['_route' => 'creatFigure', '_controller' => 'App\\Controller\\FigureController::creatFigure'], null, null, null, false, false, null]],
             '/login' => [[['_route' => 'login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],
             '/logout' => [[['_route' => 'logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
             '/forgot' => [[['_route' => 'forgot', '_controller' => 'App\\Controller\\SecurityController::forgot'], null, null, null, false, false, null]],
             '/register' => [[['_route' => 'register', '_controller' => 'App\\Controller\\UserController::register'], null, null, null, false, false, null]],
-            '/profil' => [[['_route' => 'profil', '_controller' => 'App\\Controller\\UserController::profil'], null, null, null, false, false, null]],
+            '/profile' => [[['_route' => 'profile', '_controller' => 'App\\Controller\\UserController::profile'], null, null, null, false, false, null]],
         ];
         $this->regexpList = [
             0 => '{^(?'
@@ -45,26 +45,24 @@ class srcApp_KernelDevDebugContainerUrlMatcher extends Symfony\Bundle\FrameworkB
                             .'|(*:159)'
                         .')'
                     .')'
+                    .'|/figure/([^/]++)(*:185)'
                     .'|/update(?'
-                        .'|Img/([^/]++)(*:191)'
-                        .'|Post/([^/]++)(*:212)'
-                        .'|vid/([^/]++)(*:232)'
+                        .'|Figure/([^/]++)(*:218)'
+                        .'|Img/([^/]++)(*:238)'
+                        .'|vid/([^/]++)(*:258)'
                     .')'
                     .'|/delete(?'
+                        .'|Figure/([^/]++)(*:292)'
                         .'|Img(?'
-                            .'|/([^/]++)(*:266)'
-                            .'|Post/([^/]++)(*:287)'
+                            .'|Figure/([^/]++)(*:321)'
+                            .'|/([^/]++)(*:338)'
                         .')'
-                        .'|Post/([^/]++)(*:309)'
-                        .'|User/([^/]++)(*:330)'
-                        .'|Vid/([^/]++)(*:350)'
+                        .'|User/([^/]++)(*:360)'
+                        .'|Vid/([^/]++)(*:380)'
                     .')'
-                    .'|/p(?'
-                        .'|ost/([^/]++)(*:376)'
-                        .'|assword/([^/]++)(*:400)'
-                    .')'
-                    .'|/UpdatePassword/([^/]++)(*:433)'
-                    .'|/ConfirmMailRegister/([^/]++)(*:470)'
+                    .'|/UpdatePassword/([^/]++)(*:413)'
+                    .'|/password/([^/]++)(*:439)'
+                    .'|/ConfirmMailRegister/([^/]++)(*:476)'
                 .')/?$}sDu',
         ];
         $this->dynamicRoutes = [
@@ -75,18 +73,18 @@ class srcApp_KernelDevDebugContainerUrlMatcher extends Symfony\Bundle\FrameworkB
             136 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception::showAction'], ['token'], null, null, false, false, null]],
             149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception::cssAction'], ['token'], null, null, false, false, null]],
             159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-            191 => [[['_route' => 'updateImg', '_controller' => 'App\\Controller\\FigureController::updateImg'], ['id'], null, null, false, true, null]],
-            212 => [[['_route' => 'updatePost', '_controller' => 'App\\Controller\\PostController::updatePost'], ['id'], null, null, false, true, null]],
-            232 => [[['_route' => 'updateVideo', '_controller' => 'App\\Controller\\VideoController::updateVideo'], ['id'], null, null, false, true, null]],
-            266 => [[['_route' => 'deleteImg', '_controller' => 'App\\Controller\\FigureController::deleteImg'], ['id'], null, null, false, true, null]],
-            287 => [[['_route' => 'deleteImgPost', '_controller' => 'App\\Controller\\PostController::deleteImgPost'], ['id'], null, null, false, true, null]],
-            309 => [[['_route' => 'deletePost', '_controller' => 'App\\Controller\\PostController::deletePost'], ['id'], null, null, false, true, null]],
-            330 => [[['_route' => 'deleteUser', '_controller' => 'App\\Controller\\UserController::deleteUser'], ['id'], null, null, false, true, null]],
-            350 => [[['_route' => 'deleteVid', '_controller' => 'App\\Controller\\VideoController::deleteVid'], ['id'], null, null, false, true, null]],
-            376 => [[['_route' => 'post', '_controller' => 'App\\Controller\\PostController::post'], ['id'], null, null, false, true, null]],
-            400 => [[['_route' => 'password', '_controller' => 'App\\Controller\\UserController::password'], ['id'], null, null, false, true, null]],
-            433 => [[['_route' => 'updatePass', '_controller' => 'App\\Controller\\SecurityController::updatePass'], ['token'], null, null, false, true, null]],
-            470 => [[['_route' => 'ConfirmMailRegister', '_controller' => 'App\\Controller\\UserController::ConfirmMailRegister'], ['token'], null, null, false, true, null]],
+            185 => [[['_route' => 'figure', '_controller' => 'App\\Controller\\FigureController::post'], ['id'], null, null, false, true, null]],
+            218 => [[['_route' => 'updateFigure', '_controller' => 'App\\Controller\\FigureController::updatePost'], ['id'], null, null, false, true, null]],
+            238 => [[['_route' => 'updateImg', '_controller' => 'App\\Controller\\ImgController::updateImg'], ['id'], null, null, false, true, null]],
+            258 => [[['_route' => 'updateVideo', '_controller' => 'App\\Controller\\VideoController::updateVideo'], ['id'], null, null, false, true, null]],
+            292 => [[['_route' => 'deleteFigure', '_controller' => 'App\\Controller\\FigureController::deleteFigure'], ['id'], null, null, false, true, null]],
+            321 => [[['_route' => 'deleteImgFigure', '_controller' => 'App\\Controller\\FigureController::deleteImgFigure'], ['id'], null, null, false, true, null]],
+            338 => [[['_route' => 'deleteImg', '_controller' => 'App\\Controller\\ImgController::deleteImg'], ['id'], null, null, false, true, null]],
+            360 => [[['_route' => 'deleteUser', '_controller' => 'App\\Controller\\UserController::deleteUser'], ['id'], null, null, false, true, null]],
+            380 => [[['_route' => 'deleteVid', '_controller' => 'App\\Controller\\VideoController::deleteVid'], ['id'], null, null, false, true, null]],
+            413 => [[['_route' => 'updatePass', '_controller' => 'App\\Controller\\SecurityController::updatePass'], ['token'], null, null, false, true, null]],
+            439 => [[['_route' => 'password', '_controller' => 'App\\Controller\\UserController::password'], ['id'], null, null, false, true, null]],
+            476 => [[['_route' => 'ConfirmMailRegister', '_controller' => 'App\\Controller\\UserController::ConfirmMailRegister'], ['token'], null, null, false, true, null]],
         ];
     }
 }

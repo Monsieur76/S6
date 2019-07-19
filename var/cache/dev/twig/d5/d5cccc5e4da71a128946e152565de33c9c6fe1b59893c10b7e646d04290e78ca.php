@@ -189,6 +189,6 @@ class __TwigTemplate_c69cb0ef1a1e1a3b87a59a45b5494a81f4748028c74e4e27d9f486472b0
         </div>
     </div>
 </div>
-", "@Twig/Exception/traces.html.twig", "C:\\wamp\\www\\minichat\\Site_snow\\symphonie4\\symfoni\\Site_snow\\Soutenance6\\Soutenance6\\vendor\\symfony\\twig-bundle\\Resources\\views\\Exception\\traces.html.twig");
+", "@Twig/Exception/traces.html.twig", "C:\\wamp\\www\\minichat\\Site_snow\\S6\\vendor\\symfony\\twig-bundle\\Resources\\views\\Exception\\traces.html.twig");
     }
 }

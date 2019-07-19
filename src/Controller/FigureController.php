@@ -30,7 +30,7 @@
         }
 
         /**
-         * @Route("/" , name="index")
+         * @Route("/" , name="home")
          * @return Response
          */
         public function index(
@@ -57,8 +57,8 @@
             CommentRepository $commentRepository
         ){
             $com = new Comment();
-            $idFigure = $figure->getId();
-            $comment = $commentRepository->findLimitComment($idFigure);
+            $idDet = $figure->getId();
+            $comment = $commentRepository->findLimitComment($idDet);
             $form2 = $this->createForm(HiddenForPaginationJsType::class);
             $form = $this->createForm(CommentType::class, $com);
             $form->handleRequest($request);
@@ -71,7 +71,7 @@
             }
             $form2->handleRequest($request);
             if ($form2->isSubmitted()) {
-                $comment = $commentRepository->findLimitComment($idFigure, 100);
+                $comment = $commentRepository->findLimitComment($idDet, 100);
             }
             return $this->render('Page/figure/figure.html.twig', [
                 'id' => $figure,
@@ -98,7 +98,6 @@
             FigureRepository $figureRepository
         ): Response
         {
-
             $form = $this->createForm(UpdateFigureType::class, $figure);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
@@ -116,7 +115,6 @@
             return $this->render('Page/figure/updateFigure.html.twig', [
                 'id' => $figure,
                 'form' => $form->createView(),
-
             ]);
         }
 
@@ -141,9 +139,9 @@
                 if ($figureRepository->findOneBy(['name' => $figure->getNameFigure()]) === null) {
                     $file = $form['figure']->getData();
                     $imgRepository->setFigureImg($file,$fileUp,$figure);
-                    $url = ['url1'=> $form['url1']->getData(),'url2'=> $form['url2']->getData(),
+                    $lien = ['url1'=> $form['url1']->getData(),'url2'=> $form['url2']->getData(),
                         'url3' => $form['url3']->getData()];
-                    $videoRepository->setVideos($url,$figure->getId(),$figureRepository);
+                    $videoRepository->setVideos($lien,$figure->getId(),$figureRepository);
                     $file2 = $form['figures']->getData();
                     $imgRepository->setMultipleImg($file2,$fileUp,$figure);
                     $figureRepository->persistFlush($figure);

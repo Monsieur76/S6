@@ -426,6 +426,6 @@ class __TwigTemplate_c345b1ebf77f70c4d4f57551dbd2a3de55f280355346855260473d3c500
             <i class=\"fas fa-arrow-up fa-3x\"></i>
         </a>
     </div>
-{% endblock %}", "Page/home.html.twig", "C:\\wamp\\www\\minichat\\Site_snow\\symphonie4\\symfoni\\Site_snow\\Soutenance6\\Soutenance6\\templates\\Page\\home.html.twig");
+{% endblock %}", "Page/home.html.twig", "C:\\wamp\\www\\minichat\\Site_snow\\S6\\templates\\Page\\home.html.twig");
     }
 }

@@ -455,6 +455,6 @@ class __TwigTemplate_3ca036d875db0a9c229efd279a31177bd633eec923bf4b932f6d62abb7e
     <script src=\"{{ asset('../js/script.js') }}\"></script>
 {% endblock %}
 </html>
-", "base.html.twig", "C:\\wamp\\www\\minichat\\Site_snow\\symphonie4\\symfoni\\Site_snow\\Soutenance6\\Soutenance6\\templates\\base.html.twig");
+", "base.html.twig", "C:\\wamp\\www\\minichat\\Site_snow\\S6\\templates\\base.html.twig");
     }
 }

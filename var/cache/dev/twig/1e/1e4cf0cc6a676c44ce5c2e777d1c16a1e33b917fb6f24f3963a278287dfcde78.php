@@ -708,6 +708,6 @@ class __TwigTemplate_16df947d69967106b126f7af2193c09726a51e37d7402af10ab9ddcb56a
         {{ form_end(form) }}
     </div>
 
-{% endblock %}", "Page/post/updatePost.html.twig", "C:\\wamp\\www\\minichat\\Site_snow\\symphonie4\\symfoni\\Site_snow\\Soutenance6\\Soutenance6\\templates\\Page\\post\\updatePost.html.twig");
+{% endblock %}", "Page/post/updatePost.html.twig", "C:\\wamp\\www\\minichat\\Site_snow\\S6\\templates\\Page\\post\\updatePost.html.twig");
     }
 }

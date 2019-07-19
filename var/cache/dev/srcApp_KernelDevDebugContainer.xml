@@ -424,12 +424,12 @@
         <argument type="service" id=".service_locator.KTVqfp6.App\Controller\FigureController"/>
       </call>
     </service>
-    <service id="App\Controller\PostController" class="App\Controller\PostController" public="true" autowire="true" autoconfigure="true">
+    <service id="App\Controller\ImgController" class="App\Controller\ImgController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.KTVqfp6.App\Controller\PostController"/>
+        <argument type="service" id=".service_locator.KTVqfp6.App\Controller\ImgController"/>
       </call>
     </service>
     <service id="App\Controller\SecurityController" class="App\Controller\SecurityController" public="true" autowire="true" autoconfigure="true">
@@ -458,19 +458,39 @@
     </service>
     <service id="App\DataFixtures\CommentFixture" class="App\DataFixtures\CommentFixture" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
+      <argument type="service" id="security.user_password_encoder.generic"/>
+      <argument type="service" id="security.csrf.token_generator"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
     <service id="App\DataFixtures\FigureFixture" class="App\DataFixtures\FigureFixture" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
+      <argument type="service" id="security.user_password_encoder.generic"/>
+      <argument type="service" id="security.csrf.token_generator"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
-    <service id="App\DataFixtures\PostFixture" class="App\DataFixtures\PostFixture" autowire="true" autoconfigure="true">
+    <service id="App\DataFixtures\GroupFixture" class="App\DataFixtures\GroupFixture" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
+      <argument type="service" id="security.user_password_encoder.generic"/>
+      <argument type="service" id="security.csrf.token_generator"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+    </service>
+    <service id="App\DataFixtures\ImgFixture" class="App\DataFixtures\ImgFixture" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+      <argument type="service" id="security.user_password_encoder.generic"/>
+      <argument type="service" id="security.csrf.token_generator"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
     <service id="App\DataFixtures\UserFixture" class="App\DataFixtures\UserFixture" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
       <argument type="service" id="security.user_password_encoder.generic"/>
+      <argument type="service" id="security.csrf.token_generator"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
     <service id="App\DataFixtures\VideoFixture" class="App\DataFixtures\VideoFixture" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
+      <argument type="service" id="security.user_password_encoder.generic"/>
+      <argument type="service" id="security.csrf.token_generator"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
     <service id="App\Event\RegistrationMail" class="App\Event\RegistrationMail" autowire="true" autoconfigure="true"/>
     <service id="App\Form\CommentType" class="App\Form\CommentType" autowire="true" autoconfigure="true">
@@ -483,9 +503,6 @@
       <tag name="form.type"/>
     </service>
     <service id="App\Form\HiddenForPaginationJsType" class="App\Form\HiddenForPaginationJsType" autowire="true" autoconfigure="true">
-      <tag name="form.type"/>
-    </service>
-    <service id="App\Form\LienType" class="App\Form\LienType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\PassType" class="App\Form\PassType" autowire="true" autoconfigure="true">
@@ -503,6 +520,9 @@
     <service id="App\Form\UpdateVideoType" class="App\Form\UpdateVideoType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\UrlType" class="App\Form\UrlType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\UserType" class="App\Form\UserType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -517,7 +537,12 @@
       <argument type="service" id="doctrine"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
-    <service id="App\Repository\PostRepository" class="App\Repository\PostRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\GroupNumberFigureRepository" class="App\Repository\GroupNumberFigureRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+    </service>
+    <service id="App\Repository\ImgRepository" class="App\Repository\ImgRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
@@ -804,12 +829,12 @@
         <argument>App\Form\CreatPostType</argument>
         <argument>App\Form\ForgotType</argument>
         <argument>App\Form\HiddenForPaginationJsType</argument>
-        <argument>App\Form\LienType</argument>
         <argument>App\Form\PassType</argument>
         <argument>App\Form\ProfileType</argument>
         <argument>App\Form\UpdateImgType</argument>
         <argument>App\Form\UpdatePostType</argument>
         <argument>App\Form\UpdateVideoType</argument>
+        <argument>App\Form\UrlType</argument>
         <argument>App\Form\UserType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
@@ -1054,7 +1079,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.cyBsEmH"/>
+      <argument type="service" id=".service_locator.jL.PAom"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -2980,7 +3005,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.rzmUgOU"/>
+      <argument type="service" id=".service_locator.5dwmvqJ"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -4669,7 +4694,11 @@
             <argument key="groups" type="collection"/>
           </argument>
           <argument type="collection">
-            <argument key="fixture" type="service" id="App\DataFixtures\PostFixture"/>
+            <argument key="fixture" type="service" id="App\DataFixtures\GroupFixture"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+          <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\ImgFixture"/>
             <argument key="groups" type="collection"/>
           </argument>
           <argument type="collection">
@@ -4731,9 +4760,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\FigureController" class="App\Controller\FigureController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\FigureController" class="App\Controller\FigureController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\FigureController" class="App\Controller\FigureController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\PostController" class="App\Controller\PostController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\PostController" class="App\Controller\PostController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\PostController" class="App\Controller\PostController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ImgController" class="App\Controller\ImgController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ImgController" class="App\Controller\ImgController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\ImgController" class="App\Controller\ImgController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -4747,8 +4776,10 @@
     <service id=".abstract.instanceof.App\DataFixtures\CommentFixture" class="App\DataFixtures\CommentFixture" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\FigureFixture" class="App\DataFixtures\FigureFixture" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\FigureFixture" class="App\DataFixtures\FigureFixture" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\PostFixture" class="App\DataFixtures\PostFixture" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\DataFixtures\PostFixture" class="App\DataFixtures\PostFixture" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\GroupFixture" class="App\DataFixtures\GroupFixture" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\GroupFixture" class="App\DataFixtures\GroupFixture" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\ImgFixture" class="App\DataFixtures\ImgFixture" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\ImgFixture" class="App\DataFixtures\ImgFixture" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\UserFixture" class="App\DataFixtures\UserFixture" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\UserFixture" class="App\DataFixtures\UserFixture" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\VideoFixture" class="App\DataFixtures\VideoFixture" autowire="true" abstract="true"/>
@@ -4761,8 +4792,6 @@
     <service id=".abstract.instanceof.App\Form\ForgotType" class="App\Form\ForgotType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\HiddenForPaginationJsType" class="App\Form\HiddenForPaginationJsType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\HiddenForPaginationJsType" class="App\Form\HiddenForPaginationJsType" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\LienType" class="App\Form\LienType" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Form\LienType" class="App\Form\LienType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\PassType" class="App\Form\PassType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\PassType" class="App\Form\PassType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ProfileType" class="App\Form\ProfileType" autowire="true" abstract="true"/>
@@ -4773,14 +4802,18 @@
     <service id=".abstract.instanceof.App\Form\UpdatePostType" class="App\Form\UpdatePostType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UpdateVideoType" class="App\Form\UpdateVideoType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\UpdateVideoType" class="App\Form\UpdateVideoType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UrlType" class="App\Form\UrlType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\UrlType" class="App\Form\UrlType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UserType" class="App\Form\UserType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\UserType" class="App\Form\UserType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CommentRepository" class="App\Repository\CommentRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CommentRepository" class="App\Repository\CommentRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\FigureRepository" class="App\Repository\FigureRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\FigureRepository" class="App\Repository\FigureRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\PostRepository" class="App\Repository\PostRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\PostRepository" class="App\Repository\PostRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\GroupNumberFigureRepository" class="App\Repository\GroupNumberFigureRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\GroupNumberFigureRepository" class="App\Repository\GroupNumberFigureRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ImgRepository" class="App\Repository\ImgRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\ImgRepository" class="App\Repository\ImgRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\VideoRepository" class="App\Repository\VideoRepository" autowire="true" abstract="true"/>
@@ -4947,12 +4980,40 @@
         <argument>make:migration</argument>
       </call>
     </service>
-    <service id=".service_locator.9yLvjYR" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.zxCw8BD" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="figure" type="service" id=".errored..service_locator.9yLvjYR.App\Entity\Figure"/>
+        <argument key="figureRepository" type="service" id="App\Repository\FigureRepository"/>
+        <argument key="group" type="service" id="App\Repository\GroupNumberFigureRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.Q483UnV" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="commentRepository" type="service" id="App\Repository\CommentRepository"/>
+        <argument key="figure" type="service" id=".errored..service_locator.Q483UnV.App\Entity\Figure"/>
+        <argument key="imgRepository" type="service" id="App\Repository\ImgRepository"/>
+        <argument key="videoRepository" type="service" id="App\Repository\VideoRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator._CLZHyf" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="commentRepository" type="service" id="App\Repository\CommentRepository"/>
+        <argument key="figure" type="service" id=".errored..service_locator._CLZHyf.App\Entity\Figure"/>
         <argument key="figureRepository" type="service" id="App\Repository\FigureRepository"/>
         <argument key="fileUp" type="service" id="App\Service\FileUploader"/>
+        <argument key="imgRepository" type="service" id="App\Repository\ImgRepository"/>
+        <argument key="videoRepository" type="service" id="App\Repository\VideoRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.oCKDG84" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="figureRepository" type="service" id="App\Repository\FigureRepository"/>
+        <argument key="fileUp" type="service" id="App\Service\FileUploader"/>
+        <argument key="imgRepository" type="service" id="App\Repository\ImgRepository"/>
+        <argument key="videoRepository" type="service" id="App\Repository\VideoRepository"/>
       </argument>
     </service>
     <service id=".service_locator.meBJUHU" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -4961,45 +5022,18 @@
         <argument key="figure" type="service" id=".errored..service_locator.meBJUHU.App\Entity\Figure"/>
       </argument>
     </service>
-    <service id=".service_locator.CQwjxtm" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.7F.1uRI" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="post" type="service" id="App\Repository\PostRepository"/>
-      </argument>
-    </service>
-    <service id=".service_locator.fLko.rf" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="commentRepository" type="service" id="App\Repository\CommentRepository"/>
-        <argument key="figureRepository" type="service" id="App\Repository\FigureRepository"/>
-        <argument key="post" type="service" id=".errored..service_locator.fLko.rf.App\Entity\Post"/>
-        <argument key="videoRepository" type="service" id="App\Repository\VideoRepository"/>
-      </argument>
-    </service>
-    <service id=".service_locator.huHR.Do" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="commentRepository" type="service" id="App\Repository\CommentRepository"/>
-        <argument key="figureRepository" type="service" id="App\Repository\FigureRepository"/>
         <argument key="fileUp" type="service" id="App\Service\FileUploader"/>
-        <argument key="post" type="service" id=".errored..service_locator.huHR.Do.App\Entity\Post"/>
-        <argument key="postRepository" type="service" id="App\Repository\PostRepository"/>
-        <argument key="videoRepository" type="service" id="App\Repository\VideoRepository"/>
+        <argument key="img" type="service" id=".errored..service_locator.7F.1uRI.App\Entity\Img"/>
+        <argument key="imgRepository" type="service" id="App\Repository\ImgRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.ulBOaok" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.KoSU1tf" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="figureRepository" type="service" id="App\Repository\FigureRepository"/>
-        <argument key="fileUp" type="service" id="App\Service\FileUploader"/>
-        <argument key="postRepository" type="service" id="App\Repository\PostRepository"/>
-        <argument key="videoRepository" type="service" id="App\Repository\VideoRepository"/>
-      </argument>
-    </service>
-    <service id=".service_locator.TwhmRPL" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="post" type="service" id=".errored..service_locator.TwhmRPL.App\Entity\Post"/>
+        <argument key="img" type="service" id=".errored..service_locator.KoSU1tf.App\Entity\Img"/>
       </argument>
     </service>
     <service id=".service_locator.EbLunuf" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5066,42 +5100,42 @@
         <argument key="video" type="service" id=".errored..service_locator.XxOaJfn.App\Entity\Video"/>
       </argument>
     </service>
-    <service id=".service_locator.5wm3MEU" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.KGFlbmF" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\Controller\FigureController::deleteImg" type="service" id=".service_locator.meBJUHU"/>
-        <argument key="App\Controller\FigureController::updateImg" type="service" id=".service_locator.9yLvjYR"/>
-        <argument key="App\Controller\PostController::creatPost" type="service" id=".service_locator.ulBOaok"/>
-        <argument key="App\Controller\PostController::deleteImgPost" type="service" id=".service_locator.TwhmRPL"/>
-        <argument key="App\Controller\PostController::deletePost" type="service" id=".service_locator.TwhmRPL"/>
-        <argument key="App\Controller\PostController::home" type="service" id=".service_locator.CQwjxtm"/>
-        <argument key="App\Controller\PostController::post" type="service" id=".service_locator.fLko.rf"/>
-        <argument key="App\Controller\PostController::updatePost" type="service" id=".service_locator.huHR.Do"/>
+        <argument key="App\Controller\FigureController::creatFigure" type="service" id=".service_locator.oCKDG84"/>
+        <argument key="App\Controller\FigureController::deleteFigure" type="service" id=".service_locator.meBJUHU"/>
+        <argument key="App\Controller\FigureController::deleteImgFigure" type="service" id=".service_locator.meBJUHU"/>
+        <argument key="App\Controller\FigureController::home" type="service" id=".service_locator.zxCw8BD"/>
+        <argument key="App\Controller\FigureController::post" type="service" id=".service_locator.Q483UnV"/>
+        <argument key="App\Controller\FigureController::updatePost" type="service" id=".service_locator._CLZHyf"/>
+        <argument key="App\Controller\ImgController::deleteImg" type="service" id=".service_locator.KoSU1tf"/>
+        <argument key="App\Controller\ImgController::updateImg" type="service" id=".service_locator.7F.1uRI"/>
         <argument key="App\Controller\SecurityController::forgot" type="service" id=".service_locator.e0npJBJ"/>
         <argument key="App\Controller\SecurityController::login" type="service" id=".service_locator.EbLunuf"/>
         <argument key="App\Controller\SecurityController::updatePass" type="service" id=".service_locator.kvRz10W"/>
         <argument key="App\Controller\UserController::ConfirmMailRegister" type="service" id=".service_locator.Bg.EX6Q"/>
         <argument key="App\Controller\UserController::deleteUser" type="service" id=".service_locator.wypGnUQ"/>
         <argument key="App\Controller\UserController::password" type="service" id=".service_locator.kvRz10W"/>
-        <argument key="App\Controller\UserController::profil" type="service" id=".service_locator.jBUFzF2"/>
+        <argument key="App\Controller\UserController::profile" type="service" id=".service_locator.jBUFzF2"/>
         <argument key="App\Controller\UserController::register" type="service" id=".service_locator.K_H62a_"/>
         <argument key="App\Controller\VideoController::deleteVid" type="service" id=".service_locator.XxOaJfn"/>
         <argument key="App\Controller\VideoController::updateVideo" type="service" id=".service_locator.N747g0D"/>
-        <argument key="App\Controller\FigureController:deleteImg" type="service" id=".service_locator.meBJUHU"/>
-        <argument key="App\Controller\FigureController:updateImg" type="service" id=".service_locator.9yLvjYR"/>
-        <argument key="App\Controller\PostController:creatPost" type="service" id=".service_locator.ulBOaok"/>
-        <argument key="App\Controller\PostController:deleteImgPost" type="service" id=".service_locator.TwhmRPL"/>
-        <argument key="App\Controller\PostController:deletePost" type="service" id=".service_locator.TwhmRPL"/>
-        <argument key="App\Controller\PostController:home" type="service" id=".service_locator.CQwjxtm"/>
-        <argument key="App\Controller\PostController:post" type="service" id=".service_locator.fLko.rf"/>
-        <argument key="App\Controller\PostController:updatePost" type="service" id=".service_locator.huHR.Do"/>
+        <argument key="App\Controller\FigureController:creatFigure" type="service" id=".service_locator.oCKDG84"/>
+        <argument key="App\Controller\FigureController:deleteFigure" type="service" id=".service_locator.meBJUHU"/>
+        <argument key="App\Controller\FigureController:deleteImgFigure" type="service" id=".service_locator.meBJUHU"/>
+        <argument key="App\Controller\FigureController:home" type="service" id=".service_locator.zxCw8BD"/>
+        <argument key="App\Controller\FigureController:post" type="service" id=".service_locator.Q483UnV"/>
+        <argument key="App\Controller\FigureController:updatePost" type="service" id=".service_locator._CLZHyf"/>
+        <argument key="App\Controller\ImgController:deleteImg" type="service" id=".service_locator.KoSU1tf"/>
+        <argument key="App\Controller\ImgController:updateImg" type="service" id=".service_locator.7F.1uRI"/>
         <argument key="App\Controller\SecurityController:forgot" type="service" id=".service_locator.e0npJBJ"/>
         <argument key="App\Controller\SecurityController:login" type="service" id=".service_locator.EbLunuf"/>
         <argument key="App\Controller\SecurityController:updatePass" type="service" id=".service_locator.kvRz10W"/>
         <argument key="App\Controller\UserController:ConfirmMailRegister" type="service" id=".service_locator.Bg.EX6Q"/>
         <argument key="App\Controller\UserController:deleteUser" type="service" id=".service_locator.wypGnUQ"/>
         <argument key="App\Controller\UserController:password" type="service" id=".service_locator.kvRz10W"/>
-        <argument key="App\Controller\UserController:profil" type="service" id=".service_locator.jBUFzF2"/>
+        <argument key="App\Controller\UserController:profile" type="service" id=".service_locator.jBUFzF2"/>
         <argument key="App\Controller\UserController:register" type="service" id=".service_locator.K_H62a_"/>
         <argument key="App\Controller\VideoController:deleteVid" type="service" id=".service_locator.XxOaJfn"/>
         <argument key="App\Controller\VideoController:updateVideo" type="service" id=".service_locator.N747g0D"/>
@@ -5176,19 +5210,19 @@
       <argument type="service" id="debug.argument_resolver.variadic.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.cyBsEmH" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.jL.PAom" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\CommentType" type="service" id="App\Form\CommentType"/>
         <argument key="App\Form\CreatPostType" type="service" id="App\Form\CreatPostType"/>
         <argument key="App\Form\ForgotType" type="service" id="App\Form\ForgotType"/>
         <argument key="App\Form\HiddenForPaginationJsType" type="service" id="App\Form\HiddenForPaginationJsType"/>
-        <argument key="App\Form\LienType" type="service" id="App\Form\LienType"/>
         <argument key="App\Form\PassType" type="service" id="App\Form\PassType"/>
         <argument key="App\Form\ProfileType" type="service" id="App\Form\ProfileType"/>
         <argument key="App\Form\UpdateImgType" type="service" id="App\Form\UpdateImgType"/>
         <argument key="App\Form\UpdatePostType" type="service" id="App\Form\UpdatePostType"/>
         <argument key="App\Form\UpdateVideoType" type="service" id="App\Form\UpdateVideoType"/>
+        <argument key="App\Form\UrlType" type="service" id="App\Form\UrlType"/>
         <argument key="App\Form\UserType" type="service" id="App\Form\UserType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service" id="form.type.choice"/>
@@ -5201,12 +5235,13 @@
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
       </argument>
     </service>
-    <service id=".service_locator.rzmUgOU" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.5dwmvqJ" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\CommentRepository" type="service" id="App\Repository\CommentRepository"/>
         <argument key="App\Repository\FigureRepository" type="service" id="App\Repository\FigureRepository"/>
-        <argument key="App\Repository\PostRepository" type="service" id="App\Repository\PostRepository"/>
+        <argument key="App\Repository\GroupNumberFigureRepository" type="service" id="App\Repository\GroupNumberFigureRepository"/>
+        <argument key="App\Repository\ImgRepository" type="service" id="App\Repository\ImgRepository"/>
         <argument key="App\Repository\UserRepository" type="service" id="App\Repository\UserRepository"/>
         <argument key="App\Repository\VideoRepository" type="service" id="App\Repository\VideoRepository"/>
       </argument>
@@ -5389,9 +5424,9 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.KTVqfp6" method="withContext"/>
     </service>
-    <service id=".service_locator.KTVqfp6.App\Controller\PostController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator_context" id="App\Controller\PostController"/>
-      <argument>App\Controller\PostController</argument>
+    <service id=".service_locator.KTVqfp6.App\Controller\ImgController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\ImgController"/>
+      <argument>App\Controller\ImgController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.KTVqfp6" method="withContext"/>
     </service>
@@ -5505,15 +5540,15 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.5wm3MEU"/>
+      <argument type="service" id=".service_locator.KGFlbmF"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
-    <service id=".errored..service_locator.9yLvjYR.App\Entity\Figure" class="App\Entity\Figure"/>
+    <service id=".errored..service_locator.Q483UnV.App\Entity\Figure" class="App\Entity\Figure"/>
+    <service id=".errored..service_locator._CLZHyf.App\Entity\Figure" class="App\Entity\Figure"/>
     <service id=".errored..service_locator.meBJUHU.App\Entity\Figure" class="App\Entity\Figure"/>
-    <service id=".errored..service_locator.fLko.rf.App\Entity\Post" class="App\Entity\Post"/>
-    <service id=".errored..service_locator.huHR.Do.App\Entity\Post" class="App\Entity\Post"/>
-    <service id=".errored..service_locator.TwhmRPL.App\Entity\Post" class="App\Entity\Post"/>
+    <service id=".errored..service_locator.7F.1uRI.App\Entity\Img" class="App\Entity\Img"/>
+    <service id=".errored..service_locator.KoSU1tf.App\Entity\Img" class="App\Entity\Img"/>
     <service id=".errored..service_locator.wypGnUQ.App\Entity\User" class="App\Entity\User"/>
     <service id=".errored..service_locator.XxOaJfn.App\Entity\Video" class="App\Entity\Video"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
@@ -5848,7 +5883,7 @@
     <service id="logger" alias="monolog.logger"/>
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.5wm3MEU"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.KGFlbmF"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="validator" alias="debug.validator" public="true"/>

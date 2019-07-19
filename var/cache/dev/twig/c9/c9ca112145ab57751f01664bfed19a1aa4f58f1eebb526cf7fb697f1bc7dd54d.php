@@ -197,6 +197,6 @@ class __TwigTemplate_d33deb2111f47589a33919f34df6dd38e135fa2251ef1983cc730d7bfe6
             </form>
         </div>
     </div>
-{% endblock %}", "Page/user/connexion.html.twig", "C:\\wamp\\www\\minichat\\Site_snow\\symphonie4\\symfoni\\Site_snow\\Soutenance6\\Soutenance6\\templates\\Page\\user\\connexion.html.twig");
+{% endblock %}", "Page/user/connexion.html.twig", "C:\\wamp\\www\\minichat\\Site_snow\\S6\\templates\\Page\\user\\connexion.html.twig");
     }
 }
