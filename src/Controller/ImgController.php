@@ -50,7 +50,7 @@
                     $this->redirectToRoute('updateImg', ['id' => $id]);
                 }
             }
-            return $this->render('Page/post/updateImg.html.twig', [
+            return $this->render('Page/figure/updateImg.html.twig', [
                 'figure' => $imgSearchId,
                 'form' => $form->createView()
             ]);
@@ -68,9 +68,9 @@
                 $this->em->remove($img);
                 $this->em->flush();
                 $this->addFlash('succes', 'Votre figure a bien été supprimée');
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('index');
             }
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('index');
         }
 
     }

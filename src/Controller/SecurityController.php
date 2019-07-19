@@ -60,7 +60,7 @@ class SecurityController extends AbstractController
         EventDispatcherInterface $dispatcher,
         TokenGeneratorInterface $tokenGenerator
     ){
-        $form = $this->createForm(forgotType::class);
+        $form = $this->createForm(ForgotType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $userRepository->findOneBy(['email' => $request->request->get('forgot')['email']]);

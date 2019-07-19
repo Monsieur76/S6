@@ -68,19 +68,20 @@ class UpdateFigureType extends AbstractType
                     'placeholder' => 'Ajout de nouvelle photo',
                     'class' => 'form-control-file'
                 ]])
-            ->add('lien1', UrlType::class, [
+            ->add('url1', UrlType::class, [
+
                 'label' => 'Ajouté une vidéo (max 3)',
                 'mapped' => false,
                 'required' => false,
                 'constraints'=> new Url()
             ])
-            ->add('lien2', UrlType::class, [
+            ->add('url2', UrlType::class, [
                 'label' => false,
                 'mapped' => false,
                 'required' => false,
                 'constraints'=> new Url()
             ])
-            ->add('lien3', UrlType::class, [
+            ->add('url3', UrlType::class, [
                 'label' => false,
                 'mapped' => false,
                 'required' => false,

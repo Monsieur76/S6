@@ -55,7 +55,7 @@
                 $dispatcher->dispatch(RegistrationMail::Name,$registrationMail);
                 $this->addFlash('succes', 'Enregistrement effectué veuillez vérifier vos mail pour confirmer
             l\'enregistrement');
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('index');
 
             }
             return $this->render('Page/user/register.html.twig', [
@@ -83,9 +83,9 @@
                 $userRepository->setPhotoUser($form['photo']->getData(),$fileUp,$user);
                 $userRepository->persistFlush($user);
                 $this->addFlash('succes', 'Votre profil a bien été enregistré');
-                return $this->redirectToRoute('profil');
+                return $this->redirectToRoute('profile');
             }
-            return $this->render('Page/user/profil.html.twig', [
+            return $this->render('Page/user/profile.html.twig', [
                 'form' => $form->createView(),
                 'user' => $userRepository->findOneBy(['id' => $id]),
             ]);
@@ -100,7 +100,7 @@
         public function deleteUser(User $user)
         {
             $user->setFirstname('Utilisateur Supprimer');
-            $user->setValid(0);
+            $user->setToken(0);
             $this->em->flush();
             return $this->redirectToRoute('logout');
         }
@@ -142,17 +142,17 @@
             LoginFormAuthenticator $formAuthenticator,
             Request $request
         ){
-            $bddUser = $userRepository->findOneBy(['valid' => $token]);
-            if ($bddUser) {
-                $bddUser->setRoles(['ROLE_USER']);
-                $bddUser->setConfirm(1);
+            $user = $userRepository->findOneBy(['valid' => $token]);
+            if ($user) {
+                $user->setRoles(['ROLE_USER']);
+                $user->setConfirm(1);
                 $authenticatorHandler->authenticateUserAndHandleSuccess(
-                    $bddUser,
+                    $user,
                     $request,
                     $formAuthenticator,
                     'main'
                 );
-                $userRepository->persistFlush($bddUser);
+                $userRepository->persistFlush($user);
                 $this->addFlash('succes', 'confirmation d\'enregistrement');
                 return $this->render('Page/user/AddRegister.html.twig', ['message' => 'Enregistrement Effectué']);
             }

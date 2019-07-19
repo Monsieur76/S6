@@ -30,7 +30,7 @@
         }
 
         /**
-         * @Route("/" , name="home")
+         * @Route("/" , name="index")
          * @return Response
          */
         public function index(
@@ -39,8 +39,8 @@
     ): Response
         {
             $group->insertGroup();
-            return $this->render('Page/home.html.twig', [
-                'home' => 'active',
+            return $this->render('Page/index.html.twig', [
+                'index' => 'active',
                 'post' => $figureRepository->findAllFigure(),
             ]);
         }
@@ -54,15 +54,11 @@
         public function figure(
             Request $request,
             Figure $figure,
-            ImgRepository $imgRepository,
-            CommentRepository $commentRepository,
-            VideoRepository $videoRepository
+            CommentRepository $commentRepository
         ){
             $com = new Comment();
-            $idDet = $figure->getId();
-            $img = $imgRepository->imgFindLimit($idDet);
-            $comment = $commentRepository->findLimitComment($idDet);
-            $video = $videoRepository->videoFindLimit($idDet);
+            $idFigure = $figure->getId();
+            $comment = $commentRepository->findLimitComment($idFigure);
             $form2 = $this->createForm(HiddenForPaginationJsType::class);
             $form = $this->createForm(CommentType::class, $com);
             $form->handleRequest($request);
@@ -71,17 +67,15 @@
                 $com->setFigure($figure);
                 $commentRepository->persistFlush($com);
                 $this->addFlash('succes', 'Votre Commentaire à bien été enregistré');
-                return $this->redirectToRoute('post', ['id' => $figure->getId()]);
+                return $this->redirectToRoute('figure', ['id' => $figure->getId()]);
             }
             $form2->handleRequest($request);
             if ($form2->isSubmitted()) {
-                $comment = $commentRepository->findLimitComment($idDet, 100);
+                $comment = $commentRepository->findLimitComment($idFigure, 100);
             }
-            return $this->render('Page/post/post.html.twig', [
+            return $this->render('Page/figure/figure.html.twig', [
                 'id' => $figure,
                 'trick' => $figure->getId(),
-                'video' => $video,
-                'figure' => $img,
                 'comment' => $comment,
                 'form' => $form->createView(),
                 'form2' => $form2->createView(),
@@ -99,36 +93,29 @@
             Figure $figure,
             Request $request,
             ImgRepository $imgRepository,
-            CommentRepository $commentRepository,
             VideoRepository $videoRepository,
             FileUploader $fileUp,
             FigureRepository $figureRepository
         ): Response
         {
-            $idDet = $figure->getId();
-            $img = $imgRepository->imgFindLimit($idDet);
-            $comment = $commentRepository->findLimitComment($idDet);
-            $video = $videoRepository->videoFindLimit($idDet);
+
             $form = $this->createForm(UpdateFigureType::class, $figure);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $file = $form['figure']->getData();
                 $imgRepository->setFigureImg($file,$fileUp,$figure);
-                $url = ['lien1'=> $form['lien1']->getData(),'lien2'=> $form['lien2']->getData(),
-                    'lien3' => $form['lien3']->getData()];
+                $url = ['url1'=> $form['url1']->getData(),'url2'=> $form['url2']->getData(),
+                    'url3' => $form['url3']->getData()];
                 $videoRepository->setVideos($url,$figure->getId(),$figureRepository);
                 $file2 = $form['figures']->getData();
                 $imgRepository->setMultipleImg($file2,$fileUp,$figure);
                 $figureRepository->persistFlush($figure);
                 $this->addFlash('succes', 'La Modification à bien été prise en compte');
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('index');
         }
-            return $this->render('Page/post/updatePost.html.twig', [
+            return $this->render('Page/figure/updateFigure.html.twig', [
                 'id' => $figure,
                 'form' => $form->createView(),
-                'figure' => $img,
-                'video' => $video,
-                'comment' => $comment,
 
             ]);
         }
@@ -154,19 +141,19 @@
                 if ($figureRepository->findOneBy(['name' => $figure->getNameFigure()]) === null) {
                     $file = $form['figure']->getData();
                     $imgRepository->setFigureImg($file,$fileUp,$figure);
-                    $lien = ['lien1'=> $form['lien1']->getData(),'lien2'=> $form['lien2']->getData(),
-                        'lien3' => $form['lien3']->getData()];
-                    $videoRepository->setVideos($lien,$figure->getId(),$figureRepository);
+                    $url = ['url1'=> $form['url1']->getData(),'url2'=> $form['url2']->getData(),
+                        'url3' => $form['url3']->getData()];
+                    $videoRepository->setVideos($url,$figure->getId(),$figureRepository);
                     $file2 = $form['figures']->getData();
                     $imgRepository->setMultipleImg($file2,$fileUp,$figure);
                     $figureRepository->persistFlush($figure);
                     $this->addFlash('succes', 'Votre figure à bien été créé');
-                    return $this->redirectToRoute('home');
+                    return $this->redirectToRoute('index');
                 }
                 $this->addFlash('alert', 'Le nom a déjà été créé');
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('index');
             }
-            return $this->render('Page/post/creatPost.html.twig', [
+            return $this->render('Page/figure/creatFigure.html.twig', [
                 'form' => $form->createView()
             ]);
         }
@@ -186,7 +173,7 @@
                 $this->em->flush();
                 $this->addFlash('succes', 'Votre figure a bien été supprimée');
             }
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('index');
         }
 
         /**
@@ -203,8 +190,8 @@
                 $this->em->remove($figure);
                 $this->em->flush();
                 $this->addFlash('succes', 'Votre image a bien été supprimée');
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('index');
             }
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('index');
         }
     }
