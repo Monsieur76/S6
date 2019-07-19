@@ -3,25 +3,25 @@
 namespace App\DataFixtures;
 
 use App\Entity\Figure;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class FigureFixture extends Fixture implements OrderedFixtureInterface
+class FigureFixture extends BaseFixture implements OrderedFixtureInterface
 {
+
     public function getOrder(){
-        return 4;
+        return 3;
     }
+
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i < 20; $i++) {
-            $post = $this->getReference('post');
-            $figure = new Figure();
-            $figure->setPost($post);
-            $figure->setName('figure n°'.$i);
-            $manager->persist($figure);
-        }
 
-        $manager->flush();
+        $this->createMany('figure',Figure::class,$this->i,function (Figure $figure) use ($manager){
+            $group = $this->getReference('group'.rand(1,5));
+            $figure->setNameFigure($this->faker->name);
+            $figure->setContent($this->faker->text);
+            $figure->setImgFigure($this->faker->text);
+            $figure->setGroupNumber($group);
+        });
     }
 }

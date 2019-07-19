@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Url;
 
-class UpdatePostType extends AbstractType
+class UpdateFigureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

@@ -15,6 +15,8 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class GroupNumberFigureRepository extends ServiceEntityRepository
 {
+    private $group = 'Groupe';
+    private $maxNumberGroup = 6;
     private $em;
     public function __construct(RegistryInterface $registry,ObjectManager $em)
     {
@@ -22,23 +24,26 @@ class GroupNumberFigureRepository extends ServiceEntityRepository
         $this->em = $em;
     }
 
-    public function selectFirstId()
+    public function selectFirstName($name)
     {
         return $this->createQueryBuilder('f')
+            ->andWhere('f.number = :name')
+            ->setParameter('name',$name )
             ->getQuery()
             ->getResult();
     }
 
     public function insertGroup()
     {
-        if (empty($this->selectFirstId()))
+        if (empty($this->selectFirstName($this->group)))
         {
-            for ($i = 1; $i < 6; $i++)
+            for ($i = 1; $i < $this->maxNumberGroup; $i++)
             {
                 $group = new GroupNumberFigure();
-                $group->setGroupNumber('Groupe'.$i);
-                $this->persistFlush($group);
+                $group->setNumber($this->group.$i);
+                $this->em->persist($group);
             }
+            $this->em->flush();
         }
         return;
     }

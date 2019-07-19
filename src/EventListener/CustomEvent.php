@@ -34,7 +34,7 @@
             $table = $event->getSubject();
             $user = $table['user'];
             $render = $table['render'];
-            $user->setConfirm(0);
+            $user->setConfirmRegister(0);
             $this->repo->persistFlush($user);
             $validator = new EmailValidator();
             $validator->isValid($user->getEmail(), new RFCValidation());

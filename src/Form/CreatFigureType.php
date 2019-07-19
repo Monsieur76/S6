@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
 
-class CreatPostType extends AbstractType
+class CreatFigureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -69,7 +69,7 @@ class CreatPostType extends AbstractType
                 ]])
 
             ->add('videos', CollectionType::class, [
-            'entry_type' => LienType::class,
+            'entry_type' => UrlType::class,
             'entry_options' => ['label' => 'video'],
                 'allow_add'=> true,
              ]);
