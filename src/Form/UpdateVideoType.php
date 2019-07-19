@@ -14,7 +14,7 @@ class UpdateVideoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', UrlType::class, [
+            ->add('url', UrlType::class, [
                 'label' => 'Lien youtube',
                 'constraints'=> new Url()
 

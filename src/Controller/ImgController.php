@@ -41,10 +41,10 @@
             $form = $this->createForm(UpdateImgType::class, $img);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                $file = $form['fileUpdate']->getData();
+                $file = $form['nameImg']->getData();
                 if($file) {
                     $fileName = $fileUp->upload($file);
-                    $img->setname($fileName);
+                    $img->setNameImg($fileName);
                     $imgRepository->persistFlush($img);
                     $this->addFlash('succes', 'Votre figure a bien été créée');
                     $this->redirectToRoute('updateImg', ['id' => $id]);

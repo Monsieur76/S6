@@ -34,8 +34,7 @@
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $video->setUrl($video->getUrl());
-                $this->em->persist($video);
-                $this->em->flush();
+                $videoRepository->persistFlush($video);
                 $this->addFlash('succes', 'Votre video a bien été créée');
                 $this->redirectToRoute('updateVideo', ['id' => $id]);
             }

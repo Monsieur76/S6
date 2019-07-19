@@ -49,7 +49,7 @@
                 $token = $tokenGenerator->generateToken();
                 $user->setToken($token);
                 $userRepository->setPassword($user,$form->get('password')->getData(),$passwordEncoder);
-                $userRepository->setPhotoUser($form['photo']->getData(),$fileUp,$user);
+                $userRepository->setPhotoUser($form['img']->getData(),$fileUp,$user);
                 $render =$this->render('Page/mail/mailRegister.html.twig', ['user' => $user->getToken()]);
                 $registrationMail = new GenericEvent(['user'=>$user,'render'=>$render]);
                 $dispatcher->dispatch(RegistrationMail::Name,$registrationMail);
@@ -80,7 +80,7 @@
             $form = $this->createForm(ProfileType::class, $user);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                $userRepository->setPhotoUser($form['photo']->getData(),$fileUp,$user);
+                $userRepository->setPhotoUser($form['img']->getData(),$fileUp,$user);
                 $userRepository->persistFlush($user);
                 $this->addFlash('succes', 'Votre profil a bien été enregistré');
                 return $this->redirectToRoute('profile');
@@ -145,7 +145,7 @@
             $user = $userRepository->findOneBy(['valid' => $token]);
             if ($user) {
                 $user->setRoles(['ROLE_USER']);
-                $user->setConfirm(1);
+                $user->setConfirmRegister(1);
                 $authenticatorHandler->authenticateUserAndHandleSuccess(
                     $user,
                     $request,
@@ -154,7 +154,7 @@
                 );
                 $userRepository->persistFlush($user);
                 $this->addFlash('succes', 'confirmation d\'enregistrement');
-                return $this->render('Page/user/AddRegister.html.twig', ['message' => 'Enregistrement Effectué']);
+                return $this->render('Page/user/addRegister.html.twig', ['message' => 'Enregistrement Effectué']);
             }
             $this->addFlash('notice', 'Enregistrement échoué');
             return $this->render('Page/user/AddRegister.html.twig', [

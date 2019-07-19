@@ -15,12 +15,12 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname', TextType::class, [
+            ->add('firstName', TextType::class, [
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Normane']
             ])
-            ->add('photo', FileType::class, [
+            ->add('img', FileType::class, [
                 'label' => false,
                 'mapped' => false,
                 'required' => false,

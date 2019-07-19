@@ -14,7 +14,7 @@ class UpdateImgType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fileUpdate', FileType::class, [
+            ->add('nameImg', FileType::class, [
                 'label' => false,
                 'mapped' => false,
                 'constraints'=>new File([

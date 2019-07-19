@@ -20,17 +20,17 @@ class UpdateFigureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('groupFig', ChoiceType::class, [
+            ->add('groupNumber', ChoiceType::class, [
                 'choices' => [
-                    'groupe1' => 'groupe1',
-                    'groupe2' => 'groupe2',
-                    'groupe3' => 'groupe3',
-                    'groupe4' => 'groupe4',
-                    'groupe5' => 'groupe5',
+                    'groupe1' => 1,
+                    'groupe2' => 2,
+                    'groupe3' => 3,
+                    'groupe4' => 4,
+                    'groupe5' => 5,
                 ],
                 'label' => false
             ])
-            ->add('name', TextType::class, [
+            ->add('nameFigure', TextType::class, [
                 'label' => 'Nom de la figure'
             ])
             ->add('content', TextType::class, [
@@ -39,7 +39,7 @@ class UpdateFigureType extends AbstractType
                     'placeholder' => 'Cette figure est issue d\'un grab fait par eric mac',
                     'rows' => 20
                 ]])
-            ->add('figure', FileType::class, [
+            ->add('imgFigure', FileType::class, [
                 'label' => false,
                 'mapped' => false,
                 'required' => false,
@@ -52,7 +52,7 @@ class UpdateFigureType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Modification de la photo principal'
                 ]])
-            ->add('figures', FileType::class, [
+            ->add('imgSecondary', FileType::class, [
                 'label' => false,
                 'mapped' => false,
                 'multiple' => true,
@@ -93,7 +93,7 @@ class UpdateFigureType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Figure::class, Img::class,
+            'data_class' => Figure::class,
         ]);
     }
 }

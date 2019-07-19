@@ -27,7 +27,7 @@ class UserType extends AbstractType
                 'attr' => [
                     'placeholder' => 'yolo9896@pyrogue.com']
             ])
-            ->add('firstname', TextType::class, [
+            ->add('firstName', TextType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Normane']
@@ -37,7 +37,7 @@ class UserType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Password']
             ])
-            ->add('photo', FileType::class, [
+            ->add('img', FileType::class, [
                 'label' => false,
                 'required' => false,
                 'constraints'=>new File([

@@ -101,12 +101,12 @@
             $form = $this->createForm(UpdateFigureType::class, $figure);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                $file = $form['figure']->getData();
+                $file = $form['imgFigure']->getData();
                 $imgRepository->setFigureImg($file,$fileUp,$figure);
                 $url = ['url1'=> $form['url1']->getData(),'url2'=> $form['url2']->getData(),
                     'url3' => $form['url3']->getData()];
                 $videoRepository->setVideos($url,$figure->getId(),$figureRepository);
-                $file2 = $form['figures']->getData();
+                $file2 = $form['imgSecondary']->getData();
                 $imgRepository->setMultipleImg($file2,$fileUp,$figure);
                 $figureRepository->persistFlush($figure);
                 $this->addFlash('succes', 'La Modification à bien été prise en compte');
@@ -137,12 +137,12 @@
             if ($form->isSubmitted() && $form->isValid()
             ) {
                 if ($figureRepository->findOneBy(['name' => $figure->getNameFigure()]) === null) {
-                    $file = $form['figure']->getData();
+                    $file = $form['imgFigure']->getData();
                     $imgRepository->setFigureImg($file,$fileUp,$figure);
                     $lien = ['url1'=> $form['url1']->getData(),'url2'=> $form['url2']->getData(),
                         'url3' => $form['url3']->getData()];
                     $videoRepository->setVideos($lien,$figure->getId(),$figureRepository);
-                    $file2 = $form['figures']->getData();
+                    $file2 = $form['imgSecondary']->getData();
                     $imgRepository->setMultipleImg($file2,$fileUp,$figure);
                     $figureRepository->persistFlush($figure);
                     $this->addFlash('succes', 'Votre figure à bien été créé');
