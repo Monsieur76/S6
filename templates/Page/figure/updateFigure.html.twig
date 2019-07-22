@@ -4,33 +4,33 @@
 
     <div class="container" style="background-color: #17324f">
         <div class="col-lg-12 " style="text-align: center">
-            <img class="card-img-top img-thumbnail" src="{{ asset("img/upload/"~id.figure ) }}"
+            <img class="card-img-top img-thumbnail" src="{{ asset("img/upload/"~figure.imgFigure ) }}"
                  alt="Responsive image" style="margin-top: 50px;position: relative;width: 150rem;max-width: 50%">
         </div>
         <div class="row" style="text-align: right">
             <div class="collapse" id="collapseExample">
-                {% for trick in figure | sort |reverse %}
+                {% for img in figure.imgSecondary | sort |reverse %}
                     <div class="card col-lg-4" id="fig" style="width: 14rem;background-color: #17324f;
                         margin-left: 40px;margin-top: 50px;margin-bottom: 50px;border: none">
 
                         <img class="card-img-top rounded"
-                             src="{{ asset("img/upload/"~trick.name ) }}"
+                             src="{{ asset("img/upload/"~img.nameImg ) }}"
                              alt="Card image cap" style="margin-top: 15px;width: 100%">
                         {% if is_granted ('ROLE_USER') %}
                             <div class="container">
                                 <div class="row">
                                     <form style="padding: 0px;margin-top: 50px"
-                                          action="{{ path ('updateImg',{id:trick.id} ) }}" method="post">
+                                          action="{{ path ('updateImg',{id:img.id} ) }}" method="post">
                                         <button class="btn btn-link"><i class="fas fa-pen" style="color: #C5D86D"></i>
                                         </button>
                                     </form>
 
                                     <form style="padding: 0px;margin-top: 50px"
-                                          action="{{ path ('deleteImg',{id:trick.id} ) }}" method="post">
+                                          action="{{ path ('deleteImg',{id:img.id} ) }}" method="post">
                                         <button class="btn btn-link delete">
                                             <i class="fas fa-trash" style="color: #C5D86D"></i></button>
                                         <input type="hidden" name="_token"
-                                               value="{{ csrf_token('deleteImg'~trick.id) }}">
+                                               value="{{ csrf_token('deleteImg'~img.id) }}">
                                     </form>
                                 </div>
                             </div>
@@ -56,60 +56,63 @@
                     </div>
                 </div>
 
-                <div class="row col-lg-12" style="justify-content: right">
-                    {% for trick in figure | sort |reverse %}
-                        <div class="card col-lg-2" id="fig1"
+                <div class="row">
+                    <div class="row col-lg-6" style="margin-left: 0px;padding: 0px">
+                        {% for img in figure.imgSecondary | sort |reverse %}
+                        <div class="card col-lg-4" id="fig1"
                              style="width: 14rem;background-color: #17324f; margin-top: 50px;margin-bottom: 50px;border: none">
 
                             <img class="card-img-top rounded"
-                                 src="{{ asset("img/upload/"~trick.name ) }}"
+                                 src="{{ asset("img/upload/"~img.nameImg ) }}"
                                  alt="Card image cap" style="margin-top: 15px;width: 100%;display: flex">
 
                             {% if is_granted ('ROLE_USER') %}
                                 <div class="container">
                                     <div class="row">
-                                        <form style="padding: 0px;margin-top: 50px;margin-left: 100px"
-                                              action="{{ path ('updateImg',{id:trick.id} ) }}" method="post">
+                                        <form style="padding: 0px;margin-top: 50px;margin-left: 90px"
+                                              action="{{ path ('updateImg',{id:img.id} ) }}" method="post">
                                             <button class="btn btn-link"><i class="fas fa-pen"
                                                                             style="color: #C5D86D"></i>
                                             </button>
                                         </form>
 
                                         <form style="padding: 0px;margin-top: 50px"
-                                              action="{{ path ('deleteImg',{id:trick.id} ) }}" method="post">
+                                              action="{{ path ('deleteImg',{id:img.id} ) }}" method="post">
                                             <button class="btn btn-link delete">
                                                 <i class="fas fa-trash" style="color: #C5D86D"></i>
                                             </button>
                                             <input type="hidden" name="_token"
-                                                   value="{{ csrf_token('deleteImg'~trick.id) }}">
+                                                   value="{{ csrf_token('deleteImg'~img.id) }}">
                                         </form>
                                     </div>
                                 </div>
                             {% endif %}
                         </div>
                     {% endfor %}
-                    {% for trick in video | sort |reverse %}
-                        <div class="card col-lg-2" id="fig1"
+                    </div>
+                    <div class="row col-lg-6" style="margin-left: 0px;padding: 0px">
+                    {% for video in figure.videos | sort |reverse %}
+                        <div class="card col-lg-4" id="fig1"
                              style="width: 24rem;background-color: #17324f;
                        margin-top: 50px;margin-bottom: 50px;border: none">
-                            <iframe width="200" height="150" src="{{ trick.name }}" frameborder="0"
+                            <iframe width="200" height="150" src="{{ video.url }}" frameborder="0"
                                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen></iframe>
                             {% if is_granted ('ROLE_USER') %}
                                 <div class="container">
                                     <div class="row">
-                                        <form style="padding: 0px;margin-top: 50px;margin-left: 100px"
-                                              action="{{ path ('updateVideo',{id:trick.id} ) }}" method="post">
+                                        <form style="padding: 0px;margin-top: 50px;margin-left: 90px"
+                                              action="{{ path ('updateVideo',{id:video.id} ) }}" method="post">
                                             <button class="btn btn-link"><i class="fas fa-pen"
                                                                             style="color: #C5D86D"></i></button>
                                         </form>
 
                                         <form style="padding: 0px;margin-top: 50px"
-                                              action="{{ path ('deleteVid',{id:trick.id} ) }}" method="post">
+                                              action="{{ path ('deleteVid',{id:video.id} ) }}" method="post">
                                             <button class="btn btn-link delete">
                                                 <i class="fas fa-trash" style="color: #C5D86D"></i></button>
                                             <input type="hidden" name="_token"
-                                                   value="{{ csrf_token('deleteVid'~trick.id) }}">
+                                                   value="{{ csrf_token('deleteVid'~video.id) }}">
                                         </form>
                                     </div>
                                 </div>
@@ -118,14 +121,14 @@
                     {% endfor %}
                 </div>
             </div>
-
+            </div>
 
             <div class="collapse" id="video" style="text-align: center">
-                {% for trick in video | sort |reverse %}
+                {% for video in figure.videos | sort |reverse %}
                     <div class="card col-lg-12" id="fig" style="width: 24rem;background-color: #17324f;
                        margin-top: 50px;margin-bottom: 50px;border: none">
 
-                        <iframe width="315" height="135" src="{{ trick.name }}" frameborder="0"
+                        <iframe width="315" height="135" src="{{ video.url }}" frameborder="0"
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen>
                         </iframe>
@@ -134,17 +137,17 @@
                             <div class="container">
                                 <div class="row">
                                     <form style="padding: 0px;margin-top: 50px"
-                                          action="{{ path ('updateVideo',{id:trick.id} ) }}" method="post">
+                                          action="{{ path ('updateVideo',{id:video.id} ) }}" method="post">
                                         <button class="btn btn-link"><i class="fas fa-pen" style="color: #C5D86D"></i>
                                         </button>
                                     </form>
 
                                     <form style="padding: 0px;margin-top: 50px"
-                                          action="{{ path ('deleteVid',{id:trick.id} ) }}" method="post">
+                                          action="{{ path ('deleteVid',{id:video.id} ) }}" method="post">
                                         <button class="btn btn-link delete">
                                             <i class="fas fa-trash" style="color: #C5D86D"></i></button>
                                         <input type="hidden" name="_token"
-                                               value="{{ csrf_token('deleteVid'~trick.id) }}">
+                                               value="{{ csrf_token('deleteVid'~video.id) }}">
                                     </form>
                                 </div>
                             </div>
@@ -164,7 +167,7 @@
 
             <div class="col-lg-12" style="
   color: whitesmoke;border: double;text-align: left">
-                {{ form_row(form.name,{'attr' : {'placeholder' : id.name} }) }}
+                {{ form_row(form.nameFigure,{'attr' : {'placeholder' : figure.nameFigure} }) }}
             </div>
 
             <div class="col-lg-12" style="
@@ -175,27 +178,27 @@
         <div class="row" style="border-bottom: double;color: whitesmoke">
             <div class="col-lg-6" style="color: whitesmoke;text-align: center;
             margin-bottom: 30px;font-size: large">
-                Groupe de la figure : {{ form_row(form.groupFig) }}
+                Groupe de la figure : {{ form_row(form.groupNumber) }}
             </div>
             <div class="col-lg-6" style="color: whitesmoke;text-align: center;
             margin-bottom: 30px;font-size: large">
-                Date de la dernière modification : {{ id.date|date('d/m/Y') }}
+                Date de la dernière modification : {{ figure.creatDate|date('d/m/Y') }}
             </div>
         </div>
         <div class="col-lg-12" style="color: whitesmoke;margin-top: 20px">
-            {{ form_row(form.figure) }}
-            {{ form_row(form.figures) }}
+            {{ form_row(form.imgFigure) }}
+            {{ form_row(form.imgSecondary) }}
         </div>
         <div class="row" style="text-align: center">
             <div class="col-lg-10" style="color: whitesmoke;">
                 <div id="div1" class="col-md-12" style="color: whitesmoke">
-                    {{ form_row(form.lien1 ) }}
+                    {{ form_row(form.url1 ) }}
                 </div>
                 <div id="div2" class="col-md-12" style="color: whitesmoke;display: none">
-                    {{ form_row(form.lien2 ) }}
+                    {{ form_row(form.url2 ) }}
                 </div>
                 <div id="div3" class="col-md-12" style="color: whitesmoke;display: none">
-                    {{ form_row(form.lien3 ) }}
+                    {{ form_row(form.url3 ) }}
                 </div>
             </div>
             <div id="dev1" class="col-md-2" style="margin-top: 50px">

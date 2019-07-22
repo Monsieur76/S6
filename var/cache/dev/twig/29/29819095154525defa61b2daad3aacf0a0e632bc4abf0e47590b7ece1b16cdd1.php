@@ -75,7 +75,7 @@ class __TwigTemplate_3ca036d875db0a9c229efd279a31177bd633eec923bf4b932f6d62abb7e
 <body class=\"homepage is-preload\" style=\"background-color: #17324f\">
 <div id=\"page-wrapper\">
     <section id=\"header\">
-        <div class=\"container-fluid\" id=\"haut\" style=\"background-color: #17324f\">
+        <div class=\"container-fluid\" id=\"top\" style=\"background-color: #17324f\">
             <div class=\"row\">
 
                 <div class=\"logo\">
@@ -90,39 +90,24 @@ class __TwigTemplate_3ca036d875db0a9c229efd279a31177bd633eec923bf4b932f6d62abb7e
         if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_USER")) {
             // line 31
             echo "                            <li class=\"nav-item mr-sm-2\">
-                                <a class=\"nav-link text-light ";
-            // line 32
-            if (((isset($context["home"]) || array_key_exists("home", $context)) && ((isset($context["home"]) || array_key_exists("home", $context) ? $context["home"] : (function () { throw new RuntimeError('Variable "home" does not exist.', 32, $this->source); })()) == "active"))) {
-                echo "active";
-            }
-            echo "\"
+                                <a class=\"nav-link text-light\"
                                    style=\"border-right: solid;margin-top: 15px\" href=\"";
             // line 33
-            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("home");
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("index");
             echo "\">Accueil</a>
                             </li>
                             <li class=\"nav-item mr-sm-2\">
-                                <a class=\"nav-link text-light ";
-            // line 36
-            if (((isset($context["connexion"]) || array_key_exists("connexion", $context)) && ((isset($context["connexion"]) || array_key_exists("connexion", $context) ? $context["connexion"] : (function () { throw new RuntimeError('Variable "connexion" does not exist.', 36, $this->source); })()) == "active"))) {
-                echo "active";
-            }
-            echo "\"
+                                <a class=\"nav-link text-light\"
                                    style=\"border-right: solid\" href=\"";
             // line 37
-            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("creatPost");
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("creatFigure");
             echo "\">Création</a>
                             </li>
                             <li class=\"nav-item mr-sm-2\">
-                                <a class=\"nav-link text-light ";
-            // line 40
-            if (((isset($context["connexion"]) || array_key_exists("connexion", $context)) && ((isset($context["connexion"]) || array_key_exists("connexion", $context) ? $context["connexion"] : (function () { throw new RuntimeError('Variable "connexion" does not exist.', 40, $this->source); })()) == "active"))) {
-                echo "active";
-            }
-            echo "\"
+                                <a class=\"nav-link text-light\"
                                    href=\"";
             // line 41
-            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("profil");
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("profile");
             echo "\" style=\"border-right: solid\">Profil</a>
                             </li>
                             <li class=\"nav-item mr-sm-2\">
@@ -135,37 +120,22 @@ class __TwigTemplate_3ca036d875db0a9c229efd279a31177bd633eec923bf4b932f6d62abb7e
         } else {
             // line 47
             echo "                            <li class=\"nav-item mr-sm-2\">
-                                <a class=\"nav-link text-light ";
-            // line 48
-            if (((isset($context["home"]) || array_key_exists("home", $context)) && ((isset($context["home"]) || array_key_exists("home", $context) ? $context["home"] : (function () { throw new RuntimeError('Variable "home" does not exist.', 48, $this->source); })()) == "active"))) {
-                echo "active";
-            }
-            echo "\"
+                                <a class=\"nav-link text-light\"
                                    style=\"border-right: solid;margin-top: 15px\"
                                    href=\"";
             // line 50
-            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("home");
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("index");
             echo "\">Accueil</a>
                             </li>
                             <li class=\"nav-item mr-sm-2\">
-                                <a class=\"nav-link text-light ";
-            // line 53
-            if (((isset($context["register"]) || array_key_exists("register", $context)) && ((isset($context["register"]) || array_key_exists("register", $context) ? $context["register"] : (function () { throw new RuntimeError('Variable "register" does not exist.', 53, $this->source); })()) == "active"))) {
-                echo "active";
-            }
-            echo "\"
+                                <a class=\"nav-link text-light\"
                                    style=\"border-right: solid\" href=\"";
             // line 54
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("register");
             echo "\">Inscription</a>
                             </li>
                             <li class=\"nav-item mr-sm-2\">
-                                <a class=\"nav-link text-light ";
-            // line 57
-            if (((isset($context["connexion"]) || array_key_exists("connexion", $context)) && ((isset($context["connexion"]) || array_key_exists("connexion", $context) ? $context["connexion"] : (function () { throw new RuntimeError('Variable "connexion" does not exist.', 57, $this->source); })()) == "active"))) {
-                echo "active";
-            }
-            echo "\"
+                                <a class=\"nav-link text-light\"
                                    href=\"";
             // line 58
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("login");
@@ -343,7 +313,7 @@ class __TwigTemplate_3ca036d875db0a9c229efd279a31177bd633eec923bf4b932f6d62abb7e
 
     public function getDebugInfo()
     {
-        return array (  323 => 105,  319 => 104,  315 => 103,  311 => 102,  307 => 101,  303 => 100,  299 => 99,  270 => 72,  260 => 71,  242 => 69,  224 => 15,  205 => 14,  194 => 107,  192 => 71,  189 => 70,  187 => 69,  177 => 61,  171 => 58,  165 => 57,  159 => 54,  153 => 53,  147 => 50,  140 => 48,  137 => 47,  131 => 44,  125 => 41,  119 => 40,  113 => 37,  107 => 36,  101 => 33,  95 => 32,  92 => 31,  90 => 30,  74 => 16,  72 => 15,  68 => 14,  63 => 12,  55 => 7,  47 => 1,);
+        return array (  293 => 105,  289 => 104,  285 => 103,  281 => 102,  277 => 101,  273 => 100,  269 => 99,  240 => 72,  230 => 71,  212 => 69,  194 => 15,  175 => 14,  164 => 107,  162 => 71,  159 => 70,  157 => 69,  147 => 61,  141 => 58,  134 => 54,  127 => 50,  122 => 47,  116 => 44,  110 => 41,  103 => 37,  96 => 33,  92 => 31,  90 => 30,  74 => 16,  72 => 15,  68 => 14,  63 => 12,  55 => 7,  47 => 1,);
     }
 
     public function getSourceContext()
@@ -367,7 +337,7 @@ class __TwigTemplate_3ca036d875db0a9c229efd279a31177bd633eec923bf4b932f6d62abb7e
 <body class=\"homepage is-preload\" style=\"background-color: #17324f\">
 <div id=\"page-wrapper\">
     <section id=\"header\">
-        <div class=\"container-fluid\" id=\"haut\" style=\"background-color: #17324f\">
+        <div class=\"container-fluid\" id=\"top\" style=\"background-color: #17324f\">
             <div class=\"row\">
 
                 <div class=\"logo\">
@@ -379,32 +349,32 @@ class __TwigTemplate_3ca036d875db0a9c229efd279a31177bd633eec923bf4b932f6d62abb7e
                     <ul class=\"navbar-nav\">
                         {% if is_granted ('ROLE_USER') %}
                             <li class=\"nav-item mr-sm-2\">
-                                <a class=\"nav-link text-light {% if home is defined and home == 'active' %}active{% endif %}\"
-                                   style=\"border-right: solid;margin-top: 15px\" href=\"{{ path('home') }}\">Accueil</a>
+                                <a class=\"nav-link text-light\"
+                                   style=\"border-right: solid;margin-top: 15px\" href=\"{{ path('index') }}\">Accueil</a>
                             </li>
                             <li class=\"nav-item mr-sm-2\">
-                                <a class=\"nav-link text-light {% if connexion is defined and connexion == 'active' %}active{% endif %}\"
-                                   style=\"border-right: solid\" href=\"{{ path('creatPost') }}\">Création</a>
+                                <a class=\"nav-link text-light\"
+                                   style=\"border-right: solid\" href=\"{{ path('creatFigure') }}\">Création</a>
                             </li>
                             <li class=\"nav-item mr-sm-2\">
-                                <a class=\"nav-link text-light {% if connexion is defined and connexion == 'active' %}active{% endif %}\"
-                                   href=\"{{ path('profil') }}\" style=\"border-right: solid\">Profil</a>
+                                <a class=\"nav-link text-light\"
+                                   href=\"{{ path('profile') }}\" style=\"border-right: solid\">Profil</a>
                             </li>
                             <li class=\"nav-item mr-sm-2\">
                                 <a class=\"nav-link text-light\" href=\"{{ path('logout') }}\">se déconnecter</a>
                             </li>
                         {% else %}
                             <li class=\"nav-item mr-sm-2\">
-                                <a class=\"nav-link text-light {% if home is defined and home == 'active' %}active{% endif %}\"
+                                <a class=\"nav-link text-light\"
                                    style=\"border-right: solid;margin-top: 15px\"
-                                   href=\"{{ path('home') }}\">Accueil</a>
+                                   href=\"{{ path('index') }}\">Accueil</a>
                             </li>
                             <li class=\"nav-item mr-sm-2\">
-                                <a class=\"nav-link text-light {% if register is defined and register == 'active' %}active{% endif %}\"
+                                <a class=\"nav-link text-light\"
                                    style=\"border-right: solid\" href=\"{{ path('register') }}\">Inscription</a>
                             </li>
                             <li class=\"nav-item mr-sm-2\">
-                                <a class=\"nav-link text-light {% if connexion is defined and connexion == 'active' %}active{% endif %}\"
+                                <a class=\"nav-link text-light\"
                                    href=\"{{ path('login') }}\">Connexion</a>
                             </li>
                         {% endif %}

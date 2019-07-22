@@ -16,36 +16,38 @@
             <div class="col-lg-12" style="padding-left: 0px;padding-top: 10px">
                 <img src="{{ asset ('img/montagne4.jpg') }}" id="img" class="img-responsive" alt="salut" style="left: 0;right: 0;width: 100%
     ;height: 100%;  background-size: 100% 100%;position: relative"/>
-                <a href="#bas" role="button" style="color: black;
+                <a href="#bot" role="button" style="color: black;
         position: absolute;right: 15px;bottom: 0px;"> <i class="fas fa-arrow-down fa-3x"></i></a>
             </div>
         </div>
         <div class="row" style="margin-top: 50px">
-            {% for post in post %}
+            {% for figure in figure %}
 
-                <div class="col-3 col-2-medium col-12-small" id="fig1">
+                <div class="col-2 col-2-medium col-12-small" id="fig1" style="margin-left: 50px">
                     <section>
-                        <a href="{{ path('post', {'id': post.id}) }}" class="image featured">
-                            <img src="{{ asset("img/upload/"~post.figure) }}" alt=""
+                        <a href="{{ path('figure', {'id': figure.id}) }}" class="image featured">
+                            <img src="{{ asset("img/upload/"~figure.imgFigure) }}" alt="" style="width: 100%"
                             /></a>
                         <div class="container">
                             <div class="row" style="text-align: center">
-                                <div class="col-md-6"><a href="{{ path('post', {'id': post.id}) }}" class="image featured">
-                                        <h6>{{ post.name }}</h6></a>
+                                <div class="col-md-6"><a href="{{ path('figure', {'id': figure.id}) }}"
+                                                         class="image featured">
+                                        <h6>{{ figure.nameFigure }}</h6></a>
                                 </div>
                                 {% if is_granted ('ROLE_USER') %}
 
                                 <form style="padding: 0px;margin-top: 50px;margin-left: 50px"
-                                      action="{{ path ('updatePost',{id:post.id} ) }}" method="post">
+                                      action="{{ path ('updateFigure',{id:figure.id} ) }}" method="post">
                                     <button class="btn btn-link"><i class="fas fa-pen" style="color: #C5D86D"></i>
                                     </button>
                                 </form>
 
-                                <form style="padding: 0px;margin-top: 50px" action="{{ path ('deletePost',{id:post.id} ) }}"
+                                <form style="padding: 0px;margin-top: 50px"
+                                      action="{{ path ('deleteFigure',{id:figure.id} ) }}"
                                       method="post">
                                     <button class="btn btn-link delete">
                                         <i class="fas fa-trash" style="color: #C5D86D"></i></button>
-                                    <input type="hidden" name="_token" value="{{ csrf_token('delete'~post.id) }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete'~figure.id) }}">
                                 </form>
                             </div>
                         </div>
@@ -65,47 +67,52 @@
 
 
         <div class="row" style="margin-top: 50px" id="fig">
-                <div class="collapse" id="collapseExample">
-                    {% for post in post %}
-                        <div class="col-lg-12" style="margin-top: 50px">
-                    <a href="{{ path('post', {'id': post.id}) }}" class="image featured">
-                        <img src="{{ asset("img/upload/"~post.figure) }}" alt="" style="width: 100%"
-                        /></a>
-                        </div>
-                    <div class="container">
-                        <div class="row" style="text-align: center">
-                            <div class="col-md-6 col-8-small">
-                                <h6>{{ post.name }}</h6>
-                            </div>
-                            {% if is_granted ('ROLE_USER') %}
-
-                            <form
-                                    style="padding: 0px;margin-top: 15px"
-                                  action="{{ path ('updatePost',{id:post.id} ) }}" method="post">
-                                <button class="btn btn-link"><i class="fas fa-pen" style="color: #C5D86D"></i>
-                                </button>
-                            </form>
-
-                            <form
-                                    style="padding: 0px;margin-top: 15px"
-                                    action="{{ path ('deletePost',{id:post.id} ) }}"
-                                  method="post">
-                                <button class="btn btn-link delete">
-                                    <i class="fas fa-trash" style="color: #C5D86D"></i></button>
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete'~post.id) }}">
-                            </form>
-                        </div>
+            <div class="collapse" id="collapseExample">
+                {% for figure in figure %}
+                    <div class="col-lg-12" style="margin-top: 50px">
+                        <a href="{{ path('figure', {'id': figure.id}) }}" class="image featured">
+                            <img src="{{ asset("img/upload/"~figure.imgFigure) }}" alt="" style="width: 100%"
+                            /></a>
                     </div>
+                    <div class="container">
+                    <div class="row" style="text-align: center">
+                    <div class="col-md-6 col-8-small">
+                        <h6>{{ figure.nameFigure }}</h6>
+                    </div>
+                    {% if is_granted ('ROLE_USER') %}
+
+                        <form
+                                style="padding: 0px;margin-top: 15px"
+                                action="{{ path ('updateFigure',{id:figure.id} ) }}" method="post">
+                            <button class="btn btn-link"><i class="fas fa-pen" style="color: #C5D86D"></i>
+                            </button>
+                        </form>
+
+                        <form
+                                style="padding: 0px;margin-top: 15px"
+                                action="{{ path ('deleteFigure',{id:figure.id} ) }}"
+                                method="post">
+                            <button class="btn btn-link delete">
+                                <i class="fas fa-trash" style="color: #C5D86D"></i></button>
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete'~figure.id) }}">
+                        </form>
+                        </div>
+                        </div>
                     {% endif %}
-                    {% endfor %}
-                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
-
-
-
-    <div class="col align-self-end" id="bas">
-        <a href="#haut" style="color: black;position: absolute;right: 0;bottom: 0">
+    <div class="col-lg-12" style="text-align: center">
+    {{ form_start(form) }}
+    <div class="col-lg-12" style="text-align: center">
+        <button style="margin-top: 50px;background-color: #17324f" type="submit" class="btn">
+            <i class="fas fa-spinner"> Voir plus</i>
+        </button>
+    </div>
+    {{ form_end(form) }}
+    <div class="col align-self-end" id="bot">
+        <a href="#top" style="color: black;position: absolute;right: 0;bottom: 0">
             <i class="fas fa-arrow-up fa-3x"></i>
         </a>
     </div>

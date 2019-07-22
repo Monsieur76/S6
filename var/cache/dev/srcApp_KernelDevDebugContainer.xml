@@ -480,6 +480,9 @@
       <argument type="service" id="security.csrf.token_generator"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
+    <service id="App\DataFixtures\Load" class="App\DataFixtures\Load" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+    </service>
     <service id="App\DataFixtures\UserFixture" class="App\DataFixtures\UserFixture" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
       <argument type="service" id="security.user_password_encoder.generic"/>
@@ -496,13 +499,16 @@
     <service id="App\Form\CommentType" class="App\Form\CommentType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
-    <service id="App\Form\CreatPostType" class="App\Form\CreatPostType" autowire="true" autoconfigure="true">
+    <service id="App\Form\FigureType" class="App\Form\FigureType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\ForgotType" class="App\Form\ForgotType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\HiddenForPaginationJsType" class="App\Form\HiddenForPaginationJsType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\LoadMoreType" class="App\Form\LoadMoreType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\PassType" class="App\Form\PassType" autowire="true" autoconfigure="true">
@@ -512,9 +518,6 @@
       <tag name="form.type"/>
     </service>
     <service id="App\Form\UpdateImgType" class="App\Form\UpdateImgType" autowire="true" autoconfigure="true">
-      <tag name="form.type"/>
-    </service>
-    <service id="App\Form\UpdatePostType" class="App\Form\UpdatePostType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\UpdateVideoType" class="App\Form\UpdateVideoType" autowire="true" autoconfigure="true">
@@ -826,13 +829,13 @@
       </argument>
       <argument type="collection">
         <argument>App\Form\CommentType</argument>
-        <argument>App\Form\CreatPostType</argument>
+        <argument>App\Form\FigureType</argument>
         <argument>App\Form\ForgotType</argument>
         <argument>App\Form\HiddenForPaginationJsType</argument>
+        <argument>App\Form\LoadMoreType</argument>
         <argument>App\Form\PassType</argument>
         <argument>App\Form\ProfileType</argument>
         <argument>App\Form\UpdateImgType</argument>
-        <argument>App\Form\UpdatePostType</argument>
         <argument>App\Form\UpdateVideoType</argument>
         <argument>App\Form\UrlType</argument>
         <argument>App\Form\UserType</argument>
@@ -1079,7 +1082,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.jL.PAom"/>
+      <argument type="service" id=".service_locator.ZrWcSkC"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -2175,14 +2178,6 @@
       </call>
       <call method="addListener">
         <argument>kernel.request</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
-        <argument>console.command</argument>
         <argument type="collection">
           <argument type="service" id="debug.debug_handlers_listener"/>
           <argument>configure</argument>
@@ -4702,6 +4697,10 @@
             <argument key="groups" type="collection"/>
           </argument>
           <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\Load"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+          <argument type="collection">
             <argument key="fixture" type="service" id="App\DataFixtures\UserFixture"/>
             <argument key="groups" type="collection"/>
           </argument>
@@ -4780,26 +4779,28 @@
     <service id=".abstract.instanceof.App\DataFixtures\GroupFixture" class="App\DataFixtures\GroupFixture" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\ImgFixture" class="App\DataFixtures\ImgFixture" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\ImgFixture" class="App\DataFixtures\ImgFixture" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\Load" class="App\DataFixtures\Load" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\Load" class="App\DataFixtures\Load" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\UserFixture" class="App\DataFixtures\UserFixture" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\UserFixture" class="App\DataFixtures\UserFixture" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\VideoFixture" class="App\DataFixtures\VideoFixture" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\VideoFixture" class="App\DataFixtures\VideoFixture" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CommentType" class="App\Form\CommentType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\CommentType" class="App\Form\CommentType" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CreatPostType" class="App\Form\CreatPostType" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Form\CreatPostType" class="App\Form\CreatPostType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\FigureType" class="App\Form\FigureType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\FigureType" class="App\Form\FigureType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ForgotType" class="App\Form\ForgotType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ForgotType" class="App\Form\ForgotType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\HiddenForPaginationJsType" class="App\Form\HiddenForPaginationJsType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\HiddenForPaginationJsType" class="App\Form\HiddenForPaginationJsType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\LoadMoreType" class="App\Form\LoadMoreType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\LoadMoreType" class="App\Form\LoadMoreType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\PassType" class="App\Form\PassType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\PassType" class="App\Form\PassType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ProfileType" class="App\Form\ProfileType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ProfileType" class="App\Form\ProfileType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UpdateImgType" class="App\Form\UpdateImgType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\UpdateImgType" class="App\Form\UpdateImgType" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UpdatePostType" class="App\Form\UpdatePostType" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Form\UpdatePostType" class="App\Form\UpdatePostType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UpdateVideoType" class="App\Form\UpdateVideoType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\UpdateVideoType" class="App\Form\UpdateVideoType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UrlType" class="App\Form\UrlType" autowire="true" abstract="true"/>
@@ -4987,20 +4988,17 @@
         <argument key="group" type="service" id="App\Repository\GroupNumberFigureRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.Q483UnV" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.bMlD5fY" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="commentRepository" type="service" id="App\Repository\CommentRepository"/>
-        <argument key="figure" type="service" id=".errored..service_locator.Q483UnV.App\Entity\Figure"/>
-        <argument key="imgRepository" type="service" id="App\Repository\ImgRepository"/>
-        <argument key="videoRepository" type="service" id="App\Repository\VideoRepository"/>
+        <argument key="figure" type="service" id=".errored..service_locator.bMlD5fY.App\Entity\Figure"/>
       </argument>
     </service>
-    <service id=".service_locator._CLZHyf" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.K8PVxNf" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="commentRepository" type="service" id="App\Repository\CommentRepository"/>
-        <argument key="figure" type="service" id=".errored..service_locator._CLZHyf.App\Entity\Figure"/>
+        <argument key="figure" type="service" id=".errored..service_locator.K8PVxNf.App\Entity\Figure"/>
         <argument key="figureRepository" type="service" id="App\Repository\FigureRepository"/>
         <argument key="fileUp" type="service" id="App\Service\FileUploader"/>
         <argument key="imgRepository" type="service" id="App\Repository\ImgRepository"/>
@@ -5100,15 +5098,15 @@
         <argument key="video" type="service" id=".errored..service_locator.XxOaJfn.App\Entity\Video"/>
       </argument>
     </service>
-    <service id=".service_locator.KGFlbmF" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.Rmsqw4T" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\FigureController::creatFigure" type="service" id=".service_locator.oCKDG84"/>
         <argument key="App\Controller\FigureController::deleteFigure" type="service" id=".service_locator.meBJUHU"/>
         <argument key="App\Controller\FigureController::deleteImgFigure" type="service" id=".service_locator.meBJUHU"/>
-        <argument key="App\Controller\FigureController::home" type="service" id=".service_locator.zxCw8BD"/>
-        <argument key="App\Controller\FigureController::post" type="service" id=".service_locator.Q483UnV"/>
-        <argument key="App\Controller\FigureController::updatePost" type="service" id=".service_locator._CLZHyf"/>
+        <argument key="App\Controller\FigureController::figure" type="service" id=".service_locator.bMlD5fY"/>
+        <argument key="App\Controller\FigureController::index" type="service" id=".service_locator.zxCw8BD"/>
+        <argument key="App\Controller\FigureController::updateFigure" type="service" id=".service_locator.K8PVxNf"/>
         <argument key="App\Controller\ImgController::deleteImg" type="service" id=".service_locator.KoSU1tf"/>
         <argument key="App\Controller\ImgController::updateImg" type="service" id=".service_locator.7F.1uRI"/>
         <argument key="App\Controller\SecurityController::forgot" type="service" id=".service_locator.e0npJBJ"/>
@@ -5124,9 +5122,9 @@
         <argument key="App\Controller\FigureController:creatFigure" type="service" id=".service_locator.oCKDG84"/>
         <argument key="App\Controller\FigureController:deleteFigure" type="service" id=".service_locator.meBJUHU"/>
         <argument key="App\Controller\FigureController:deleteImgFigure" type="service" id=".service_locator.meBJUHU"/>
-        <argument key="App\Controller\FigureController:home" type="service" id=".service_locator.zxCw8BD"/>
-        <argument key="App\Controller\FigureController:post" type="service" id=".service_locator.Q483UnV"/>
-        <argument key="App\Controller\FigureController:updatePost" type="service" id=".service_locator._CLZHyf"/>
+        <argument key="App\Controller\FigureController:figure" type="service" id=".service_locator.bMlD5fY"/>
+        <argument key="App\Controller\FigureController:index" type="service" id=".service_locator.zxCw8BD"/>
+        <argument key="App\Controller\FigureController:updateFigure" type="service" id=".service_locator.K8PVxNf"/>
         <argument key="App\Controller\ImgController:deleteImg" type="service" id=".service_locator.KoSU1tf"/>
         <argument key="App\Controller\ImgController:updateImg" type="service" id=".service_locator.7F.1uRI"/>
         <argument key="App\Controller\SecurityController:forgot" type="service" id=".service_locator.e0npJBJ"/>
@@ -5210,17 +5208,17 @@
       <argument type="service" id="debug.argument_resolver.variadic.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.jL.PAom" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.ZrWcSkC" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\CommentType" type="service" id="App\Form\CommentType"/>
-        <argument key="App\Form\CreatPostType" type="service" id="App\Form\CreatPostType"/>
+        <argument key="App\Form\FigureType" type="service" id="App\Form\FigureType"/>
         <argument key="App\Form\ForgotType" type="service" id="App\Form\ForgotType"/>
         <argument key="App\Form\HiddenForPaginationJsType" type="service" id="App\Form\HiddenForPaginationJsType"/>
+        <argument key="App\Form\LoadMoreType" type="service" id="App\Form\LoadMoreType"/>
         <argument key="App\Form\PassType" type="service" id="App\Form\PassType"/>
         <argument key="App\Form\ProfileType" type="service" id="App\Form\ProfileType"/>
         <argument key="App\Form\UpdateImgType" type="service" id="App\Form\UpdateImgType"/>
-        <argument key="App\Form\UpdatePostType" type="service" id="App\Form\UpdatePostType"/>
         <argument key="App\Form\UpdateVideoType" type="service" id="App\Form\UpdateVideoType"/>
         <argument key="App\Form\UrlType" type="service" id="App\Form\UrlType"/>
         <argument key="App\Form\UserType" type="service" id="App\Form\UserType"/>
@@ -5540,12 +5538,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.KGFlbmF"/>
+      <argument type="service" id=".service_locator.Rmsqw4T"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
-    <service id=".errored..service_locator.Q483UnV.App\Entity\Figure" class="App\Entity\Figure"/>
-    <service id=".errored..service_locator._CLZHyf.App\Entity\Figure" class="App\Entity\Figure"/>
+    <service id=".errored..service_locator.bMlD5fY.App\Entity\Figure" class="App\Entity\Figure"/>
+    <service id=".errored..service_locator.K8PVxNf.App\Entity\Figure" class="App\Entity\Figure"/>
     <service id=".errored..service_locator.meBJUHU.App\Entity\Figure" class="App\Entity\Figure"/>
     <service id=".errored..service_locator.7F.1uRI.App\Entity\Img" class="App\Entity\Img"/>
     <service id=".errored..service_locator.KoSU1tf.App\Entity\Img" class="App\Entity\Img"/>
@@ -5883,7 +5881,7 @@
     <service id="logger" alias="monolog.logger"/>
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.KGFlbmF"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.Rmsqw4T"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="validator" alias="debug.validator" public="true"/>

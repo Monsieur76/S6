@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
-{% block title 'Article' %}
+{% block title 'Figure' %}
 {% block body %}
     <script>let a = 1</script>
     <div class="container" style="background-color: #17324f">
         <div class="col-lg-12" style="color : whitesmoke;text-align: center">
-            <h3>{{ id.name }}</h3>
+            <h3>{{ figure.nameFigure }}</h3>
         </div>
         <div class="col-lg-12 " style="text-align: center">
-            <img class="card-img-top img-thumbnail" src="{{ asset("img/upload/"~id.figure ) }}"
+            <img class="card-img-top img-thumbnail" src="{{ asset("img/upload/"~figure.imgFigure ) }}"
                  alt="Responsive image" style="margin-top: 50px;position: relative;width: 150rem;max-width: 50%">
         </div>
         <div class="row">
             <div class="collapse" id="collapseExample">
-                {% for trick in figure | sort |reverse %}
+                {% for img in figure.imgSecondary | sort |reverse %}
                     <div class="card col-lg-4" id="fig" style="width: 14rem;background-color: #17324f;
                         margin-left: 40px;margin-top: 50px;margin-bottom: 50px;border: none">
 
                         <img class="card-img-top rounded"
-                             src="{{ asset("img/upload/"~trick.name ) }}"
+                             src="{{ asset("img/upload/"~img.nameImg ) }}"
                              alt="Card image cap" style="margin-top: 15px;width: 100%">
                     </div>
                 {% endfor %}
@@ -33,37 +33,40 @@
                         aria-expanded="false" aria-controls="video">
                     Voir plus de vidéo
                 </button>
-
                 <div class="row">
-                    {% for trick in figure | sort |reverse %}
-                        <div class="card col-lg-2" id="fig1"
+                    <div class="row col-lg-6">
+                    {% for img in figure.imgSecondary | sort |reverse %}
+                        <div class="card col-lg-4" id="fig1"
                              style="width: 14rem;background-color: #17324f; margin-top: 50px;margin-bottom: 50px;border: none">
 
                             <img class="card-img-top rounded"
-                                 src="{{ asset("img/upload/"~trick.name ) }}"
+                                 src="{{ asset("img/upload/"~img.nameImg ) }}"
                                  alt="Card image cap" style="margin-top: 15px;width: 100%;display: flex">
                         </div>
                     {% endfor %}
-                    {% for trick in video | sort |reverse %}
-                        <div class="card col-lg-2" id="fig1"
+                    </div>
+                    <div class="row col-lg-6">
+                    {% for video in figure.videos | sort |reverse %}
+                        <div class="card col-lg-4" id="fig1"
                              style="width: 24rem;background-color: #17324f;
                        margin-top: 50px;margin-bottom: 50px;border: none"
                         >
-                            <iframe width="200" height="150" src="{{ trick.name }}" frameborder="0"
+                            <iframe width="150" height="120" src="{{ video.url }}" frameborder="0"
                                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen></iframe>
                         </div>
                     {% endfor %}
+                    </div>
                 </div>
             </div>
 
 
             <div class="collapse" id="video" style="text-align: center">
-                {% for trick in video | sort |reverse %}
+                {% for video in figure.videos | sort |reverse %}
                     <div class="card col-lg-12" id="fig" style="width: 24rem;background-color: #17324f;
                        margin-top: 50px;margin-bottom: 50px;border: none">
 
-                        <iframe width="315" height="135" src="{{ trick.name }}" frameborder="0"
+                        <iframe width="315" height="135" src="{{ video.url }}" frameborder="0"
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen>
                         </iframe>
@@ -80,7 +83,7 @@
                 </div>
                 <div class="col-lg-12" style="height: 300px;
   color: whitesmoke;border: double;text-align: left;overflow: scroll">
-                    {{ id.content }}
+                    {{ figure.content }}
                 </div>
             </div>
             <div class="row col-lg-12" style="border-bottom: double;color: whitesmoke;">
@@ -89,14 +92,14 @@
                         style="color: whitesmoke;text-align: center;
             margin-bottom: 30px;font-size: large"
                 >
-                    Groupe de la figure : {{ id.groupFig }}
+                        Groupe de la figure : {{ figure.groupNumber.number }}
                 </div>
                 <div
                         class="col-md-6"
                         style="color: whitesmoke;text-align: center;
             margin-bottom: 30px;font-size: large"
                 >
-                    Date de la dernière modification : {{ id.date|date('d/m/Y') }}
+                    Date de la dernière modification : {{ figure.creatDate|date('d/m/Y') }}
                 </div>
             </div>
 
@@ -114,26 +117,26 @@
                     {{ form_end (form) }}
                 </div>
             </div>
-            {% for message in app.flashes('succes') %}
-                <div class="alert alert-success" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
         </div>
         {% endif %}
+        {% for message in app.flashes('succes') %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
         <div class="container">
             <div class="row" style="margin-top: 50px">
                 {% for comment in comment %}
                     <li class="col-sm-2" style="list-style: none">
                         <div id="profil1" style="margin-top: 20px">
-                            <img id="profil2" src="{{ asset ('img/upload/'~comment.user.photo) }}" alt="profil">
+                            <img id="profil2" src="{{ asset ('img/upload/'~comment.user.img) }}" alt="profil">
                         </div>
                         <script>a++</script>
                     </li>
                     <li class="col-sm-10" style="color: whitesmoke;list-style: none;border:double;margin-bottom: 30px">
                         <div class="col-sm-8" style="color: whitesmoke;margin-bottom: 30px">
                             de <strong style="color: whitesmoke;">
-                                {{ comment.user.firstname }} </strong> le {{ comment.date|date('d/m/Y') }}
+                                {{ comment.user.firstName }} </strong> le {{ comment.creatDate|date('d/m/Y') }}
                         </div>
                         <div class="col-sm-8" style="color: whitesmoke;margin-bottom: 30px">
                             {{ comment.content }}

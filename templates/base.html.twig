@@ -17,7 +17,7 @@
 <body class="homepage is-preload" style="background-color: #17324f">
 <div id="page-wrapper">
     <section id="header">
-        <div class="container-fluid" id="haut" style="background-color: #17324f">
+        <div class="container-fluid" id="top" style="background-color: #17324f">
             <div class="row">
 
                 <div class="logo">
@@ -29,32 +29,32 @@
                     <ul class="navbar-nav">
                         {% if is_granted ('ROLE_USER') %}
                             <li class="nav-item mr-sm-2">
-                                <a class="nav-link text-light {% if home is defined and home == 'active' %}active{% endif %}"
-                                   style="border-right: solid;margin-top: 15px" href="{{ path('home') }}">Accueil</a>
+                                <a class="nav-link text-light"
+                                   style="border-right: solid;margin-top: 15px" href="{{ path('index') }}">Accueil</a>
                             </li>
                             <li class="nav-item mr-sm-2">
-                                <a class="nav-link text-light {% if connexion is defined and connexion == 'active' %}active{% endif %}"
-                                   style="border-right: solid" href="{{ path('creatPost') }}">Création</a>
+                                <a class="nav-link text-light"
+                                   style="border-right: solid" href="{{ path('creatFigure') }}">Création</a>
                             </li>
                             <li class="nav-item mr-sm-2">
-                                <a class="nav-link text-light {% if connexion is defined and connexion == 'active' %}active{% endif %}"
-                                   href="{{ path('profil') }}" style="border-right: solid">Profil</a>
+                                <a class="nav-link text-light"
+                                   href="{{ path('profile') }}" style="border-right: solid">Profil</a>
                             </li>
                             <li class="nav-item mr-sm-2">
                                 <a class="nav-link text-light" href="{{ path('logout') }}">se déconnecter</a>
                             </li>
                         {% else %}
                             <li class="nav-item mr-sm-2">
-                                <a class="nav-link text-light {% if home is defined and home == 'active' %}active{% endif %}"
+                                <a class="nav-link text-light"
                                    style="border-right: solid;margin-top: 15px"
-                                   href="{{ path('home') }}">Accueil</a>
+                                   href="{{ path('index') }}">Accueil</a>
                             </li>
                             <li class="nav-item mr-sm-2">
-                                <a class="nav-link text-light {% if register is defined and register == 'active' %}active{% endif %}"
+                                <a class="nav-link text-light"
                                    style="border-right: solid" href="{{ path('register') }}">Inscription</a>
                             </li>
                             <li class="nav-item mr-sm-2">
-                                <a class="nav-link text-light {% if connexion is defined and connexion == 'active' %}active{% endif %}"
+                                <a class="nav-link text-light"
                                    href="{{ path('login') }}">Connexion</a>
                             </li>
                         {% endif %}

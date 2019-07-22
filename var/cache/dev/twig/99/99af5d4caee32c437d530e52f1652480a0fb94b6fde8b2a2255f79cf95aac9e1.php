@@ -96,7 +96,7 @@ class __TwigTemplate_9f9add0b0fc6398119a7ce30cda04915376e82d99247a34857b76b0f739
                 <div class=\"col-lg-12\">
                     ";
         // line 10
-        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 10, $this->source); })()), "firstname", [], "any", false, false, false, 10), 'row');
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 10, $this->source); })()), "firstName", [], "any", false, false, false, 10), 'row');
         echo "
                 </div>
                 <div class=\"col-lg-12\">
@@ -115,7 +115,7 @@ class __TwigTemplate_9f9add0b0fc6398119a7ce30cda04915376e82d99247a34857b76b0f739
                 <div class=\"col-lg-12\">
                     ";
         // line 20
-        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 20, $this->source); })()), "photo", [], "any", false, false, false, 20), 'row');
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 20, $this->source); })()), "img", [], "any", false, false, false, 20), 'row');
         echo "
                 </div>
                 <div class=\"col-md-12\">
@@ -174,7 +174,7 @@ class __TwigTemplate_9f9add0b0fc6398119a7ce30cda04915376e82d99247a34857b76b0f739
                 {{ form_start(form) }}
                 <h1 class=\"h2 mb-4 font-weight-normal\" style=\"color: whitesmoke\">Inscription</h1>
                 <div class=\"col-lg-12\">
-                    {{ form_row (form.firstname) }}
+                    {{ form_row (form.firstName) }}
                 </div>
                 <div class=\"col-lg-12\">
                     {{ form_row(form.email) }}
@@ -184,7 +184,7 @@ class __TwigTemplate_9f9add0b0fc6398119a7ce30cda04915376e82d99247a34857b76b0f739
                     {{ form_row(form.password) }}
                 </div>
                 <div class=\"col-lg-12\">
-                    {{ form_row(form.photo) }}
+                    {{ form_row(form.img) }}
                 </div>
                 <div class=\"col-md-12\">
                     <a href=\"{{ path('login') }}\" style=\"color: #C5D86D\">Vous avez déja un compte ?</a>
