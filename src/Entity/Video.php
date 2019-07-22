@@ -32,7 +32,7 @@ class Video
      * @ORM\JoinColumn(nullable=false)
      * @ORM\OrderBy({"order" = "DESC", "id" = "DESC"})
      */
-    private $figure;
+    private $figures;
 
     public function getId(): ?int
     {
@@ -51,14 +51,14 @@ class Video
         return $this;
     }
 
-    public function getFigure(): ?Figure
+    public function getFigures(): ?Figure
     {
-        return $this->figure;
+        return $this->figures;
     }
 
-    public function setFigure(?Figure $figure): self
+    public function setFigures(?Figure $figures): self
     {
-        $this->figure = $figure;
+        $this->figures = $figures;
 
         return $this;
     }

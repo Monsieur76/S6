@@ -15,7 +15,7 @@ class UserFixture extends BaseFixture implements OrderedFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        $this->createMany('user',User::class,$this->i,function (User $user) use ($manager){
+        $this->createMany('user',User::class,$this->count,function (User $user) use ($manager){
             $password = $this->encoder->encodePassword($user, $this->faker->password);
             $user->setEmail($this->faker->email);
             $user->setPassword($password);

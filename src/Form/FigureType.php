@@ -3,18 +3,17 @@
 namespace App\Form;
 
 use App\Entity\Figure;
-use App\Entity\Img;
-use Doctrine\DBAL\Types\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
 
-class CreatFigureType extends AbstractType
+class FigureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -24,15 +23,10 @@ class CreatFigureType extends AbstractType
                 'attr' => [
                     'placeholder' => 'nom de la figure']
             ])
-            ->add('groupNumber', ChoiceType::class, [
-                'choices' => [
-                    'groupe1' => 1,
-                    'groupe2' => 2,
-                    'groupe3' => 3,
-                    'groupe4' => 4,
-                    'groupe5' => 5,
-                ],
-                'label' => false
+            ->add('groupNumber', EntityType::class, [
+                'class'=> 'App\Entity\GroupNumberFigure',
+                'label'=>false,
+                'choice_label' => 'number',
             ])
             ->add('content', TextType::class, [
                 'label' => false,
@@ -49,6 +43,7 @@ class CreatFigureType extends AbstractType
                     'mimeTypesMessage' => "Le Format de l'image n'est pas correct",
                     'maxSizeMessage' => "Le Taille de l'image n'est pas correct"
                 ]),
+                'required'=>false,
                 'attr' => [
                     'placeholder' => 'Choisisser votre photo principal'
                 ]])
@@ -68,30 +63,27 @@ class CreatFigureType extends AbstractType
                     'placeholder' => 'Choisisser les photos secondaires',
                 ]])
 
-            ->add('videos', CollectionType::class, [
-            'entry_type' => UrlType::class,
-            'entry_options' => ['label' => 'video'],
-                'allow_add'=> true,
-             ]);
+//            ->add('videos', CollectionType::class, [
+//            'entry_type' => UrlType::class,
+//            'entry_options' => ['label' => 'video'],
+//                'allow_add'=> true,
+//             ]);
 
-//            ->add('url1', UrlType::class, [
-//                'label' => 'Ajouté une vidéo (max 3)',
-//                'mapped' => false,
-//                'required' => false,
-//                'constraints'=> new Url()
-//            ])
-//            ->add('url2', UrlType::class, [
-//                'label' => false,
-//                'mapped' => false,
-//                'required' => false,
-//                'constraints'=> new Url()
-//            ])
-//            ->add('url3', UrlType::class, [
-//                'label' => false,
-//                'mapped' => false,
-//                'required' => false,
-//                'constraints'=> new Url()
-//            ]);
+            ->add('url1', UrlType::class, [
+                'label' => 'Ajouté une vidéo (max 3)',
+                'mapped' => false,
+                'required' => false,
+            ])
+            ->add('url2', UrlType::class, [
+                'label' => false,
+                'mapped' => false,
+                'required' => false,
+            ])
+            ->add('url3', UrlType::class, [
+                'label' => false,
+                'mapped' => false,
+                'required' => false,
+            ]);
 
     }
 

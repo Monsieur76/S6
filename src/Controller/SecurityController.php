@@ -93,7 +93,7 @@ class SecurityController extends AbstractController
         UserRepository $userRepository
     ){
         $form = $this->createForm(PassType::class);
-        $user = $userRepository->findOneBy(['valid' => $token]);
+        $user = $userRepository->findOneBy(['token' => $token]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if (isset($user)) {

@@ -16,7 +16,7 @@ class FigureFixture extends BaseFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
 
-        $this->createMany('figure',Figure::class,$this->i,function (Figure $figure) use ($manager){
+        $this->createMany('figure',Figure::class,$this->count,function (Figure $figure) use ($manager){
             $group = $this->getReference('group'.rand(1,5));
             $figure->setNameFigure($this->faker->name);
             $figure->setContent($this->faker->text);

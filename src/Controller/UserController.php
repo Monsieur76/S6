@@ -100,7 +100,7 @@
         public function deleteUser(User $user)
         {
             $user->setFirstname('Utilisateur Supprimer');
-            $user->setToken(0);
+            $user->setRoles(['delete']);
             $this->em->flush();
             return $this->redirectToRoute('logout');
         }
@@ -142,7 +142,7 @@
             LoginFormAuthenticator $formAuthenticator,
             Request $request
         ){
-            $user = $userRepository->findOneBy(['valid' => $token]);
+            $user = $userRepository->findOneBy(['token' => $token]);
             if ($user) {
                 $user->setRoles(['ROLE_USER']);
                 $user->setConfirmRegister(1);

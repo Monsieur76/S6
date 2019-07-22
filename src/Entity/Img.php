@@ -33,7 +33,7 @@ class Img
 
     /**
      * @ORM\ManyToOne(targetEntity="Figure", inversedBy="imgSecondary" )
-     * @ORM\JoinColumn(name="figure_id", referencedColumnName="id",nullable=true)
+     * @ORM\JoinColumn(name="figures_id", referencedColumnName="id",nullable=true)
      * @ORM\OrderBy({"order" = "DESC", "id" = "DESC"})
      */
     private $figures;

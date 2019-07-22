@@ -17,7 +17,7 @@
         protected $token;
         protected $encoder;
         protected $manager;
-        protected $i = 101;
+        protected $count = 101;
         protected $maxRandom = 100;
         public function __construct(
             UserPasswordEncoderInterface $encoder,

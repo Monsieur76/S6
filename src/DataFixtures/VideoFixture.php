@@ -13,10 +13,10 @@ class VideoFixture extends BaseFixture implements OrderedFixtureInterface
     }
     public function load(ObjectManager $manager)
     {
-        $this->createMany('video',Video::class,$this->i,function (Video $video) use ($manager){
+        $this->createMany('video',Video::class,$this->count,function (Video $video) use ($manager){
             $figure = $this->getReference('figure'.rand(1,$this->maxRandom));
             $video->setUrl($this->faker->url);
-            $video->setFigure($figure);
+            $video->setFigures($figure);
         });
     }
 }

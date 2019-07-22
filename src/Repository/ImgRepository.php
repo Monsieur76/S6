@@ -50,8 +50,10 @@ class ImgRepository extends ServiceEntityRepository
     public function setFigureImg($file,$fileUp,$figure)
     {
         if ($file) {
+            $img = new Img();
             $fileName = $fileUp->upload($file);
-            $figure->setimgFigure($fileName);
+            $img->setNameImg($fileName);
+            $img->setFigures($figure);
             $this->persistFlush($figure);
         }
     }
@@ -63,7 +65,7 @@ class ImgRepository extends ServiceEntityRepository
                 $img = new Img();
                 $fileName = $fileUp->upload($fil);
                 $img->setnameImg($fileName);
-                $img->setFigure($figure);
+                $img->setFigures($figure);
                 $this->em->persist($img);
             }
             $this->em->flush();

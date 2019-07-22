@@ -27,11 +27,11 @@ class CommentRepository extends ServiceEntityRepository
     {
 
         return $this->createQueryBuilder('comment')
-            ->innerJoin('comment.post', 'cd')
-            ->where('cd.id = :id')
+            ->innerJoin('comment.figure', 'cf')
+            ->where('cf.id = :id')
             ->setMaxResults($max)
             ->setParameter('id', $id)
-            ->orderBy('comment.date', 'DESC')
+            ->orderBy('comment.creatDate', 'DESC')
             ->getQuery()
             ->getResult();
     }

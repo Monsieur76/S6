@@ -46,12 +46,12 @@
                     $fileName = $fileUp->upload($file);
                     $img->setNameImg($fileName);
                     $imgRepository->persistFlush($img);
-                    $this->addFlash('succes', 'Votre figure a bien été créée');
+                    $this->addFlash('succes', 'Votre image a été changée');
                     $this->redirectToRoute('updateImg', ['id' => $id]);
                 }
             }
             return $this->render('Page/figure/updateImg.html.twig', [
-                'figure' => $imgSearchId,
+                'img' => $imgSearchId,
                 'form' => $form->createView()
             ]);
         }

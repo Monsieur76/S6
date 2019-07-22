@@ -53,7 +53,7 @@ class VideoRepository extends ServiceEntityRepository
                 if ($url) {
                     $video = new Video();
                     $video->setUrl($url);
-                    $video->setFigure($figure);
+                    $video->setFigures($figure);
                     $this->em->persist($video);
                 }
             }

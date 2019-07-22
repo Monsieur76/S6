@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Figure;
+use App\Entity\Img;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -22,80 +23,22 @@ class FigureRepository extends ServiceEntityRepository
         $this->em = $em;
     }
 
-    public function findAllFigure()
+    public function findAllFigure($max = 15)
     {
         return $this->createQueryBuilder('d')
             ->orderBy('d.id', 'DESC')
             ->getQuery()
+            ->setMaxResults($max)
             ->getResult();
     }
 
-
-    public function findById($id)
+    public function setFigureImg($file,$fileUp,$figure)
     {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.id = :id')
-            ->setParameter('id', $id)
-            ->orderBy('d.id', 'DESC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function updateGroupFigById($id, $groupFig)
-    {
-        return $this->createQueryBuilder('d')
-            ->update('groupeFig = :3')
-            ->andWhere('d.id = :id')
-            ->setParameter('id', $id)
-            ->setParameter('3', $groupFig)
-            ->orderBy('d.id', 'DESC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function updateContentById($id, $content)
-    {
-        return $this->createQueryBuilder('post')
-            ->update('d.content = :4')
-            ->andWhere('d.id = :id')
-            ->setParameter('id', $id)
-            ->setParameter('4', $content)
-            ->orderBy('d.id', 'DESC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findImg($id)
-    {
-        return $this->createQueryBuilder('post')
-            ->andWhere('df.id = :id')
-            ->innerJoin('figure.imgSecondary', 'df')
-            ->setParameter('id', $id)
-            ->orderBy('d.id', 'DESC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findAllVideoFigure($id)
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.id = :id')
-            ->setParameter('id', $id)
-            ->orderBy('d.id', 'DESC')
-            ->setMaxResults(3)
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findAllFigureVideo($id)
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('pv.figure_id = :id')
-            ->setParameter('id', $id)
-            ->orderBy('d.id', 'DESC')
-            ->setMaxResults(3)
-            ->getQuery()
-            ->getResult();
+        if ($file) {
+            $fileName = $fileUp->upload($file);
+            $figure->setImgFigure($fileName);
+            $this->persistFlush($figure);
+        }
     }
 
     public function persistFlush($entity)

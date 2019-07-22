@@ -16,6 +16,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class GroupNumberFigureRepository extends ServiceEntityRepository
 {
     private $group = 'Groupe';
+    private $groupNumber = [1,2,3,4,5];
     private $maxNumberGroup = 6;
     private $em;
     public function __construct(RegistryInterface $registry,ObjectManager $em)
@@ -35,7 +36,7 @@ class GroupNumberFigureRepository extends ServiceEntityRepository
 
     public function insertGroup()
     {
-        if (empty($this->selectFirstName($this->group)))
+        if (empty($this->selectFirstName($this->group.$this->groupNumber[rand(0,4)])))
         {
             for ($i = 1; $i < $this->maxNumberGroup; $i++)
             {

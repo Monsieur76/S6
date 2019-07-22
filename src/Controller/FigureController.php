@@ -6,7 +6,8 @@
     use App\Entity\Figure;
     use App\Form\HiddenForPaginationJsType;
     use App\Form\CommentType;
-    use App\Form\CreatFigureType;
+    use App\Form\FigureType;
+    use App\Form\LoadMoreType;
     use App\Form\UpdateFigureType;
     use App\Repository\CommentRepository;
     use App\Repository\FigureRepository;
@@ -30,18 +31,27 @@
         }
 
         /**
-         * @Route("/" , name="home")
+         * @Route("/" , name="index")
          * @return Response
          */
         public function index(
             FigureRepository $figureRepository,
-            GroupNumberFigureRepository $group
+            GroupNumberFigureRepository $group,
+            Request $request
     ): Response
         {
             $group->insertGroup();
+            $max = 15;
+            $form = $this->createForm(LoadMoreType::class);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $max = $max + 15;
+            }
             return $this->render('Page/index.html.twig', [
                 'index' => 'active',
-                'post' => $figureRepository->findAllFigure(),
+                'figure' => $figureRepository->findAllFigure($max),
+                'form' => $form->createView(),
             ]);
         }
 
@@ -74,8 +84,7 @@
                 $comment = $commentRepository->findLimitComment($idDet, 100);
             }
             return $this->render('Page/figure/figure.html.twig', [
-                'id' => $figure,
-                'trick' => $figure->getId(),
+                'figure' => $figure,
                 'comment' => $comment,
                 'form' => $form->createView(),
                 'form2' => $form2->createView(),
@@ -98,11 +107,11 @@
             FigureRepository $figureRepository
         ): Response
         {
-            $form = $this->createForm(UpdateFigureType::class, $figure);
+            $form = $this->createForm(FigureType::class, $figure);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $file = $form['imgFigure']->getData();
-                $imgRepository->setFigureImg($file,$fileUp,$figure);
+                $figureRepository->setFigureImg($file,$fileUp,$figure);
                 $url = ['url1'=> $form['url1']->getData(),'url2'=> $form['url2']->getData(),
                     'url3' => $form['url3']->getData()];
                 $videoRepository->setVideos($url,$figure->getId(),$figureRepository);
@@ -113,7 +122,7 @@
                 return $this->redirectToRoute('index');
         }
             return $this->render('Page/figure/updateFigure.html.twig', [
-                'id' => $figure,
+                'figure' => $figure,
                 'form' => $form->createView(),
             ]);
         }
@@ -132,13 +141,13 @@
             VideoRepository $videoRepository
         ){
             $figure = new Figure();
-            $form = $this->createForm(CreatFigureType::class, $figure);
+            $form = $this->createForm(FigureType::class, $figure);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()
             ) {
-                if ($figureRepository->findOneBy(['name' => $figure->getNameFigure()]) === null) {
+                if ($figureRepository->findOneBy(['nameFigure' => $figure->getNameFigure()]) === null) {
                     $file = $form['imgFigure']->getData();
-                    $imgRepository->setFigureImg($file,$fileUp,$figure);
+                    $figureRepository->setFigureImg($file,$fileUp,$figure);
                     $lien = ['url1'=> $form['url1']->getData(),'url2'=> $form['url2']->getData(),
                         'url3' => $form['url3']->getData()];
                     $videoRepository->setVideos($lien,$figure->getId(),$figureRepository);

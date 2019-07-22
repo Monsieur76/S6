@@ -44,7 +44,7 @@ class Figure
      * @ORM\Column(type="text")
      * @Assert\Length(
      *      min = 2,
-     *      max = 50,
+     *      max = 255,
      *      minMessage = "Le champ reenseignement doit contenir au minimum {{ limit }}charactère",
      *      maxMessage = "Le champ reenseignement doit contenir au maximum {{ limit }} charactère"
      * )
@@ -52,7 +52,7 @@ class Figure
     private $content;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="Figure", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="figure", orphanRemoval=true)
      */
     private $comments;
 
@@ -75,7 +75,7 @@ class Figure
     private $imgFigure;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="Figure",orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="figures",orphanRemoval=true)
      */
     private $videos;
 
@@ -181,7 +181,7 @@ class Figure
     {
         if (!$this->imgSecondary->contains($img)) {
             $this->imgSecondary[] = $img;
-            $img->setFigure($this);
+            $img->setFigures($this);
         }
 
         return $this;

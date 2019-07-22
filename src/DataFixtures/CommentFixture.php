@@ -13,7 +13,7 @@ class CommentFixture extends BaseFixture implements OrderedFixtureInterface
     }
     public function load(ObjectManager $manager)
     {
-        $this->createMany('comment',Comment::class,$this->i,function (Comment $comment) use ($manager){
+        $this->createMany('comment',Comment::class,$this->count,function (Comment $comment) use ($manager){
             $figure = $this->getReference('figure'.rand(1,$this->maxRandom));
             $user = $this->getReference('user'.rand(1,$this->maxRandom));
             $comment->setFigure($figure);
