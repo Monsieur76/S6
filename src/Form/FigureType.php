@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Figure;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -63,28 +64,13 @@ class FigureType extends AbstractType
                     'placeholder' => 'Choisisser les photos secondaires',
                 ]])
 
-//            ->add('videos', CollectionType::class, [
-//            'entry_type' => UrlType::class,
-//            'entry_options' => ['label' => 'video'],
-//                'allow_add'=> true,
-//             ]);
-
-            ->add('url1', UrlType::class, [
-                'label' => 'Ajouté une vidéo (max 3)',
-                'mapped' => false,
-                'required' => false,
-            ])
-            ->add('url2', UrlType::class, [
-                'label' => false,
-                'mapped' => false,
-                'required' => false,
-            ])
-            ->add('url3', UrlType::class, [
-                'label' => false,
-                'mapped' => false,
-                'required' => false,
-            ]);
-
+            ->add('videos', CollectionType::class, [
+                'label'=>false,
+                'mapped'=>false,
+                'entry_type' => UrlType::class,
+                'entry_options' => ['label' => 'video'],
+                'allow_add'=> true,
+             ]);
     }
 
 

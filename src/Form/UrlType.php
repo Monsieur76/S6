@@ -13,7 +13,10 @@ class UrlType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('url',TextType::class)
+            ->add('url',TextType::class,[
+                'mapped'=>false,
+            ])
+
         ;
     }
 

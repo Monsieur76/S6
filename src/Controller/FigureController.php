@@ -112,8 +112,7 @@
             if ($form->isSubmitted() && $form->isValid()) {
                 $file = $form['imgFigure']->getData();
                 $figureRepository->setFigureImg($file,$fileUp,$figure);
-                $url = ['url1'=> $form['url1']->getData(),'url2'=> $form['url2']->getData(),
-                    'url3' => $form['url3']->getData()];
+                $url = $form['videos']->getData();
                 $videoRepository->setVideos($url,$figure->getId(),$figureRepository);
                 $file2 = $form['imgSecondary']->getData();
                 $imgRepository->setMultipleImg($file2,$fileUp,$figure);
@@ -147,10 +146,9 @@
             ) {
                 if ($figureRepository->findOneBy(['nameFigure' => $figure->getNameFigure()]) === null) {
                     $file = $form['imgFigure']->getData();
+                    $url = $form['videos']->getData();
                     $figureRepository->setFigureImg($file,$fileUp,$figure);
-                    $lien = ['url1'=> $form['url1']->getData(),'url2'=> $form['url2']->getData(),
-                        'url3' => $form['url3']->getData()];
-                    $videoRepository->setVideos($lien,$figure->getId(),$figureRepository);
+                    $videoRepository->setVideos($url,$figure->getId(),$figureRepository);
                     $file2 = $form['imgSecondary']->getData();
                     $imgRepository->setMultipleImg($file2,$fileUp,$figure);
                     $figureRepository->persistFlush($figure);
