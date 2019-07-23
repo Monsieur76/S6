@@ -16,6 +16,6 @@ Mettez votre mot de pass de votre de base de donné à la place de DATABASE_URL.
 Pour configurer l'envoie de mail remplacer dans MAILER_URL. 
 ATTENTION si vous ne vous n’êtes pas connaisseur, ne toucher a rien.
 
-https://api.codeclimate.com/v1/badges/edec97050b06b31f5df1/maintainability
+[![Maintainability](https://api.codeclimate.com/v1/badges/70ae098e35c31eaae3d1/maintainability)](https://codeclimate.com/github/Monsieur76/S6/maintainability)
 
 Le modèle qui a été le plus utilisé a été https://trello.com/b/zDBX4Rgv/s6 pour aider a la réalisation.
