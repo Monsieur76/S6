@@ -5,8 +5,13 @@
 * Avoir l'identifiant et mot de pass de la base de donner
 
 Avant de mettre le site en ligne 
-* Importer la table SQL dans phpMyAdmin 
+* Importer la table SQL dans phpMyAdmin ou taper la commande php bin/console d:d:c cela va créer la base de donné
+* Faire la commande php bin/console m:m
+* Puis finir par la commande php bin/console d:m:m
 * Configurer le fichier .env
+* Mettre 2 photo dans le dossier public/img/upload et nommer les "default.jpeg" pour les photo utilisateur et snow.jpg pour les photos de figure
+* Lancer les fixtures avec la commande php bin/console d:f:l 
+* Faire vos tests
 
 Le fichier .env
 1. Mettez votre url de host à la place de localhost
@@ -14,7 +19,7 @@ Le fichier .env
 3. Mettez votre nom de base de donné à la place de DATABASE_URL. 
 4. Mettez votre mot de pass de votre de base de donné à la place de DATABASE_URL. 
 5. Pour configurer l'envoie de mail remplacer dans MAILER_URL. 
-ATTENTION si vous ne vous n’êtes pas connaisseur, ne toucher a rien.
+6. ATTENTION si vous ne vous n’êtes pas connaisseur, ne toucher a rien.
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/70ae098e35c31eaae3d1/maintainability)](https://codeclimate.com/github/Monsieur76/S6/maintainability)
 
