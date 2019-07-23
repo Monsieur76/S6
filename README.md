@@ -1,12 +1,12 @@
 # Snowtrick
 ## Installation du site Préalable 
-*Avoir un server 
-*Avoir un accès au phpMyAdmin 
-*Avoir l'identifiant et mot de pass de la base de donner
+* Avoir un server 
+* Avoir un accès au phpMyAdmin 
+* Avoir l'identifiant et mot de pass de la base de donner
 
 Avant de mettre le site en ligne 
-*Importer la table SQL dans phpMyAdmin 
-*Configurer le fichier .env
+* Importer la table SQL dans phpMyAdmin 
+* Configurer le fichier .env
 
 Le fichier .env
 Mettez votre url de host à la place de localhost
