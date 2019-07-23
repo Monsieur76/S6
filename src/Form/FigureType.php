@@ -70,6 +70,7 @@ class FigureType extends AbstractType
                 'entry_type' => UrlType::class,
                 'entry_options' => ['label' => 'video'],
                 'allow_add'=> true,
+                'allow_delete'=>true,
              ]);
     }
 

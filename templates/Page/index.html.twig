@@ -30,8 +30,7 @@
                             /></a>
                         <div class="container">
                             <div class="row" style="text-align: center">
-                                <div class="col-md-6"><a href="{{ path('figure', {'id': figure.id}) }}"
-                                                         class="image featured">
+                                <div class="col-md-6"><a href="{{ path('figure', {'id': figure.id}) }}" class="image featured">
                                         <h6>{{ figure.nameFigure }}</h6></a>
                                 </div>
                                 {% if is_granted ('ROLE_USER') %}
@@ -42,16 +41,15 @@
                                     </button>
                                 </form>
 
-                                <form style="padding: 0px;margin-top: 50px"
-                                      action="{{ path ('deleteFigure',{id:figure.id} ) }}"
+                                <form style="padding: 0px;margin-top: 50px" action="{{ path ('deleteFigure',{id:figure.id} ) }}"
                                       method="post">
                                     <button class="btn btn-link delete">
                                         <i class="fas fa-trash" style="color: #C5D86D"></i></button>
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete'~figure.id) }}">
                                 </form>
+                                {% endif %}
                             </div>
                         </div>
-                        {% endif %}
 
                     </section>
                 </div>
@@ -67,47 +65,48 @@
 
 
         <div class="row" style="margin-top: 50px" id="fig">
-            <div class="collapse" id="collapseExample">
-                {% for figure in figure %}
-                    <div class="col-lg-12" style="margin-top: 50px">
-                        <a href="{{ path('figure', {'id': figure.id}) }}" class="image featured">
-                            <img src="{{ asset("img/upload/"~figure.imgFigure) }}" alt="" style="width: 100%"
-                            /></a>
-                    </div>
+                <div class="collapse" id="collapseExample">
+                    {% for figure in figure %}
+                        <div class="col-lg-12" style="margin-top: 50px">
+                    <a href="{{ path('figure', {'id': figure.id}) }}" class="image featured">
+                        <img src="{{ asset("img/upload/"~figure.imgFigure) }}" alt="" style="width: 100%"
+                        /></a>
+                        </div>
                     <div class="container">
-                    <div class="row" style="text-align: center">
-                    <div class="col-md-6 col-8-small">
-                        <h6>{{ figure.nameFigure }}</h6>
+                        <div class="row" style="text-align: center">
+                            <div class="col-md-6 col-8-small">
+                                <h6>{{ figure.nameFigure }}</h6>
+                            </div>
+                            {% if is_granted ('ROLE_USER') %}
+
+                            <form
+                                    style="padding: 0px;margin-top: 15px"
+                                  action="{{ path ('updateFigure',{id:figure.id} ) }}" method="post">
+                                <button class="btn btn-link"><i class="fas fa-pen" style="color: #C5D86D"></i>
+                                </button>
+                            </form>
+
+                            <form
+                                    style="padding: 0px;margin-top: 15px"
+                                    action="{{ path ('deleteFigure',{id:figure.id} ) }}"
+                                  method="post">
+                                <button class="btn btn-link delete">
+                                    <i class="fas fa-trash" style="color: #C5D86D"></i></button>
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete'~figure.id) }}">
+                            </form>
+                            {% endif %}
+                        </div>
                     </div>
-                    {% if is_granted ('ROLE_USER') %}
-
-                        <form
-                                style="padding: 0px;margin-top: 15px"
-                                action="{{ path ('updateFigure',{id:figure.id} ) }}" method="post">
-                            <button class="btn btn-link"><i class="fas fa-pen" style="color: #C5D86D"></i>
-                            </button>
-                        </form>
-
-                        <form
-                                style="padding: 0px;margin-top: 15px"
-                                action="{{ path ('deleteFigure',{id:figure.id} ) }}"
-                                method="post">
-                            <button class="btn btn-link delete">
-                                <i class="fas fa-trash" style="color: #C5D86D"></i></button>
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete'~figure.id) }}">
-                        </form>
-                        </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                </div>
         </div>
     </div>
+
     <div class="col-lg-12" style="text-align: center">
     {{ form_start(form) }}
     <div class="col-lg-12" style="text-align: center">
-        <button style="margin-top: 50px;background-color: #17324f" type="submit" class="btn">
-            <i class="fas fa-spinner"> Voir plus</i>
+        <button style="margin-top: 50px;background-color: #17324f" type="submit" class="btn" >
+            <i class="fas fa-spinner">    Charger plus</i>
         </button>
     </div>
     {{ form_end(form) }}
@@ -116,4 +115,6 @@
             <i class="fas fa-arrow-up fa-3x"></i>
         </a>
     </div>
+
+
 {% endblock %}

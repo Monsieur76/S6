@@ -190,24 +190,26 @@
             {{ form_row(form.imgSecondary) }}
         </div>
         <div class="row" style="text-align: center">
-            <div class="col-lg-10" style="color: whitesmoke;">
-                <div id="div1" class="col-md-12" style="color: whitesmoke">
-                    {{ form_row(form.url1 ) }}
-                </div>
-                <div id="div2" class="col-md-12" style="color: whitesmoke;display: none">
-                    {{ form_row(form.url2 ) }}
-                </div>
-                <div id="div3" class="col-md-12" style="color: whitesmoke;display: none">
-                    {{ form_row(form.url3 ) }}
-                </div>
+            <div class="col-lg-12">
+                <h5>Ajouter des vidéos</h5>
             </div>
-            <div id="dev1" class="col-md-2" style="margin-top: 50px">
-                <button
-                        type="button" class="btn"><i
-                            class="fas fa-plus-circle fa-2x"></i>
-
-                </button>
+            <ul class="col-lg-8" id="videos-fields-list"
+                data-prototype="{{ form_widget(form.videos.vars.prototype)|e }}"
+                data-widget-tags="{{ '<li></li>'|e }}"
+                data-widget-counter="{{ form.children|length }}">
+                {% for url in form.videos  %}
+                    <div class="col-lg-12">
+                        <li style="list-style: none"> {{ form_widget(url) }} </li>
+                    </div>
+                {% endfor %}
+            </ul>
+            <div class="col-lg-4">
+                <button type="button"
+                        id="add-collection"
+                        data-list-selector="#videos-fields-list">
+                    <i class="fas fa-plus-circle fa-2x"></i></button>
             </div>
+        </div>
         </div>
         {% for message in app.flashes('succes') %}
             <div class="alert alert-success" role="alert">
