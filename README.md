@@ -4,7 +4,7 @@
 * Avoir un accès au phpMyAdmin 
 * Avoir l'identifiant et mot de pass de la base de donner
 
-#### Avant de mettre le site en ligne 
+### Avant de mettre le site en ligne 
 * Importer la table SQL dans phpMyAdmin ou taper la commande php bin/console d:d:c cela va créer la base de donné
 * Faire la commande php bin/console m:m
 * Puis finir par la commande php bin/console d:m:m
@@ -13,7 +13,7 @@
 * Lancer les fixtures avec la commande php bin/console d:f:l 
 * Faire vos tests
 
-#### Le fichier .env
+### Le fichier .env
 1. Mettez votre url de host à la place de localhost
 2. Mettez votre nom de base de donné a la place de DATABASE_URL par défaut ne toucher a rien. 
 3. Mettez votre nom de base de donné à la place de DATABASE_URL. 
