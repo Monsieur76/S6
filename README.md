@@ -5,7 +5,7 @@
 * Avoir l'identifiant et mot de pass de la base de donner
 
 ### Avant de mettre le site en ligne 
-* Importer la table SQL dans phpMyAdmin ou taper la commande php bin/console d:d:c cela va créer la base de donné
+* Importer la table SQL dans phpMyAdmin ou taper la commande php bin/console d : d : c cela va créer la base de donné
 * Faire la commande php bin/console m : m
 * Puis finir par la commande php bin/console d : m : m
 * Configurer le fichier .env
