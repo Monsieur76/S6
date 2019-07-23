@@ -34,7 +34,7 @@
                     Voir plus de vidéo
                 </button>
                 <div class="row">
-                    <div class="row col-lg-6">
+                    <div class="row col-lg-6" style="margin-left: 0px">
                     {% for img in figure.imgSecondary | sort |reverse %}
                         <div class="card col-lg-4" id="fig1"
                              style="width: 14rem;background-color: #17324f; margin-top: 50px;margin-bottom: 50px;border: none">
@@ -45,7 +45,7 @@
                         </div>
                     {% endfor %}
                     </div>
-                    <div class="row col-lg-6">
+                    <div class="row col-lg-6" style="margin-left: 0px">
                     {% for video in figure.videos | sort |reverse %}
                         <div class="card col-lg-4" id="fig1"
                              style="width: 24rem;background-color: #17324f;
@@ -129,7 +129,10 @@
                 {% for comment in comment %}
                     <li class="col-sm-2" style="list-style: none">
                         <div id="profil1" style="margin-top: 20px">
-                            <img id="profil2" src="{{ asset ('img/upload/'~comment.user.img) }}" alt="profil">
+                            <img id="profil2"
+                                    {% if comment.user.img == null %}{% else %}
+                                 src="{{ asset ('img/upload/'~comment.user.img) }}" alt="profil">
+                            {% endif %}
                         </div>
                         <script>a++</script>
                     </li>

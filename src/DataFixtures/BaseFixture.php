@@ -19,6 +19,9 @@
         protected $manager;
         protected $count = 101;
         protected $maxRandom = 100;
+        protected $img = 'snow.jpg';
+        protected $imgUser = 'default.jpeg';
+        protected $video = 'https://www.youtube.com/embed/UGdif-dwu-8';
         public function __construct(
             UserPasswordEncoderInterface $encoder,
             TokenGeneratorInterface $token ,

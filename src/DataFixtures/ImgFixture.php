@@ -16,7 +16,7 @@ class ImgFixture extends BaseFixture implements OrderedFixtureInterface
     {
         $this->createMany('img',Img::class,$this->count,function (Img $img) use ($manager){
             $figure = $this->getReference('figure'.rand(1,$this->maxRandom));
-            $img->setNameImg('snow.jpg');
+            $img->setNameImg($this->img);
             $img->setFigures($figure);
         });
     }

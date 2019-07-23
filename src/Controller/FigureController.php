@@ -46,7 +46,7 @@
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid())
             {
-                $max = $max + 15;
+                $max = $max + 100;
             }
             return $this->render('Page/index.html.twig', [
                 'index' => 'active',

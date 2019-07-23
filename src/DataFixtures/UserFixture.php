@@ -23,7 +23,7 @@ class UserFixture extends BaseFixture implements OrderedFixtureInterface
             $user->setToken($this->token->generateToken());
             $user->setConfirmRegister(1);
             $user->setRoles(['ROLE_USER']);
-            $user->setImg('default.jpeg');
+            $user->setImg($this->imgUser);
         });
     }
 }

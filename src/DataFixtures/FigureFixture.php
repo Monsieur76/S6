@@ -20,7 +20,7 @@ class FigureFixture extends BaseFixture implements OrderedFixtureInterface
             $group = $this->getReference('group'.rand(1,5));
             $figure->setNameFigure($this->faker->name);
             $figure->setContent($this->faker->text);
-            $figure->setImgFigure($this->faker->text);
+            $figure->setImgFigure($this->img);
             $figure->setGroupNumber($group);
         });
     }

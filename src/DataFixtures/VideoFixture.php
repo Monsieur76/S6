@@ -15,7 +15,7 @@ class VideoFixture extends BaseFixture implements OrderedFixtureInterface
     {
         $this->createMany('video',Video::class,$this->count,function (Video $video) use ($manager){
             $figure = $this->getReference('figure'.rand(1,$this->maxRandom));
-            $video->setUrl($this->faker->url);
+            $video->setUrl($this->video);
             $video->setFigures($figure);
         });
     }
