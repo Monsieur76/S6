@@ -21,17 +21,20 @@
 
         public function hydrate($figure)
         {
-            $this->figure->setName('gegerg');
+            $this->figure->setNameFigure('gegerg');
+            $this->figure->setCreatDate(new \DateTime());
+            $this->figure->setContent('lol');
+            $this->figure->setImgFigure('lol');
         }
 
-        public function testName()
+        public function testNameFigure()
         {
-            $this->assertEquals('gegerg',$this->figure->getName());
+            $this->assertEquals('gegerg',$this->figure->getNameFigure());
         }
 
-        public function testNameType()
+        public function testNameFigureType()
         {
-            $this->assertIsString($this->figure->getName());
+            $this->assertIsString($this->figure->getNameFigure());
         }
 
         public function testId()
@@ -39,8 +42,33 @@
             $this->assertEquals(null,$this->figure->getId());
         }
 
-        public function testDetail()
+        public function testDate()
         {
-            $this->assertEquals(null,$this->figure->getDetail());
+            $this->assertInstanceOf(\DateTime::class,$this->figure->getCreatDate());
+        }
+
+        public function testContent()
+        {
+            $this->assertEquals('lol',$this->figure->getContent());
+        }
+
+        public function testContentType()
+        {
+            $this->assertIsString($this->figure->getContent());
+        }
+
+        public function testImgFigure()
+        {
+            $this->assertEquals('lol',$this->figure->getImgFigure());
+        }
+
+        public function testImgFigureType()
+        {
+            $this->assertIsString($this->figure->getImgFigure());
+        }
+
+        public function testIdGroupNumber()
+        {
+            $this->assertEquals(null,$this->figure->getGroupNumber());
         }
     }

@@ -20,17 +20,17 @@
 
         public function hydrate($video)
         {
-            $this->video->setName('azert');
+            $this->video->setUrl('azert');
         }
 
-        public function testName()
+        public function testUrl()
         {
-            $this->assertEquals('azert',$this->video->getName());
+            $this->assertEquals('azert',$this->video->getUrl());
         }
 
-        public function testNameType()
+        public function testUrlType()
         {
-            $this->assertIsString($this->video->getName());
+            $this->assertIsString($this->video->getUrl());
         }
 
         public function testId()
@@ -38,9 +38,9 @@
             $this->assertEquals(null,$this->video->getId());
         }
 
-        public function testDetail()
+        public function testFigures()
         {
-            $this->assertEquals(null,$this->video->getDetail());
+            $this->assertEquals(null,$this->video->getFigures());
         }
 
     }

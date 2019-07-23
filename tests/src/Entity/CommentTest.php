@@ -18,22 +18,10 @@
             $this->hydrate($this->comment);
         }
 
-        public function hydrate($Com)
+        public function hydrate($com)
         {
             $this->comment->setContent('micfref');
-            $this->comment->setName('gegerg');
-            $this->comment->setDate(new \DateTime());
-            $this->comment->setPhotoUser('lol.jpg');
-        }
-
-        public function testNameType()
-        {
-            $this->assertIsString($this->comment->getName());
-        }
-
-        public function testName()
-        {
-            $this->assertEquals('gegerg',$this->comment->getName());
+            $this->comment->setCreatDate(new \DateTime());
         }
 
         public function testContent()
@@ -48,7 +36,7 @@
 
         public function testDate()
         {
-            $this->assertInstanceOf(\DateTime::class,$this->comment->getDate());
+            $this->assertInstanceOf(\DateTime::class,$this->comment->getCreatDate());
         }
 
         public function testId()
@@ -56,24 +44,14 @@
             $this->assertEquals(null,$this->comment->getID());
         }
 
-        public function testPhotoType()
-        {
-            $this->assertIsString($this->comment->getPhotoUser());
-        }
-
-        public function testPhoto()
-        {
-            $this->assertEquals('lol.jpg',$this->comment->getPhotoUser());
-        }
-
-        public function testIdDetail()
-        {
-            $this->assertEquals(null,$this->comment->getDetail());
-        }
-
         public function testIdUser()
         {
             $this->assertEquals(null,$this->comment->getUser());
+        }
+
+        public function testIdFigure()
+        {
+            $this->assertEquals(null,$this->comment->getFigure());
         }
 
     }

@@ -19,32 +19,32 @@
 
         public function hydrate($user)
         {
-            $this->user->setFirstname('mic');
-            $this->user->setConfirm('1');
-            $this->user->setValid('1');
+            $this->user->setFirstName('mic');
+            $this->user->setConfirmRegister('1');
+            $this->user->setToken('1');
             $this->user->setEmail('lol@lol.moid');
             $this->user->setPassword('lol');
-            $this->user->setPhoto('azert');
+            $this->user->setImg('azert');
         }
 
         public function testFirstName()
         {
-            $this->assertEquals('mic',$this->user->getFirstname());
+            $this->assertEquals('mic',$this->user->getFirstName());
         }
 
         public function testFirstNameType()
         {
-            $this->assertIsString($this->user->getFirstname());
+            $this->assertIsString($this->user->getFirstName());
         }
 
-        public function testConfirm()
+        public function testConfirmRegister()
         {
-            $this->assertEquals('1',$this->user->getConfirm());
+            $this->assertEquals('1',$this->user->getConfirmRegister());
         }
 
-        public function testValid()
+        public function testToken()
         {
-            $this->assertEquals('1',$this->user->getValid());
+            $this->assertEquals('1',$this->user->getToken());
         }
 
         public function testMailType()
@@ -57,9 +57,9 @@
             $this->assertEquals('lol@lol.moid',$this->user->getEmail());
         }
 
-        public function testFailFirstname()
+        public function testFailFirstName()
         {
-            $this->assertIsNotInt($this->user->getFirstname());
+            $this->assertIsNotInt($this->user->getFirstName());
         }
 
         public function testId()
@@ -72,9 +72,9 @@
             $this->assertEquals('lol',$this->user->getPassword());
         }
 
-        public function testPhoto()
+        public function testImg()
         {
-            $this->assertEquals('azert',$this->user->getPhoto());
+            $this->assertEquals('azert',$this->user->getImg());
         }
 
     }
