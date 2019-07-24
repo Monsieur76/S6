@@ -52,8 +52,7 @@
                 $userRepository->setPassword($user,$form->get('password')->getData(),$passwordEncoder);
                 $userRepository->setPhotoUser($form['img']->getData(),$fileUp,$user);
                 $render =$this->render('page/mail/mail_register.html.twig', ['user' => $user->getToken()]);
-                $registrationMail = new GenericEvent(['user'=>$user,'render'=>$render,'subject'=>'Confirmation 
-                d\'enregistrement']);
+                $registrationMail = new GenericEvent(['user'=>$user,'render'=>$render,'subject'=>'Confirmation d\'enregistrement']);
                 $dispatcher->dispatch(RegistrationMail::Name,$registrationMail);
                 $this->addFlash('succes', 'Enregistrement effectué veuillez vérifier vos mail pour confirmer
             l\'enregistrement');
@@ -150,7 +149,7 @@
                 );
                 $userRepository->persistFlush($user);
                 $this->addFlash('succes', 'confirmation d\'enregistrement');
-                return $this->render('page/user/addRegister.html.twig', ['message' => 'Enregistrement Effectué']);
+                return $this->render('page/user/add_register.html.twig', ['message' => 'Enregistrement Effectué']);
             }
             $this->addFlash('notice', 'Enregistrement échoué');
             return $this->render('page/user/add_register.html.twig', [

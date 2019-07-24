@@ -6,7 +6,7 @@
             Cliquez sur le lien pour confirmer l'enregistrement
             <br>
 
-            <a href="http://localhost:8000/ConfirmMailRegister/{{ user }}" style="color: #C5D86D">lien</a>
+            <a href="{{ url( 'ConfirmMailRegister',{'token' : user}) }}" style="color: #C5D86D">lien</a>
         </div>
     </div>
 {% endblock %}

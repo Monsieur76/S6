@@ -15,7 +15,7 @@
             </div>
             <div class="col-lg-12">
                 <div id="profil1" style="margin-top: 20px">
-                    {% if comment.user.img == null %}{% else %}
+                    {% if user.img == null %}{% else %}
                     <img id="profil2"  src="{{ asset ('img/upload/'~user.img) }}" alt="">
                     {% endif %}
                 </div>

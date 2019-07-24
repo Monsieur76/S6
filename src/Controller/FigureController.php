@@ -109,7 +109,7 @@
                 $figureRepository->persistFlush($figure);
                 $this->addFlash('succes', 'La Modification a bien été prise en compte');
                 return $this->redirectToRoute('index');
-        }
+            }
             return $this->render('page/figure/update_figure.html.twig', [
                 'figure' => $figure,
                 'form' => $form->createView(),
