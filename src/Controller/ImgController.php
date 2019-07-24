@@ -6,7 +6,8 @@
     use App\Form\UpdateImgType;
     use App\Repository\ImgRepository;
     use App\Service\FileUploader;
-    use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\ORM\EntityManagerInterface;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
@@ -16,15 +17,13 @@
     {
         private $em;
 
-        public function __construct(ObjectManager $em)
+        public function __construct(EntityManagerInterface $em)
         {
             $this->em = $em;
         }
 
         /**
          * @IsGranted("ROLE_USER")
-         */
-        /**
          * @Route("/updateImg/{id}",name="updateImg")
          * @param $id
          * @param Request $request
@@ -43,14 +42,13 @@
             if ($form->isSubmitted() && $form->isValid()) {
                 $file = $form['nameImg']->getData();
                 if($file) {
-                    $fileName = $fileUp->upload($file);
-                    $img->setNameImg($fileName);
+                    $img->setNameImg($fileUp->upload($file));
                     $imgRepository->persistFlush($img);
                     $this->addFlash('succes', 'Votre image a été changée');
                     $this->redirectToRoute('updateImg', ['id' => $id]);
                 }
             }
-            return $this->render('Page/figure/updateImg.html.twig', [
+            return $this->render('page/figure/update_img.html.twig', [
                 'img' => $imgSearchId,
                 'form' => $form->createView()
             ]);
@@ -58,8 +56,6 @@
 
         /**
          * @IsGranted("ROLE_USER")
-         */
-        /**
          * @Route ("/deleteImg/{id}", name="deleteImg")
          */
         public function deleteImg(Img $img, Request $request)

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Figure;
+use App\Entity\GroupNumberFigure;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -25,7 +26,7 @@ class FigureType extends AbstractType
                     'placeholder' => 'nom de la figure']
             ])
             ->add('groupNumber', EntityType::class, [
-                'class'=> 'App\Entity\GroupNumberFigure',
+                'class'=> GroupNumberFigure::class,
                 'label'=>false,
                 'choice_label' => 'number',
             ])

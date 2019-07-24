@@ -12,6 +12,7 @@
     use App\Security\LoginFormAuthenticator;
     use App\Service\FileUploader;
     use Doctrine\ORM\EntityManagerInterface;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\EventDispatcher\EventDispatcherInterface;
     use Symfony\Component\EventDispatcher\GenericEvent;
@@ -50,15 +51,16 @@
                 $user->setToken($token);
                 $userRepository->setPassword($user,$form->get('password')->getData(),$passwordEncoder);
                 $userRepository->setPhotoUser($form['img']->getData(),$fileUp,$user);
-                $render =$this->render('Page/mail/mailRegister.html.twig', ['user' => $user->getToken()]);
-                $registrationMail = new GenericEvent(['user'=>$user,'render'=>$render]);
+                $render =$this->render('page/mail/mail_register.html.twig', ['user' => $user->getToken()]);
+                $registrationMail = new GenericEvent(['user'=>$user,'render'=>$render,'subject'=>'Confirmation 
+                d\'enregistrement']);
                 $dispatcher->dispatch(RegistrationMail::Name,$registrationMail);
                 $this->addFlash('succes', 'Enregistrement effectué veuillez vérifier vos mail pour confirmer
             l\'enregistrement');
                 return $this->redirectToRoute('index');
 
             }
-            return $this->render('Page/user/register.html.twig', [
+            return $this->render('page/user/register.html.twig', [
                 'register' => 'active',
                 'form' => $form->createView(),
             ]);
@@ -66,8 +68,6 @@
 
         /**
          * @IsGranted("ROLE_USER")
-         */
-        /**
          * @Route ("/profile",name="profile")
          */
         public function profile(
@@ -85,7 +85,7 @@
                 $this->addFlash('succes', 'Votre profil a bien été enregistré');
                 return $this->redirectToRoute('profile');
             }
-            return $this->render('Page/user/profile.html.twig', [
+            return $this->render('page/user/profile.html.twig', [
                 'form' => $form->createView(),
                 'user' => $userRepository->findOneBy(['id' => $id]),
             ]);
@@ -93,8 +93,6 @@
 
         /**
          * @IsGranted("ROLE_USER")
-         */
-        /**
          * @Route("/deleteUser/{id}",name="deleteUser")
          */
         public function deleteUser(User $user)
@@ -107,8 +105,6 @@
 
         /**
          * @IsGranted("ROLE_USER")
-         */
-        /**
          * @Route("/password/{id}",name="password")
          */
         public function password(
@@ -126,7 +122,7 @@
                 $this->addFlash('succes', 'Votre profil a bien été enregistré');
                 return $this->redirectToRoute('logout');
             }
-            return $this->render('Page/user/password.html.twig', [
+            return $this->render('page/user/password.html.twig', [
                 'user' => $userRepository->findOneBy(['id' => $id]),
                 'form' => $form->createView(),
             ]);
@@ -154,10 +150,10 @@
                 );
                 $userRepository->persistFlush($user);
                 $this->addFlash('succes', 'confirmation d\'enregistrement');
-                return $this->render('Page/user/addRegister.html.twig', ['message' => 'Enregistrement Effectué']);
+                return $this->render('page/user/addRegister.html.twig', ['message' => 'Enregistrement Effectué']);
             }
             $this->addFlash('notice', 'Enregistrement échoué');
-            return $this->render('Page/user/AddRegister.html.twig', [
+            return $this->render('page/user/add_register.html.twig', [
                 'message' => 'Enregistrement échoué'
             ]);
         }
