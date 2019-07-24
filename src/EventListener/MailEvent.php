@@ -39,7 +39,7 @@
             $validator = new EmailValidator();
             $validator->isValid($user->getEmail(), new RFCValidation());
 
-            $message = (new \Swift_Message('Confirmation d\'enregistrement'))
+            $message = (new \Swift_Message($table['subject']))
                 ->setFrom('snowtrix@hotmail.fr')
                 ->setTo($user->getEmail())
                 ->setBody($render, 'text/html');

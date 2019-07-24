@@ -15,20 +15,20 @@
 
                         <img class="card-img-top rounded"
                              src="{{ asset("img/upload/"~img.nameImg ) }}"
-                             alt="Card image cap" style="margin-top: 15px;width: 100%">
+                             alt="Card image cap" style="margin-top: 15px">
                         {% if is_granted ('ROLE_USER') %}
                             <div class="container">
                                 <div class="row">
                                     <form style="padding: 0px;margin-top: 50px"
                                           action="{{ path ('updateImg',{id:img.id} ) }}" method="post">
-                                        <button class="btn btn-link"><i class="fas fa-pen" style="color: #C5D86D"></i>
+                                        <button class="btn"><i class="fas fa-pen" ></i>
                                         </button>
                                     </form>
 
                                     <form style="padding: 0px;margin-top: 50px"
                                           action="{{ path ('deleteImg',{id:img.id} ) }}" method="post">
-                                        <button class="btn btn-link delete">
-                                            <i class="fas fa-trash" style="color: #C5D86D"></i></button>
+                                        <button class="btn delete">
+                                            <i class="fas fa-trash" ></i></button>
                                         <input type="hidden" name="_token"
                                                value="{{ csrf_token('deleteImg'~img.id) }}">
                                     </form>
@@ -39,16 +39,16 @@
                 {% endfor %}
             </div>
             <div class="row col-lg-12">
-                <div class="col-lg-12" style="text-align: center;margin-top: 20px;margin-bottom: 20px">
-                    <div class="col-sm-6">
-                        <button style="margin-left: 60px" class="btn" type="button" id="button" data-toggle="collapse"
+                <div class="col-lg-12" style="margin-top: 20px;margin-bottom: 20px">
+                    <div class="col-sm-12">
+                        <button style="margin-left: 0px" class="btn" type="button" id="button" data-toggle="collapse"
                                 data-target="#collapseExample"
                                 aria-expanded="false" aria-controls="collapseExample">
                             Voir plus
                         </button>
                     </div>
-                    <div class="col-sm-6">
-                        <button style="margin-left: 60px" class="btn" type="button" id="button" data-toggle="collapse"
+                    <div class="col-sm-12">
+                        <button style="margin-left: 0px" class="btn" type="button" id="button" data-toggle="collapse"
                                 data-target="#video"
                                 aria-expanded="false" aria-controls="video">
                             Voir plus de vidéo
@@ -56,7 +56,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row col-lg-12">
                     <div class="row col-lg-6" style="margin-left: 0px;padding: 0px">
                         {% for img in figure.imgSecondary | sort |reverse %}
                         <div class="card col-lg-4" id="fig1"
@@ -64,22 +64,22 @@
 
                             <img class="card-img-top rounded"
                                  src="{{ asset("img/upload/"~img.nameImg ) }}"
-                                 alt="Card image cap" style="margin-top: 15px;width: 100%;display: flex">
+                                 alt="Card image cap" style="margin-top: 15px;display: flex">
 
                             {% if is_granted ('ROLE_USER') %}
                                 <div class="container">
                                     <div class="row">
                                         <form style="padding: 0px;margin-top: 50px;margin-left: 90px"
                                               action="{{ path ('updateImg',{id:img.id} ) }}" method="post">
-                                            <button class="btn btn-link"><i class="fas fa-pen"
-                                                                            style="color: #C5D86D"></i>
+                                            <button class="btn"><i class="fas fa-pen"
+                                                                            ></i>
                                             </button>
                                         </form>
 
                                         <form style="padding: 0px;margin-top: 50px"
                                               action="{{ path ('deleteImg',{id:img.id} ) }}" method="post">
-                                            <button class="btn btn-link delete">
-                                                <i class="fas fa-trash" style="color: #C5D86D"></i>
+                                            <button class="btn delete">
+                                                <i class="fas fa-trash" ></i>
                                             </button>
                                             <input type="hidden" name="_token"
                                                    value="{{ csrf_token('deleteImg'~img.id) }}">
@@ -103,14 +103,13 @@
                                     <div class="row">
                                         <form style="padding: 0px;margin-top: 50px;margin-left: 90px"
                                               action="{{ path ('updateVideo',{id:video.id} ) }}" method="post">
-                                            <button class="btn btn-link"><i class="fas fa-pen"
-                                                                            style="color: #C5D86D"></i></button>
+                                            <button class="btn "><i class="fas fa-pen"></i></button>
                                         </form>
 
                                         <form style="padding: 0px;margin-top: 50px"
                                               action="{{ path ('deleteVid',{id:video.id} ) }}" method="post">
-                                            <button class="btn btn-link delete">
-                                                <i class="fas fa-trash" style="color: #C5D86D"></i></button>
+                                            <button class="btn delete">
+                                                <i class="fas fa-trash" ></i></button>
                                             <input type="hidden" name="_token"
                                                    value="{{ csrf_token('deleteVid'~video.id) }}">
                                         </form>
@@ -138,14 +137,14 @@
                                 <div class="row">
                                     <form style="padding: 0px;margin-top: 50px"
                                           action="{{ path ('updateVideo',{id:video.id} ) }}" method="post">
-                                        <button class="btn btn-link"><i class="fas fa-pen" style="color: #C5D86D"></i>
+                                        <button class="btn"><i class="fas fa-pen"></i>
                                         </button>
                                     </form>
 
                                     <form style="padding: 0px;margin-top: 50px"
                                           action="{{ path ('deleteVid',{id:video.id} ) }}" method="post">
-                                        <button class="btn btn-link delete">
-                                            <i class="fas fa-trash" style="color: #C5D86D"></i></button>
+                                        <button class="btn delete">
+                                            <i class="fas fa-trash" ></i></button>
                                         <input type="hidden" name="_token"
                                                value="{{ csrf_token('deleteVid'~video.id) }}">
                                     </form>
