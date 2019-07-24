@@ -1,15 +1,15 @@
 # Snowtrick
-## Installation du site 
-* Avoir un server 
-* Avoir l'identifiant et mot de pass de la base de donner
+## Install
+
+
 
 ### Avant de mettre le site en ligne 
 * Configurer le fichier .env
-* Taper la commande php bin/console d : d : c cela va créer la base de donné
-* Faire la commande php bin/console m : m
-* Puis finir par la commande php bin/console d : m : m
+* Taper la commande `php bin/console d:d:c` cela va créer la base de donné
+* Faire la commande `php bin/console m:m`
+* Puis finir par la commande `php bin/console d:m:m`
 * Mettre 2 photo dans le dossier public/img/upload et nommer les "default.jpeg" pour les photo utilisateur et snow.jpg pour les photos de figure
-* Lancer les fixtures avec la commande php bin/console d : f : l 
+* Lancer les fixtures avec la commande `php bin/console d:f:l` 
 * Faire vos tests
 
 ### Le fichier .env
