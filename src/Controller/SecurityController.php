@@ -7,6 +7,7 @@ use App\Form\ForgotType;
 use App\Form\PassType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -33,7 +34,7 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('Page/user/connexion.html.twig', [
+        return $this->render('page/user/connexion.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
@@ -42,8 +43,6 @@ class SecurityController extends AbstractController
 
     /**
      * @IsGranted("ROLE_USER")
-     */
-    /**
      * @Route ("/logout",name="logout")
      */
     public function logout()
@@ -64,11 +63,12 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $userRepository->findOneBy(['email' => $request->request->get('forgot')['email']]);
-            if (isset($user) === true ) {
+            if (isset($user)) {
                 $token = $tokenGenerator->generateToken();
                 $user->setToken($token);
-                $render = $this->render('Page/mail/mailPass.html.twig', ['user' => $user->getToken()]);
-                $registrationMail = new GenericEvent(['user'=>$user,'render'=>$render]);
+                $render = $this->render('page/mail/mail_pass.html.twig', ['user' => $user->getToken()]);
+                $registrationMail = new GenericEvent(['user'=>$user,'render'=>$render,
+                    'subject'=>'Changement de mot de passe']);
                 $dispatcher->dispatch(RegistrationMail::Name,$registrationMail);
                 $this->addFlash('succes', 'Veillez vérifier votre mail');
                 return $this->redirectToRoute('forgot');
@@ -77,7 +77,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('forgot');
             }
         }
-        return $this->render('Page/user/forgot.html.twig', [
+        return $this->render('page/user/forgot.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -108,7 +108,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('updatePass', ['token' => $token]);
             }
         }
-        return $this->render('Page/user/UpdatePassword.html.twig', [
+        return $this->render('page/user/update_password.html.twig', [
             'form' => $form->createView(),
         ]);
     }

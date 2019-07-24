@@ -5,7 +5,8 @@
     use App\Entity\Video;
     use App\Form\UpdateVideoType;
     use App\Repository\VideoRepository;
-    use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\ORM\EntityManagerInterface;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\Routing\Annotation\Route;
@@ -13,15 +14,13 @@
     class VideoController extends AbstractController
     {
         private $em;
-        public function __construct(ObjectManager $em)
+        public function __construct(EntityManagerInterface $em)
         {
             $this->em = $em;
         }
 
         /**
          * @IsGranted("ROLE_USER")
-         */
-        /**
          * @Route("/updatevid/{id}",name="updateVideo")
          */
         public function updateVideo(
@@ -38,7 +37,7 @@
                 $this->addFlash('succes', 'Votre video a bien été créée');
                 $this->redirectToRoute('updateVideo', ['id' => $id]);
             }
-            return $this->render('Page/figure/updateVideo.html.twig', [
+            return $this->render('page/figure/update_video', [
                 'video' => $video,
                 'form' => $form->createView()
             ]);
@@ -46,9 +45,10 @@
 
         /**
          * @IsGranted("ROLE_USER")
-         */
-        /**
          * @Route ("/deleteVid/{id}", name="deleteVid")
+         * @param Video $video
+         * @param Request $request
+         * @return \Symfony\Component\HttpFoundation\RedirectResponse
          */
         public function deleteVid(Video $video, Request $request)
         {

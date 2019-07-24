@@ -11,7 +11,7 @@
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
     use Symfony\Component\EventDispatcher\GenericEvent;
 
-    class CustomEvent implements EventSubscriberInterface
+    class MailEvent implements EventSubscriberInterface
     {
         private $mailer;
         private $repo;
