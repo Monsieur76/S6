@@ -1,21 +1,21 @@
 # Snowtrick
 ## Install
 
-### Dans le fichier .env
-1. Dans DATABASE URL placer votre url de database.
-2. Pour configurer l'envoie de mail remplacer dans MAILER_URL. 
-3. Télécharger les dépendences de composer.
+### In the .env file
+1. In DATABASE URL put your database url.
+2. To configure the sending of mail replace in MAILER_URL.
+3. Download dependencies to compose.
 
-### Avant de mettre le site en ligne 
-* Configurer le fichier .env
-* Taper la commande `php bin/console d:d:c` cela va créer la base de donné.
-* Faire la commande `php bin/console m:m` pour la migration.
-* Puis finir par la commande `php bin/console d:m:m` pour copier votre migration dans la base de donnée.
-* Mettre 2 photo dans le dossier public/img/upload et nommer les "default.jpeg" pour les photo utilisateur et snow.jpg pour les photos de figure.
-* Lancer les fixtures avec la commande `php bin/console d:f:l` si vous voulez faire des tests.
-* Faire vos tests.
+### Before you put the site online
+* Configure the .env file
+* Type the command `php bin/console d:d:c` this will create the database.
+* Make the `php bin/console m:m` command for the migration.
+* Then end up with the `php bin/console d:m:m` command to copy your migration into the database.
+* Put 2 photos in the public folder / img / upload and name the "default.jpeg" for the user photo and snow.jpg for the figure photos.
+* Launch fixtures with the `php bin/console d:f:l` command if you want to do some testing.
+* Do your tests.
 
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/70ae098e35c31eaae3d1/maintainability)](https://codeclimate.com/github/Monsieur76/S6/maintainability)
 
-Le modèle qui a été le plus utilisé a été https://trello.com/b/zDBX4Rgv/s6 pour aider a la réalisation.
+The model that was most used was https://trello.com/b/zDBX4Rgv/s6 to help with the realization.
