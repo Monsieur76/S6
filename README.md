@@ -1,7 +1,7 @@
 # Snowtrick
 ## Install
 
-### Le fichier .env
+### Dans le fichier .env
 1. Mettez votre url de host à la place de localhost
 2. Mettez votre nom de base de donné a la place de DATABASE_URL par défaut ne toucher a rien. 
 3. Mettez votre nom de base de donné à la place de DATABASE_URL. 
