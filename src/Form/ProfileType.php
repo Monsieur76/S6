@@ -18,21 +18,21 @@ class ProfileType extends AbstractType
             ->add('firstName', TextType::class, [
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'Normane']
+                    'placeholder' => 'Normane', ],
             ])
             ->add('img', FileType::class, [
                 'label' => false,
                 'mapped' => false,
                 'required' => false,
-                'constraints'=>new File([
-                    'maxSize' => "1024k",
-                    'mimeTypes' => ["image/jpeg", "image/png", "image/jpg"],
+                'constraints' => new File([
+                    'maxSize' => '1024k',
+                    'mimeTypes' => ['image/jpeg', 'image/png', 'image/jpg'],
                     'mimeTypesMessage' => "Le Format de l'image n'est pas correct",
-                    'maxSizeMessage' => "Le Taille de l'image n'est pas correct"
+                    'maxSizeMessage' => "Le Taille de l'image n'est pas correct",
                 ]),
                 'attr' => [
-                    'placeholder' => 'Choisisser votre photo de profil'
-                ]])
+                    'placeholder' => 'Choisisser votre photo de profil',
+                ], ])
             ;
     }
 

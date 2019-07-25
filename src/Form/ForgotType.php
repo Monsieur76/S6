@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ForgotType extends AbstractType
 {
@@ -15,7 +16,9 @@ class ForgotType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => false,
-
+                'constraints' => new NotBlank([
+                    'message' => 'Ce champ ne peut pas etre vide',
+                ]),
             ]);
     }
 

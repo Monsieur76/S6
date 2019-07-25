@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Url;
 
 class UpdateVideoType extends AbstractType
@@ -16,8 +17,10 @@ class UpdateVideoType extends AbstractType
         $builder
             ->add('url', UrlType::class, [
                 'label' => 'Lien youtube',
-                'constraints'=> new Url()
-
+                'constraints' => [new Url(),
+                 new NotBlank([
+        'message' => 'Ce champ ne peut pas etre vide',
+    ]), ],
             ]);
     }
 

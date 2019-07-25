@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UpdateImgType extends AbstractType
 {
@@ -17,15 +18,18 @@ class UpdateImgType extends AbstractType
             ->add('nameImg', FileType::class, [
                 'label' => false,
                 'mapped' => false,
-                'constraints'=>new File([
-                    'maxSize' => "1024k",
-                    'mimeTypes' => ["image/jpeg", "image/png", "image/jpg"],
+                'constraints' => [new File([
+                    'maxSize' => '1024k',
+                    'mimeTypes' => ['image/jpeg', 'image/png', 'image/jpg'],
                     'mimeTypesMessage' => "Le Format de l'image n'est pas correct",
-                    'maxSizeMessage' => "Le Taille de l'image n'est pas correct"
+                    'maxSizeMessage' => "Le Taille de l'image n'est pas correct",
                 ]),
+                 new NotBlank([
+                    'message' => 'Ce champ ne peut pas etre vide',
+                ]), ],
                 'attr' => [
-                    'placeholder' => 'Choisisser votre photo'
-                ]]);
+                    'placeholder' => 'Choisisser votre photo',
+                ], ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
